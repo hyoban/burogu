@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 
-import ApperanceSwitch from '@/components/AppearanceSwitch'
-import Icon from '@/icons/Icon'
+import ApperanceSwitch from '@/app/components/AppearanceSwitch'
+import Icon from '@/app/icons/Icon'
 import { getPosts } from '@/lib/notion'
 import profilePic from '@/public/hyoban.png'
 

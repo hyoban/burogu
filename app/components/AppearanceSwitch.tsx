@@ -1,7 +1,7 @@
 'use client'
 
-import { useDark } from '@/hooks/useDark'
-import Icon from '@/icons/Icon'
+import { useDark } from '@/app/hooks/useDark'
+import Icon from '@/app/icons/Icon'
 
 const ApperanceSwitch = () => {
   const [isDark, toggleDark] = useDark()
