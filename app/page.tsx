@@ -14,14 +14,18 @@ export default async function Home({}) {
   return (
     <main className="flex flex-col items-start mx-auto w-full max-w-[65ch] p-10">
       <header className="flex items-center gap-6">
-        <Image
-          src={profilePic}
-          alt="Picture of the author"
-          className="w-20 h-20 rounded-full"
-        />
-        <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-bold">Hyoban</h1>
-          <p className="font-mono">Student | Love react</p>
+        <div className="flex items-center space-x-4">
+          <Image
+            className="w-16 h-16 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+            src={profilePic}
+            alt=""
+          />
+          <div className="font-medium dark:text-white">
+            <div className="text-xl mb-1">Hyoban</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              Student | Love react
+            </div>
+          </div>
         </div>
       </header>
       <p className="mt-8">
