@@ -8,7 +8,7 @@ const ApperanceSwitch = () => {
 
   return (
     <button onClick={toggleDark}>
-      <Icon name={isDark ? 'CarbonMoon' : 'CarbonSun'} />
+      <Icon className={isDark ? 'i-carbon-moon' : 'i-carbon-sun'} />
     </button>
   )
 }

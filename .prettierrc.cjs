@@ -17,7 +17,7 @@ module.exports = {
   embeddedLanguageFormatting: 'auto',
   singleAttributePerLine: false,
   plugins: ['@ianvs/prettier-plugin-sort-imports'],
-  importOrder: ['<THIRD_PARTY_MODULES>', '@/'],
+  importOrder: ['<THIRD_PARTY_MODULES>', '@/', './'],
   importOrderSeparation: true,
   importOrderCaseInsensitive: true,
   importOrderMergeDuplicateImports: true,
