@@ -6,6 +6,7 @@ import { getPosts } from '@/lib/notion'
 import profilePic from '@/public/hyoban.png'
 
 import Image from 'next/image'
+import Link from 'next/link'
 
 const databaseId = process.env.NOTION_DATABASE_ID as string
 
@@ -47,13 +48,11 @@ export default async function Home({}) {
       <article className="flex flex-col w-full gap-6 my-8">
         {posts.map((post) => (
           <div key={post.id} className="flex justify-between w-full">
-            <a
-              href={post.url}
-              className="underline decoration-dashed underline-offset-4"
-              target="_blank"
-              rel="noreferrer">
+            <Link
+              href={'/' + post.id}
+              className="underline decoration-dashed underline-offset-4">
               {post.title}
-            </a>
+            </Link>
             <p>{dayjs(post.createdTime).format('YYYY/MM/DD')}</p>
           </div>
         ))}

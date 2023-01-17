@@ -6,3 +6,9 @@ export interface NotionPage {
   createdTime: string
   lastEditedTime: string
 }
+
+export interface NotionPageWithContent {
+  id: string
+  title: string
+  content: string
+}

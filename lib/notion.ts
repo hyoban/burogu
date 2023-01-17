@@ -1,4 +1,8 @@
-import { NotionPage } from './notionType'
+import MarkdownIt from 'markdown-it'
+import { NotionToMarkdown } from 'notion-to-md'
+import shiki from 'shiki'
+
+import { NotionPage, NotionPageWithContent } from './notionType'
 import { Client } from '@notionhq/client'
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
@@ -7,6 +11,7 @@ const notionToken = process.env.NOTION_TOKEN
 const notion = new Client({
   auth: notionToken,
 })
+const n2m = new NotionToMarkdown({ notionClient: notion })
 
 export const getPosts = async (databaseId: string): Promise<NotionPage[]> => {
   const response = await notion.databases.query({
@@ -29,4 +34,31 @@ export const getPosts = async (databaseId: string): Promise<NotionPage[]> => {
       }
     })
     .filter((i) => i.tags.includes('published'))
+}
+
+const lightCodeTheme = 'github-light'
+const darkCodeTheme = 'github-dark-dimmed'
+
+export const getPost = async (
+  pageId: string,
+): Promise<NotionPageWithContent> => {
+  const highlighter = await shiki.getHighlighter({
+    themes: [lightCodeTheme, darkCodeTheme],
+  })
+  const md = new MarkdownIt({
+    highlight: (str, lang) => {
+      const light = highlighter.codeToHtml(str, lang || 'text', lightCodeTheme)
+      const dark = highlighter.codeToHtml(str, lang || 'text', darkCodeTheme)
+      return `<div class="shiki-container"><div class="shiki-light">${light}</div><div class="shiki-dark">${dark}</div></div>`
+    },
+  })
+  const page = await notion.pages.retrieve({ page_id: pageId })
+  const mdblocks = await n2m.pageToMarkdown(pageId)
+  const pageInMarkdown = n2m.toMarkdownString(mdblocks)
+  const pageInHtml = md.render(pageInMarkdown)
+  return {
+    id: page.id,
+    title: (page as any).properties.Name.title[0].plain_text,
+    content: pageInHtml,
+  }
 }
