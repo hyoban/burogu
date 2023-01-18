@@ -7,13 +7,14 @@ import { Client } from '@notionhq/client'
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
 const notionToken = process.env.NOTION_TOKEN
+const databaseId = process.env.NOTION_DATABASE_ID as string
 
 const notion = new Client({
   auth: notionToken,
 })
 const n2m = new NotionToMarkdown({ notionClient: notion })
 
-export const getPosts = async (databaseId: string): Promise<NotionPage[]> => {
+export const getPosts = async (): Promise<NotionPage[]> => {
   const response = await notion.databases.query({
     database_id: databaseId,
   })

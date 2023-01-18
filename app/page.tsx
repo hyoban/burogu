@@ -8,10 +8,8 @@ import profilePic from '@/public/hyoban.png'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const databaseId = process.env.NOTION_DATABASE_ID as string
-
 export default async function Home({}) {
-  const posts = await getPosts(databaseId)
+  const posts = await getPosts()
   return (
     <main className="flex flex-col items-start mx-auto w-full max-w-[65ch] p-10">
       <header className="flex items-center gap-6">

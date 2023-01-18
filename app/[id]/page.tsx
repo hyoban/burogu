@@ -2,12 +2,7 @@ import './prose.css'
 
 import { getPost, getPosts } from '@/lib/notion'
 
-const databaseId = process.env.NOTION_DATABASE_ID as string
-
 export default async function Page({ params }: { params: { id: string } }) {
-  const posts = await getPosts(databaseId)
-  if (!posts.find((post) => post.id === params.id))
-    return <div>Post not found</div>
   const page = await getPost(params.id)
   return (
     <div className="prose mb-10">
@@ -15,4 +10,12 @@ export default async function Page({ params }: { params: { id: string } }) {
       <div dangerouslySetInnerHTML={{ __html: page.content }}></div>
     </div>
   )
+}
+
+export async function generateStaticParams() {
+  const posts = await getPosts()
+
+  return posts.map((post) => ({
+    id: post.id,
+  }))
 }
