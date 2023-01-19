@@ -1,4 +1,5 @@
 import './css/globals.css'
+import './css/prose.css'
 
 import Provider from './provider'
 

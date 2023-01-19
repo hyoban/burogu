@@ -1,5 +1,3 @@
-import '../css/prose.css'
-
 import { getPost } from '@/lib/notion'
 
 export default async function PostDetail({ id }: { id: string }) {
