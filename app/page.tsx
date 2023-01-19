@@ -1,15 +1,15 @@
-import dayjs from 'dayjs'
+import { Suspense } from 'react'
 
 import ApperanceSwitch from '@/app/components/AppearanceSwitch'
 import Icon from '@/app/icons/Icon'
-import { getPosts } from '@/lib/notion'
 import profilePic from '@/public/hyoban.png'
 
+import PostList from './components/PostList'
 import Image from 'next/image'
-import Link from 'next/link'
+
+export const revalidate = 60
 
 export default async function Home({}) {
-  const posts = await getPosts()
   return (
     <main className="flex flex-col items-start mx-auto w-full max-w-[65ch] p-10">
       <header className="flex items-center gap-6">
@@ -44,16 +44,10 @@ export default async function Home({}) {
         </a>
       </p>
       <article className="flex flex-col w-full gap-6 my-8">
-        {posts.map((post) => (
-          <div key={post.id} className="flex justify-between w-full">
-            <Link
-              href={'/' + post.id}
-              className="underline decoration-dashed underline-offset-4">
-              {post.title}
-            </Link>
-            <p>{dayjs(post.createdTime).format('YYYY/MM/DD')}</p>
-          </div>
-        ))}
+        <Suspense fallback={<div>Loading post list...</div>}>
+          {/* @ts-expect-error Server Component */}
+          <PostList />
+        </Suspense>
       </article>
       <footer className="self-center">
         <ApperanceSwitch />

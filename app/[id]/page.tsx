@@ -1,14 +1,18 @@
-import './prose.css'
+import { Suspense } from 'react'
 
-import { getPost, getPosts } from '@/lib/notion'
+import { getPosts } from '@/lib/notion'
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const page = await getPost(params.id)
+import PostDetail from '../components/PostDetail'
+import Loading from './loading'
+
+export const revalidate = 3600
+
+export default function Page({ params }: { params: { id: string } }) {
   return (
-    <div className="prose mb-10">
-      <h1>{page.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: page.content }}></div>
-    </div>
+    <Suspense fallback={<Loading />}>
+      {/* @ts-expect-error Server Component */}
+      <PostDetail id={params.id} />
+    </Suspense>
   )
 }
 

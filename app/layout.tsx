@@ -1,4 +1,4 @@
-import './globals.css'
+import './css/globals.css'
 
 import Provider from './provider'
 

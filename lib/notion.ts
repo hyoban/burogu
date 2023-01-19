@@ -6,8 +6,8 @@ import { NotionPage, NotionPageWithContent } from './notionType'
 import { Client } from '@notionhq/client'
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 
-const notionToken = process.env.NOTION_TOKEN
-const databaseId = process.env.NOTION_DATABASE_ID as string
+const notionToken = process.env.NOTION_TOKEN!
+const databaseId = process.env.NOTION_DATABASE_ID!
 
 const notion = new Client({
   auth: notionToken,
@@ -53,8 +53,10 @@ export const getPost = async (
       return `<div class="shiki-container"><div class="shiki-light">${light}</div><div class="shiki-dark">${dark}</div></div>`
     },
   })
-  const page = await notion.pages.retrieve({ page_id: pageId })
-  const mdblocks = await n2m.pageToMarkdown(pageId)
+  const [page, mdblocks] = await Promise.all([
+    notion.pages.retrieve({ page_id: pageId }),
+    n2m.pageToMarkdown(pageId),
+  ])
   const pageInMarkdown = n2m.toMarkdownString(mdblocks)
   const pageInHtml = md.render(pageInMarkdown)
   return {
