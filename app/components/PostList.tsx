@@ -1,11 +1,11 @@
 import dayjs from 'dayjs'
 
-import { getPosts } from '@/lib/notion'
+import { getPostList } from '@/lib/notion'
 
 import Link from 'next/link'
 
 export default async function PostList() {
-  const posts = await getPosts()
+  const posts = await getPostList()
   return (
     <>
       {posts.map((post) => (

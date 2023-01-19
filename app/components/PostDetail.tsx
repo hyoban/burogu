@@ -1,11 +1,21 @@
-import { getPost } from '@/lib/notion'
+import { Suspense } from 'react'
+
+import { getSinglePostInfo } from '@/lib/notion'
+
+import PostContent from './PostContent'
 
 export default async function PostDetail({ id }: { id: string }) {
-  const page = await getPost(id)
+  const page = await getSinglePostInfo(id)
+  if (!page) {
+    return <div>Post Not found</div>
+  }
   return (
-    <div className="prose mb-10">
+    <>
       <h1>{page.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: page.content }}></div>
-    </div>
+      <Suspense fallback={<div>Loading Post Content...</div>}>
+        {/* @ts-expect-error Server Component */}
+        <PostContent id={page.id} />
+      </Suspense>
+    </>
   )
 }

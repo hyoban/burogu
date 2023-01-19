@@ -1,10 +1,9 @@
-import MarkdownIt from 'markdown-it'
-import { NotionToMarkdown } from 'notion-to-md'
-import shiki from 'shiki'
-
-import { NotionPage, NotionPageWithContent } from './notionType'
+import { NotionPost } from './notionType'
 import { Client } from '@notionhq/client'
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
+import {
+  BlockObjectResponse,
+  PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints'
 
 const notionToken = process.env.NOTION_TOKEN!
 const databaseId = process.env.NOTION_DATABASE_ID!
@@ -12,9 +11,7 @@ const databaseId = process.env.NOTION_DATABASE_ID!
 const notion = new Client({
   auth: notionToken,
 })
-const n2m = new NotionToMarkdown({ notionClient: notion })
-
-export const getPosts = async (): Promise<NotionPage[]> => {
+export const getPostList = async (): Promise<NotionPost[]> => {
   const response = await notion.databases.query({
     database_id: databaseId,
   })
@@ -37,31 +34,28 @@ export const getPosts = async (): Promise<NotionPage[]> => {
     .filter((i) => i.tags.includes('published'))
 }
 
-const lightCodeTheme = 'github-light'
-const darkCodeTheme = 'github-dark-dimmed'
-
-export const getPost = async (
-  pageId: string,
-): Promise<NotionPageWithContent> => {
-  const highlighter = await shiki.getHighlighter({
-    themes: [lightCodeTheme, darkCodeTheme],
-  })
-  const md = new MarkdownIt({
-    highlight: (str, lang) => {
-      const light = highlighter.codeToHtml(str, lang || 'text', lightCodeTheme)
-      const dark = highlighter.codeToHtml(str, lang || 'text', darkCodeTheme)
-      return `<div class="shiki-container"><div class="shiki-light">${light}</div><div class="shiki-dark">${dark}</div></div>`
-    },
-  })
-  const [page, mdblocks] = await Promise.all([
-    notion.pages.retrieve({ page_id: pageId }),
-    n2m.pageToMarkdown(pageId),
-  ])
-  const pageInMarkdown = n2m.toMarkdownString(mdblocks)
-  const pageInHtml = md.render(pageInMarkdown)
+export const getSinglePostInfo = async (pageId: string) => {
+  if (pageId === 'sw.js') return null
+  const page = await notion.pages.retrieve({ page_id: pageId })
   return {
     id: page.id,
     title: (page as any).properties.Name.title[0].plain_text,
-    content: pageInHtml,
   }
+}
+
+export const getSinglePostContent = async (blockId: string) => {
+  const blocks = []
+  let cursor
+  while (true) {
+    const { results, next_cursor } = await notion.blocks.children.list({
+      start_cursor: cursor,
+      block_id: blockId,
+    })
+    blocks.push(...(results as BlockObjectResponse[]))
+    if (!next_cursor) {
+      break
+    }
+    cursor = next_cursor
+  }
+  return blocks
 }

@@ -50,6 +50,10 @@
   @apply whitespace-pre-wrap break-all;
 }
 
+.prose p code {
+  @apply rounded-md py-1 px-2 bg-gray-100 dark:bg-gray-800;
+}
+
 .prose .shiki {
   @apply p-4;
 }
