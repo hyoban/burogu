@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className="font-sans dark:bg-[#121212] dark:text-white">
         <Provider>
           {children}
-          <footer className="flex mx-auto justify-center items-center my-4">
+          <footer className="flex mx-auto justify-center items-center my-10">
             <ApperanceSwitch />
             <a
               href="https://github.com/hyoban/blog-next-notion"

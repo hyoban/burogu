@@ -1,5 +1,13 @@
 @tailwind base;
+
+@layer base {
+  a {
+    @apply underline decoration-dashed decoration-1 underline-offset-4 hover:opacity-50;
+  }
+}
+
 @tailwind components;
+
 @tailwind utilities;
 
 html.dark {

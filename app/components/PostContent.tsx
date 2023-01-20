@@ -32,11 +32,7 @@ const RichText = ({
   if (richText.type === 'text') {
     if (richText.href !== null) {
       return (
-        <a
-          className="underline decoration-dashed decoration-1 underline-offset-4 hover:opacity-50"
-          href={richText.href}
-          target="_blank"
-          rel="noreferrer">
+        <a href={richText.href} target="_blank" rel="noreferrer">
           <RichText
             richText={{
               ...richText,
@@ -128,11 +124,7 @@ const RichText = ({
   if (richText.type === 'mention') {
     if (richText.href !== null) {
       return (
-        <a
-          className="underline decoration-dashed decoration-1 underline-offset-4 hover:opacity-50"
-          href={richText.href}
-          target="_blank"
-          rel="noreferrer">
+        <a href={richText.href} target="_blank" rel="noreferrer">
           <RichText
             richText={{
               ...richText,
@@ -171,7 +163,7 @@ const PBlock = ({
 }: { block: ParagraphBlockObjectResponse } & ReactChildren) => {
   // TODO: handle children
   return (
-    <p className="my-4 leading-7">
+    <p className="leading-7">
       <RichTextGroup richTexts={block.paragraph.rich_text} />
     </p>
   )
@@ -181,7 +173,7 @@ const H1Block = ({
   block,
 }: { block: Heading1BlockObjectResponse } & ReactChildren) => {
   return (
-    <h1 className="text-3xl mt-10 mb-6">
+    <h1 className="text-3xl my-3">
       <RichTextGroup richTexts={block.heading_1.rich_text} />
     </h1>
   )
@@ -191,7 +183,7 @@ const H2Block = ({
   block,
 }: { block: Heading2BlockObjectResponse } & ReactChildren) => {
   return (
-    <h2 className="text-2xl mt-8 mb-4">
+    <h2 className="text-2xl my-2">
       <RichTextGroup richTexts={block.heading_2.rich_text} />
     </h2>
   )
@@ -201,7 +193,7 @@ const H3Block = ({
   block,
 }: { block: Heading3BlockObjectResponse } & ReactChildren) => {
   return (
-    <h3 className="text-xl mt-6 mb-2">
+    <h3 className="text-xl my-1">
       <RichTextGroup richTexts={block.heading_3.rich_text} />
     </h3>
   )
@@ -211,7 +203,7 @@ const CalloutBlock = ({
   block,
 }: { block: CalloutBlockObjectResponse } & ReactChildren) => {
   return (
-    <blockquote className="my-4 pl-4 border-l-4 border-gray-300">
+    <blockquote className="pl-4 border-l-4 border-gray-300">
       <RichTextGroup richTexts={block.callout.rich_text} />
     </blockquote>
   )
@@ -355,7 +347,7 @@ const BookmarkBlock = ({
         href={block.bookmark.url}
         target="_blank"
         rel="noreferrer"
-        className="block underline decoration-dashed decoration-1 underline-offset-4 hover:opacity-50">
+        className="block ">
         {block.bookmark.caption.length !== 0 ? (
           <RichTextGroup richTexts={block.bookmark.caption} />
         ) : (
@@ -415,7 +407,7 @@ export default async function PostContent({
     return <div>Post Content Not found</div>
   }
   return (
-    <>
+    <article className="flex flex-col gap-3">
       {blocks
         .map((block) => {
           return <RenderBlock block={block} key={block.cur.id} />
@@ -447,21 +439,21 @@ export default async function PostContent({
           const block = blocks[0]
           if (isJsxElementABulletedList(block)) {
             return (
-              <ul className="my-2 list-disc list-outside ml-5" key={i}>
+              <ul className="list-disc list-outside ml-5" key={i}>
                 {blocks}
               </ul>
             )
           }
           if (isJsxElementANumberedList(block)) {
             return (
-              <ol className="my-2 list-decimal list-outside ml-5" key={i}>
+              <ol className="list-decimal list-outside ml-5" key={i}>
                 {blocks}
               </ol>
             )
           }
           return null
         })}
-    </>
+    </article>
   )
 }
 
