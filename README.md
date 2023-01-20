@@ -14,3 +14,7 @@ https://blog.hyoban.cc
 4. Add `NOTION_TOKEN` and `NOTION_DATABASE_ID` to your Vercel environment variables
 
 That's it!
+
+## TODO
+
+- [ ] RSS feed

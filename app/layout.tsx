@@ -23,7 +23,12 @@ export default function RootLayout({
           {children}
           <footer className="flex mx-auto justify-center items-center my-4">
             <ApperanceSwitch />
-            <Icon className="i-carbon-rss" />
+            <a
+              href="https://github.com/hyoban/blog-next-notion"
+              target="_blank"
+              rel="noreferrer">
+              <Icon className="i-carbon-logo-github"></Icon>
+            </a>
           </footer>
         </Provider>
       </body>
