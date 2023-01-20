@@ -16,7 +16,7 @@ export default function RootLayout({
       */}
       <head />
 
-      <body className="dark:bg-[#121212] font-sans dark:text-white">
+      <body className="font-sans dark:bg-[#121212] dark:text-white">
         <Provider>{children}</Provider>
       </body>
     </html>
