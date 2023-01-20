@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
 
-import ApperanceSwitch from '@/app/components/AppearanceSwitch'
 import Icon from '@/app/icons/Icon'
 
 import config from '../siteconfig.json'
@@ -55,10 +54,6 @@ export default async function Home({}) {
           <PostList />
         </Suspense>
       </article>
-      <footer className="self-center">
-        <ApperanceSwitch />
-        <Icon className="i-carbon-rss" />
-      </footer>
     </main>
   )
 }
