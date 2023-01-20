@@ -265,11 +265,11 @@ const CodeBlock = async ({
       bg: highlighter.getBackgroundColor(themeName),
       elements: {
         pre({ style, children }) {
-          return `<pre class="p-4 rounded-md my-2" style="${style}">${children}</pre>`
+          return `<pre class="p-4 rounded-md my-2 overflow-y-auto sm:overflow-y-visible" style="${style}">${children}</pre>`
         },
 
         code({ children }) {
-          return `<code class="whitespace-pre-wrap break-all">${children}</code>`
+          return `<code class="sm:whitespace-pre-wrap sm:break-all">${children}</code>`
         },
 
         line({ className, children }) {
@@ -427,7 +427,7 @@ export default async function PostContent({
     return <div>Post Content Not found</div>
   }
   return (
-    <article className="flex flex-col gap-3 max-w-[65ch]">
+    <article className="flex flex-col gap-3 w-full max-w-[65ch]">
       {blocks
         .map((block) => {
           return <RenderBlock block={block} key={block.cur.id} />
