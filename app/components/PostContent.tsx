@@ -305,37 +305,24 @@ const CodeBlock = async ({
 const ImageBlock = ({
   block,
 }: { block: ImageBlockObjectResponse } & ReactChildren) => {
-  if (block.image.type === 'external') {
-    return (
-      <Image
-        className="rounded-[3px] sm:rounded-[6px]"
-        src={block.image.external.url}
-        alt={
-          block.image.caption.length !== 0
-            ? block.image.caption.map((i) => i.plain_text).join('')
-            : ''
-        }
-        width={1000}
-        height={100}
-      />
-    )
-  }
-  if (block.image.type === 'file') {
-    return (
-      <Image
-        className="rounded-[3px] sm:rounded-[6px]"
-        src={block.image.file.url}
-        alt={
-          block.image.caption.length !== 0
-            ? block.image.caption.map((i) => i.plain_text).join('')
-            : ''
-        }
-        width={1000}
-        height={100}
-      />
-    )
-  }
-  return null
+  return (
+    <Image
+      className="w-full h-auto rounded-[3px] sm:rounded-[6px]"
+      src={
+        block.image.type === 'external'
+          ? block.image.external.url
+          : block.image.file.url
+      }
+      alt={
+        block.image.caption.length !== 0
+          ? block.image.caption.map((i) => i.plain_text).join('')
+          : ''
+      }
+      sizes="100vw"
+      width={0}
+      height={0}
+    />
+  )
 }
 
 const BookmarkBlock = ({
