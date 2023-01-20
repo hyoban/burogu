@@ -438,18 +438,10 @@ export default async function PostContent({
           }
           const block = blocks[0]
           if (isJsxElementABulletedList(block)) {
-            return (
-              <ul className="list-disc list-outside ml-5" key={i}>
-                {blocks}
-              </ul>
-            )
+            return <ul key={i}>{blocks}</ul>
           }
           if (isJsxElementANumberedList(block)) {
-            return (
-              <ol className="list-decimal list-outside ml-5" key={i}>
-                {blocks}
-              </ol>
-            )
+            return <ol key={i}>{blocks}</ol>
           }
           return null
         })}

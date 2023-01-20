@@ -4,6 +4,14 @@
   a {
     @apply underline decoration-dashed decoration-1 underline-offset-4 hover:opacity-50;
   }
+
+  ul {
+    @apply list-disc list-outside ml-5;
+  }
+
+  ol {
+    @apply list-decimal list-outside ml-5;
+  }
 }
 
 @tailwind components;
