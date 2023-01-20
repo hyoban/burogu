@@ -14,5 +14,9 @@
       "type": "Mastodon",
       "url": "https://elk.zone/mas.to/@hyoban"
     }
-  ]
+  ],
+  "codeTheme": {
+    "light": "github-light",
+    "dark": "github-dark-dimmed"
+  }
 }

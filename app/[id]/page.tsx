@@ -6,7 +6,7 @@ export const revalidate = 60
 
 export default function Page({ params }: { params: { id: string } }) {
   return (
-    <div className="prose">
+    <div className="max-w-[65ch] mx-auto">
       {/* @ts-expect-error Server Component */}
       <PostDetail id={params.id} />
     </div>

@@ -1,6 +1,7 @@
-import shiki from 'shiki'
+import { renderToHtml, getHighlighter, IThemedToken } from 'shiki'
 
 import { PostContentType } from '@/lib/notion'
+import config from '@/siteconfig.json'
 
 import {
   BookmarkBlockObjectResponse,
@@ -31,7 +32,11 @@ const RichText = ({
   if (richText.type === 'text') {
     if (richText.href !== null) {
       return (
-        <a href={richText.href} target="_blank" rel="noreferrer">
+        <a
+          className="underline decoration-dashed decoration-1 underline-offset-4 hover:opacity-50"
+          href={richText.href}
+          target="_blank"
+          rel="noreferrer">
           <RichText
             richText={{
               ...richText,
@@ -104,7 +109,7 @@ const RichText = ({
     }
     if (richText.annotations.code) {
       return (
-        <code>
+        <code className="rounded-md py-1 px-2 bg-gray-100 dark:bg-gray-800">
           <RichText
             richText={{
               ...richText,
@@ -123,7 +128,11 @@ const RichText = ({
   if (richText.type === 'mention') {
     if (richText.href !== null) {
       return (
-        <a href={richText.href} target="_blank" rel="noreferrer">
+        <a
+          className="underline decoration-dashed decoration-1 underline-offset-4 hover:opacity-50"
+          href={richText.href}
+          target="_blank"
+          rel="noreferrer">
           <RichText
             richText={{
               ...richText,
@@ -162,7 +171,7 @@ const PBlock = ({
 }: { block: ParagraphBlockObjectResponse } & ReactChildren) => {
   // TODO: handle children
   return (
-    <p>
+    <p className="my-4 leading-7">
       <RichTextGroup richTexts={block.paragraph.rich_text} />
     </p>
   )
@@ -172,7 +181,7 @@ const H1Block = ({
   block,
 }: { block: Heading1BlockObjectResponse } & ReactChildren) => {
   return (
-    <h1>
+    <h1 className="text-3xl mt-10 mb-6">
       <RichTextGroup richTexts={block.heading_1.rich_text} />
     </h1>
   )
@@ -182,7 +191,7 @@ const H2Block = ({
   block,
 }: { block: Heading2BlockObjectResponse } & ReactChildren) => {
   return (
-    <h2>
+    <h2 className="text-2xl mt-8 mb-4">
       <RichTextGroup richTexts={block.heading_2.rich_text} />
     </h2>
   )
@@ -192,7 +201,7 @@ const H3Block = ({
   block,
 }: { block: Heading3BlockObjectResponse } & ReactChildren) => {
   return (
-    <h3>
+    <h3 className="text-xl mt-6 mb-2">
       <RichTextGroup richTexts={block.heading_3.rich_text} />
     </h3>
   )
@@ -202,7 +211,7 @@ const CalloutBlock = ({
   block,
 }: { block: CalloutBlockObjectResponse } & ReactChildren) => {
   return (
-    <blockquote>
+    <blockquote className="my-4 pl-4 border-l-4 border-gray-300">
       <RichTextGroup richTexts={block.callout.rich_text} />
     </blockquote>
   )
@@ -215,7 +224,7 @@ const BulletedListBlock = ({
   block: BulletedListItemBlockObjectResponse
 } & ReactChildren) => {
   return (
-    <li>
+    <li className="my-2">
       <RichTextGroup richTexts={block.bulleted_list_item.rich_text} />
       {children}
     </li>
@@ -229,7 +238,7 @@ const NumberedListBlock = ({
   block: NumberedListItemBlockObjectResponse
 } & ReactChildren) => {
   return (
-    <li>
+    <li className="my-2">
       <RichTextGroup richTexts={block.numbered_list_item.rich_text} />
       {children}
     </li>
@@ -239,38 +248,65 @@ const NumberedListBlock = ({
 const CodeBlock = async ({
   block,
 }: { block: CodeBlockObjectResponse } & ReactChildren) => {
-  const lightCodeTheme = 'github-light'
-  const darkCodeTheme = 'github-dark-dimmed'
-  const highlighter = await shiki.getHighlighter({
+  const lightCodeTheme = config.codeTheme.light
+  const darkCodeTheme = config.codeTheme.dark
+  const highlighter = await getHighlighter({
     themes: [lightCodeTheme, darkCodeTheme],
   })
   const code = (block.code.rich_text as TextRichTextItemResponse[])
     .map((i) => i.plain_text)
     .join('')
-  const lightHighlightedCode = highlighter.codeToHtml(
+  const lightTokens = highlighter.codeToThemedTokens(
     code,
     block.code.language,
     lightCodeTheme,
   )
-  const darkHighlightedCode = highlighter.codeToHtml(
+  const darkTokens = highlighter.codeToThemedTokens(
     code,
     block.code.language,
     darkCodeTheme,
   )
 
+  const customRenderToHtml = (tokens: IThemedToken[][], themeName: string) => {
+    return renderToHtml(tokens, {
+      fg: highlighter.getForegroundColor(themeName),
+      bg: highlighter.getBackgroundColor(themeName),
+      elements: {
+        pre({ style, children }) {
+          return `<pre class="p-4 rounded-md my-2" style="${style}">${children}</pre>`
+        },
+
+        code({ children }) {
+          return `<code class="whitespace-pre-wrap break-all">${children}</code>`
+        },
+
+        line({ className, children }) {
+          return `<span class="${className}">${children}</span>`
+        },
+
+        token({ style, children }) {
+          return `<span style="${style}">${children}</span>`
+        },
+      },
+    })
+  }
+
+  const lightHighlightedCode = customRenderToHtml(lightTokens, lightCodeTheme)
+  const darkHighlightedCode = customRenderToHtml(darkTokens, darkCodeTheme)
+
   return (
-    <div className="shiki-container">
+    <>
       <div
-        className="shiki-light"
+        className="dark:hidden "
         dangerouslySetInnerHTML={{
           __html: lightHighlightedCode,
         }}></div>
       <div
-        className="shiki-dark"
+        className="hidden dark:block"
         dangerouslySetInnerHTML={{
           __html: darkHighlightedCode,
         }}></div>
-    </div>
+    </>
   )
 }
 
@@ -280,6 +316,7 @@ const ImageBlock = ({
   if (block.image.type === 'external') {
     return (
       <Image
+        className="rounded-[3px] sm:rounded-[6px]"
         src={block.image.external.url}
         alt={
           block.image.caption.length !== 0
@@ -294,6 +331,7 @@ const ImageBlock = ({
   if (block.image.type === 'file') {
     return (
       <Image
+        className="rounded-[3px] sm:rounded-[6px]"
         src={block.image.file.url}
         alt={
           block.image.caption.length !== 0
@@ -317,7 +355,7 @@ const BookmarkBlock = ({
         href={block.bookmark.url}
         target="_blank"
         rel="noreferrer"
-        className="block">
+        className="block underline decoration-dashed decoration-1 underline-offset-4 hover:opacity-50">
         {block.bookmark.caption.length !== 0 ? (
           <RichTextGroup richTexts={block.bookmark.caption} />
         ) : (
@@ -408,10 +446,18 @@ export default async function PostContent({
           }
           const block = blocks[0]
           if (isJsxElementABulletedList(block)) {
-            return <ul key={i}>{blocks}</ul>
+            return (
+              <ul className="my-2 list-disc list-outside ml-5" key={i}>
+                {blocks}
+              </ul>
+            )
           }
           if (isJsxElementANumberedList(block)) {
-            return <ol key={i}>{blocks}</ol>
+            return (
+              <ol className="my-2 list-decimal list-outside ml-5" key={i}>
+                {blocks}
+              </ol>
+            )
           }
           return null
         })}

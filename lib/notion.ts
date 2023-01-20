@@ -90,4 +90,6 @@ export const getSinglePostContent = async (
   }
 }
 
-export type PostContentType = Awaited<ReturnType<typeof getSinglePostContent>>
+export type PostContentType = NonNullable<
+  Awaited<ReturnType<typeof getSinglePostContent>>
+>
