@@ -36,10 +36,14 @@ export const getPostList = async (): Promise<NotionPost[]> => {
 
 export const getSinglePostInfo = async (pageId: string) => {
   if (pageId === 'sw.js') return null
-  const page = await notion.pages.retrieve({ page_id: pageId })
-  return {
-    id: page.id,
-    title: (page as any).properties.Name.title[0].plain_text,
+  try {
+    const page = await notion.pages.retrieve({ page_id: pageId })
+    return {
+      id: page.id,
+      title: (page as any).properties.Name.title[0].plain_text,
+    }
+  } catch (e) {
+    return null
   }
 }
 
@@ -50,36 +54,40 @@ export type Block = {
 
 export const getSinglePostContent = async (
   blockId: string,
-): Promise<Block[]> => {
-  const blocks: Block[] = []
-  let cursor
-  while (true) {
-    const response = await notion.blocks.children.list({
-      start_cursor: cursor,
-      block_id: blockId,
-    })
-    const results = response.results as BlockObjectResponse[]
+): Promise<Block[] | null> => {
+  try {
+    const blocks: Block[] = []
+    let cursor
+    while (true) {
+      const response = await notion.blocks.children.list({
+        start_cursor: cursor,
+        block_id: blockId,
+      })
+      const results = response.results as BlockObjectResponse[]
 
-    const resultsWithChildren = await Promise.all(
-      results.map(async (i) => {
-        if (i.has_children) {
+      const resultsWithChildren = await Promise.all(
+        results.map(async (i) => {
+          if (i.has_children) {
+            return {
+              cur: i,
+              children: await getSinglePostContent(i.id),
+            }
+          }
           return {
             cur: i,
-            children: await getSinglePostContent(i.id),
           }
-        }
-        return {
-          cur: i,
-        }
-      }),
-    )
-    blocks.push(...resultsWithChildren)
-    if (!response.next_cursor) {
-      break
+        }),
+      )
+      blocks.push(...(resultsWithChildren as Block[]))
+      if (!response.next_cursor) {
+        break
+      }
+      cursor = response.next_cursor
     }
-    cursor = response.next_cursor
+    return blocks
+  } catch (e) {
+    return null
   }
-  return blocks
 }
 
 export type PostContentType = Awaited<ReturnType<typeof getSinglePostContent>>

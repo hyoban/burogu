@@ -9,11 +9,11 @@ export default async function PostDetail({ id }: { id: string }) {
   ])
 
   if (!page) {
-    return <div>Post Not found</div>
+    return <div className="text-center my-20">Post Not found</div>
   }
   return (
     <>
-      <h1>{page.title}</h1>
+      <h1 className="my-20">{page.title}</h1>
       {/* @ts-expect-error Server Component */}
       <PostContent blocks={blocks} />
     </>
