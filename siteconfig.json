@@ -1,0 +1,16 @@
+{
+  "siteName": "Hyoban",
+  "shortDescription": "Student | Love react",
+  "fullDescription": "My name is Stephen Zhou ( 周云亮 in Chinese ), Hyoban is my ID on the web. I'm studying at NCUT.",
+  "avatarPath": "/hyoban.png",
+  "links": [
+    {
+      "type": "GitHub",
+      "url": "https://github.com/hyoban"
+    },
+    {
+      "type": "Mastodon",
+      "url": "https://twitter.com/hyoban"
+    }
+  ]
+}
