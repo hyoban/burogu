@@ -10,7 +10,7 @@ export const revalidate = 60
 
 export default async function Home({}) {
   return (
-    <main className="flex flex-col items-start mx-auto w-full max-w-[65ch] p-10">
+    <main className="flex flex-col items-start mx-auto w-full max-w-[65ch]">
       <header className="flex items-center gap-6">
         <div className="flex items-center space-x-4">
           <Image

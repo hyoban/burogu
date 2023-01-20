@@ -18,7 +18,7 @@ export default function RootLayout({
       */}
       <head />
 
-      <body className="font-sans dark:bg-[#121212] dark:text-white">
+      <body className="font-sans dark:bg-[#121212] dark:text-white p-6">
         <Provider>
           {children}
           <footer className="flex mx-auto justify-center items-center my-10">
