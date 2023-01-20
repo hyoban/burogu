@@ -3,106 +3,136 @@ import shiki from 'shiki'
 import { PostContentType } from '@/lib/notion'
 
 import {
+  BookmarkBlockObjectResponse,
   BulletedListItemBlockObjectResponse,
+  CalloutBlockObjectResponse,
   CodeBlockObjectResponse,
   Heading1BlockObjectResponse,
   Heading2BlockObjectResponse,
   Heading3BlockObjectResponse,
+  MentionRichTextItemResponse,
   NumberedListItemBlockObjectResponse,
   ParagraphBlockObjectResponse,
   RichTextItemResponse,
   TextRichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints'
 
-const RichText = ({ richText }: { richText: TextRichTextItemResponse }) => {
-  if (richText.href !== null) {
-    return (
-      <a href={richText.href} target="_blank" rel="noreferrer">
-        <RichText
-          richText={{
-            ...richText,
-            href: null,
-          }}
-        />
-      </a>
-    )
+type ReactChildren = {
+  children?: React.ReactNode
+}
+
+const RichText = ({
+  richText,
+}: {
+  richText: TextRichTextItemResponse | MentionRichTextItemResponse
+} & ReactChildren) => {
+  if (richText.type === 'text') {
+    if (richText.href !== null) {
+      return (
+        <a href={richText.href} target="_blank" rel="noreferrer">
+          <RichText
+            richText={{
+              ...richText,
+              href: null,
+            }}
+          />
+        </a>
+      )
+    }
+
+    if (richText.annotations.bold) {
+      return (
+        <b>
+          <RichText
+            richText={{
+              ...richText,
+              annotations: {
+                ...richText.annotations,
+                bold: false,
+              },
+            }}
+          />
+        </b>
+      )
+    }
+    if (richText.annotations.italic) {
+      return (
+        <i>
+          <RichText
+            richText={{
+              ...richText,
+              annotations: {
+                ...richText.annotations,
+                italic: false,
+              },
+            }}
+          />
+        </i>
+      )
+    }
+    if (richText.annotations.strikethrough) {
+      return (
+        <s>
+          <RichText
+            richText={{
+              ...richText,
+              annotations: {
+                ...richText.annotations,
+                strikethrough: false,
+              },
+            }}
+          />
+        </s>
+      )
+    }
+    if (richText.annotations.underline) {
+      return (
+        <u>
+          <RichText
+            richText={{
+              ...richText,
+              annotations: {
+                ...richText.annotations,
+                underline: false,
+              },
+            }}
+          />
+        </u>
+      )
+    }
+    if (richText.annotations.code) {
+      return (
+        <code>
+          <RichText
+            richText={{
+              ...richText,
+              annotations: {
+                ...richText.annotations,
+                code: false,
+              },
+            }}
+          />
+        </code>
+      )
+    }
+    return <>{richText.plain_text}</>
   }
 
-  if (richText.annotations.bold) {
-    return (
-      <b>
-        <RichText
-          richText={{
-            ...richText,
-            annotations: {
-              ...richText.annotations,
-              bold: false,
-            },
-          }}
-        />
-      </b>
-    )
+  if (richText.type === 'mention') {
+    if (richText.href !== null) {
+      return (
+        <a href={richText.href} target="_blank" rel="noreferrer">
+          <RichText
+            richText={{
+              ...richText,
+              href: null,
+            }}
+          />
+        </a>
+      )
+    }
   }
-  if (richText.annotations.italic) {
-    return (
-      <i>
-        <RichText
-          richText={{
-            ...richText,
-            annotations: {
-              ...richText.annotations,
-              italic: false,
-            },
-          }}
-        />
-      </i>
-    )
-  }
-  if (richText.annotations.strikethrough) {
-    return (
-      <s>
-        <RichText
-          richText={{
-            ...richText,
-            annotations: {
-              ...richText.annotations,
-              strikethrough: false,
-            },
-          }}
-        />
-      </s>
-    )
-  }
-  if (richText.annotations.underline) {
-    return (
-      <u>
-        <RichText
-          richText={{
-            ...richText,
-            annotations: {
-              ...richText.annotations,
-              underline: false,
-            },
-          }}
-        />
-      </u>
-    )
-  }
-  if (richText.annotations.code) {
-    return (
-      <code>
-        <RichText
-          richText={{
-            ...richText,
-            annotations: {
-              ...richText.annotations,
-              code: false,
-            },
-          }}
-        />
-      </code>
-    )
-  }
+
   return <>{richText.plain_text}</>
 }
 
@@ -110,11 +140,11 @@ const RichTextGroup = ({
   richTexts,
 }: {
   richTexts: RichTextItemResponse[]
-}) => {
+} & ReactChildren) => {
   return (
     <>
       {richTexts
-        .filter((i) => i.type === 'text')
+        .filter((i) => i.type === 'text' || i.type === 'mention')
         .map((i) => (
           <RichText
             key={i.plain_text}
@@ -125,7 +155,9 @@ const RichTextGroup = ({
   )
 }
 
-const PBlock = ({ block }: { block: ParagraphBlockObjectResponse }) => {
+const PBlock = ({
+  block,
+}: { block: ParagraphBlockObjectResponse } & ReactChildren) => {
   // TODO: handle children
   return (
     <p>
@@ -134,7 +166,9 @@ const PBlock = ({ block }: { block: ParagraphBlockObjectResponse }) => {
   )
 }
 
-const H1Block = ({ block }: { block: Heading1BlockObjectResponse }) => {
+const H1Block = ({
+  block,
+}: { block: Heading1BlockObjectResponse } & ReactChildren) => {
   return (
     <h1>
       <RichTextGroup richTexts={block.heading_1.rich_text} />
@@ -142,7 +176,9 @@ const H1Block = ({ block }: { block: Heading1BlockObjectResponse }) => {
   )
 }
 
-const H2Block = ({ block }: { block: Heading2BlockObjectResponse }) => {
+const H2Block = ({
+  block,
+}: { block: Heading2BlockObjectResponse } & ReactChildren) => {
   return (
     <h2>
       <RichTextGroup richTexts={block.heading_2.rich_text} />
@@ -150,7 +186,9 @@ const H2Block = ({ block }: { block: Heading2BlockObjectResponse }) => {
   )
 }
 
-const H3Block = ({ block }: { block: Heading3BlockObjectResponse }) => {
+const H3Block = ({
+  block,
+}: { block: Heading3BlockObjectResponse } & ReactChildren) => {
   return (
     <h3>
       <RichTextGroup richTexts={block.heading_3.rich_text} />
@@ -158,31 +196,47 @@ const H3Block = ({ block }: { block: Heading3BlockObjectResponse }) => {
   )
 }
 
+const CalloutBlock = ({
+  block,
+}: { block: CalloutBlockObjectResponse } & ReactChildren) => {
+  return (
+    <blockquote>
+      <RichTextGroup richTexts={block.callout.rich_text} />
+    </blockquote>
+  )
+}
+
 const BulletedListBlock = ({
   block,
+  children,
 }: {
   block: BulletedListItemBlockObjectResponse
-}) => {
+} & ReactChildren) => {
   return (
     <li>
       <RichTextGroup richTexts={block.bulleted_list_item.rich_text} />
+      {children}
     </li>
   )
 }
 
 const NumberedListBlock = ({
   block,
+  children,
 }: {
   block: NumberedListItemBlockObjectResponse
-}) => {
+} & ReactChildren) => {
   return (
     <li>
       <RichTextGroup richTexts={block.numbered_list_item.rich_text} />
+      {children}
     </li>
   )
 }
 
-const CodeBlock = async ({ block }: { block: CodeBlockObjectResponse }) => {
+const CodeBlock = async ({
+  block,
+}: { block: CodeBlockObjectResponse } & ReactChildren) => {
   const lightCodeTheme = 'github-light'
   const darkCodeTheme = 'github-dark-dimmed'
   const highlighter = await shiki.getHighlighter({
@@ -218,6 +272,64 @@ const CodeBlock = async ({ block }: { block: CodeBlockObjectResponse }) => {
   )
 }
 
+const BookmarkBlock = ({
+  block,
+}: { block: BookmarkBlockObjectResponse } & ReactChildren) => {
+  return (
+    <p>
+      <a
+        href={block.bookmark.url}
+        target="_blank"
+        rel="noreferrer"
+        className="block">
+        {block.bookmark.caption.length !== 0 ? (
+          <RichTextGroup richTexts={block.bookmark.caption} />
+        ) : (
+          block.bookmark.url
+        )}
+      </a>
+    </p>
+  )
+}
+
+const RenderBlock = ({ block }: { block: PostContentType[number] }) => {
+  switch (block.cur.type) {
+    case 'paragraph':
+      return <PBlock block={block.cur} />
+    case 'heading_1':
+      return <H1Block block={block.cur} />
+    case 'heading_2':
+      return <H2Block block={block.cur} />
+    case 'heading_3':
+      return <H3Block block={block.cur} />
+    case 'callout':
+      return <CalloutBlock block={block.cur} />
+    case 'bulleted_list_item':
+      return (
+        <BulletedListBlock block={block.cur}>
+          {block.children?.map((child) => (
+            <RenderBlock block={child} key={child.cur.id} />
+          ))}
+        </BulletedListBlock>
+      )
+    case 'numbered_list_item':
+      return (
+        <NumberedListBlock block={block.cur}>
+          {block.children?.map((child) => (
+            <RenderBlock block={child} key={child.cur.id} />
+          ))}
+        </NumberedListBlock>
+      )
+    case 'code':
+      // @ts-expect-error Server Component
+      return <CodeBlock block={block.cur} />
+    case 'bookmark':
+      return <BookmarkBlock block={block.cur} />
+    default:
+      return null
+  }
+}
+
 export default async function PostContent({
   blocks,
 }: {
@@ -230,25 +342,7 @@ export default async function PostContent({
     <>
       {blocks
         .map((block) => {
-          switch (block.type) {
-            case 'paragraph':
-              return <PBlock key={block.id} block={block} />
-            case 'heading_1':
-              return <H1Block key={block.id} block={block} />
-            case 'heading_2':
-              return <H2Block key={block.id} block={block} />
-            case 'heading_3':
-              return <H3Block key={block.id} block={block} />
-            case 'bulleted_list_item':
-              return <BulletedListBlock key={block.id} block={block} />
-            case 'numbered_list_item':
-              return <NumberedListBlock key={block.id} block={block} />
-            case 'code':
-              // @ts-expect-error Server Component
-              return <CodeBlock key={block.id} block={block} />
-            default:
-              return null
-          }
+          return <RenderBlock block={block} key={block.cur.id} />
         })
         .reduce((prev, curr) => {
           if (curr === null) {
@@ -261,14 +355,10 @@ export default async function PostContent({
           const last = prev[prev.length - 1]
           const lastBlock = last[last.length - 1]
           if (
-            lastBlock.type === BulletedListBlock &&
-            curr.type === BulletedListBlock
-          ) {
-            return [...prev.slice(0, prev.length - 1), [...last, curr]]
-          }
-          if (
-            lastBlock.type === NumberedListBlock &&
-            curr.type === NumberedListBlock
+            (isJsxElementABulletedList(lastBlock) &&
+              isJsxElementABulletedList(curr)) ||
+            (isJsxElementANumberedList(lastBlock) &&
+              isJsxElementANumberedList(curr))
           ) {
             return [...prev.slice(0, prev.length - 1), [...last, curr]]
           }
@@ -279,14 +369,22 @@ export default async function PostContent({
             return blocks[0]
           }
           const block = blocks[0]
-          if (block.type === BulletedListBlock) {
+          if (isJsxElementABulletedList(block)) {
             return <ul key={i}>{blocks}</ul>
           }
-          if (block.type === NumberedListBlock) {
+          if (isJsxElementANumberedList(block)) {
             return <ol key={i}>{blocks}</ol>
           }
           return null
         })}
     </>
   )
+}
+
+function isJsxElementABulletedList(element: JSX.Element) {
+  return element.props.block.cur.type === 'bulleted_list_item'
+}
+
+function isJsxElementANumberedList(element: JSX.Element) {
+  return element.props.block.cur.type === 'numbered_list_item'
 }

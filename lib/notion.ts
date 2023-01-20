@@ -43,19 +43,41 @@ export const getSinglePostInfo = async (pageId: string) => {
   }
 }
 
-export const getSinglePostContent = async (blockId: string) => {
-  const blocks = []
+export type Block = {
+  cur: BlockObjectResponse
+  children?: Block[]
+}
+
+export const getSinglePostContent = async (
+  blockId: string,
+): Promise<Block[]> => {
+  const blocks: Block[] = []
   let cursor
   while (true) {
-    const { results, next_cursor } = await notion.blocks.children.list({
+    const response = await notion.blocks.children.list({
       start_cursor: cursor,
       block_id: blockId,
     })
-    blocks.push(...(results as BlockObjectResponse[]))
-    if (!next_cursor) {
+    const results = response.results as BlockObjectResponse[]
+
+    const resultsWithChildren = await Promise.all(
+      results.map(async (i) => {
+        if (i.has_children) {
+          return {
+            cur: i,
+            children: await getSinglePostContent(i.id),
+          }
+        }
+        return {
+          cur: i,
+        }
+      }),
+    )
+    blocks.push(...resultsWithChildren)
+    if (!response.next_cursor) {
       break
     }
-    cursor = next_cursor
+    cursor = response.next_cursor
   }
   return blocks
 }
