@@ -373,17 +373,37 @@ const RenderBlock = ({ block }: { block: PostContentType[number] }) => {
     case 'bulleted_list_item':
       return (
         <BulletedListBlock block={block.cur}>
-          {block.children?.map((child) => (
-            <RenderBlock block={child} key={child.cur.id} />
-          ))}
+          {block.children?.some(
+            (child) => child.cur.type === 'bulleted_list_item',
+          ) ? (
+            <ul>
+              {block.children?.map((child) => (
+                <RenderBlock block={child} key={child.cur.id} />
+              ))}
+            </ul>
+          ) : (
+            block.children?.map((child) => (
+              <RenderBlock block={child} key={child.cur.id} />
+            ))
+          )}
         </BulletedListBlock>
       )
     case 'numbered_list_item':
       return (
         <NumberedListBlock block={block.cur}>
-          {block.children?.map((child) => (
-            <RenderBlock block={child} key={child.cur.id} />
-          ))}
+          {block.children?.some(
+            (child) => child.cur.type === 'numbered_list_item',
+          ) ? (
+            <ol>
+              {block.children?.map((child) => (
+                <RenderBlock block={child} key={child.cur.id} />
+              ))}
+            </ol>
+          ) : (
+            block.children?.map((child) => (
+              <RenderBlock block={child} key={child.cur.id} />
+            ))
+          )}
         </NumberedListBlock>
       )
     case 'code':
