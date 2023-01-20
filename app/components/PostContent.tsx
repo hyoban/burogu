@@ -10,12 +10,14 @@ import {
   Heading1BlockObjectResponse,
   Heading2BlockObjectResponse,
   Heading3BlockObjectResponse,
+  ImageBlockObjectResponse,
   MentionRichTextItemResponse,
   NumberedListItemBlockObjectResponse,
   ParagraphBlockObjectResponse,
   RichTextItemResponse,
   TextRichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints'
+import Image from 'next/image'
 
 type ReactChildren = {
   children?: React.ReactNode
@@ -272,6 +274,40 @@ const CodeBlock = async ({
   )
 }
 
+const ImageBlock = ({
+  block,
+}: { block: ImageBlockObjectResponse } & ReactChildren) => {
+  if (block.image.type === 'external') {
+    return (
+      <Image
+        src={block.image.external.url}
+        alt={
+          block.image.caption.length !== 0
+            ? block.image.caption.map((i) => i.plain_text).join('')
+            : ''
+        }
+        width={1000}
+        height={100}
+      />
+    )
+  }
+  if (block.image.type === 'file') {
+    return (
+      <Image
+        src={block.image.file.url}
+        alt={
+          block.image.caption.length !== 0
+            ? block.image.caption.map((i) => i.plain_text).join('')
+            : ''
+        }
+        width={1000}
+        height={100}
+      />
+    )
+  }
+  return null
+}
+
 const BookmarkBlock = ({
   block,
 }: { block: BookmarkBlockObjectResponse } & ReactChildren) => {
@@ -323,6 +359,8 @@ const RenderBlock = ({ block }: { block: PostContentType[number] }) => {
     case 'code':
       // @ts-expect-error Server Component
       return <CodeBlock block={block.cur} />
+    case 'image':
+      return <ImageBlock block={block.cur} />
     case 'bookmark':
       return <BookmarkBlock block={block.cur} />
     default:
