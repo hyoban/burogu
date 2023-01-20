@@ -1,7 +1,10 @@
-import { getSinglePostContent } from '@/lib/notion'
+import shiki from 'shiki'
+
+import { PostContentType } from '@/lib/notion'
 
 import {
   BulletedListItemBlockObjectResponse,
+  CodeBlockObjectResponse,
   Heading1BlockObjectResponse,
   Heading2BlockObjectResponse,
   Heading3BlockObjectResponse,
@@ -179,8 +182,47 @@ const NumberedListBlock = ({
   )
 }
 
-export default async function PostContent({ id }: { id: string }) {
-  const blocks = await getSinglePostContent(id)
+const CodeBlock = async ({ block }: { block: CodeBlockObjectResponse }) => {
+  const lightCodeTheme = 'github-light'
+  const darkCodeTheme = 'github-dark-dimmed'
+  const highlighter = await shiki.getHighlighter({
+    themes: [lightCodeTheme, darkCodeTheme],
+  })
+  const code = (block.code.rich_text as TextRichTextItemResponse[])
+    .map((i) => i.plain_text)
+    .join('')
+  const lightHighlightedCode = highlighter.codeToHtml(
+    code,
+    block.code.language,
+    lightCodeTheme,
+  )
+  const darkHighlightedCode = highlighter.codeToHtml(
+    code,
+    block.code.language,
+    darkCodeTheme,
+  )
+
+  return (
+    <div className="shiki-container">
+      <div
+        className="shiki-light"
+        dangerouslySetInnerHTML={{
+          __html: lightHighlightedCode,
+        }}></div>
+      <div
+        className="shiki-dark"
+        dangerouslySetInnerHTML={{
+          __html: darkHighlightedCode,
+        }}></div>
+    </div>
+  )
+}
+
+export default async function PostContent({
+  blocks,
+}: {
+  blocks: PostContentType
+}) {
   if (blocks.length === 0) {
     return <div>Post Content Not found</div>
   }
@@ -201,6 +243,9 @@ export default async function PostContent({ id }: { id: string }) {
               return <BulletedListBlock key={block.id} block={block} />
             case 'numbered_list_item':
               return <NumberedListBlock key={block.id} block={block} />
+            case 'code':
+              // @ts-expect-error Server Component
+              return <CodeBlock key={block.id} block={block} />
             default:
               return null
           }

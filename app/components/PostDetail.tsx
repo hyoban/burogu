@@ -1,9 +1,13 @@
-import { getSinglePostInfo } from '@/lib/notion'
+import { getSinglePostContent, getSinglePostInfo } from '@/lib/notion'
 
 import PostContent from './PostContent'
 
 export default async function PostDetail({ id }: { id: string }) {
-  const page = await getSinglePostInfo(id)
+  const [page, blocks] = await Promise.all([
+    getSinglePostInfo(id),
+    getSinglePostContent(id),
+  ])
+
   if (!page) {
     return <div>Post Not found</div>
   }
@@ -11,7 +15,7 @@ export default async function PostDetail({ id }: { id: string }) {
     <>
       <h1>{page.title}</h1>
       {/* @ts-expect-error Server Component */}
-      <PostContent id={page.id} />
+      <PostContent blocks={blocks} />
     </>
   )
 }

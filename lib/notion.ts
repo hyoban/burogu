@@ -59,3 +59,5 @@ export const getSinglePostContent = async (blockId: string) => {
   }
   return blocks
 }
+
+export type PostContentType = Awaited<ReturnType<typeof getSinglePostContent>>
