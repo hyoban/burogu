@@ -4,6 +4,9 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "files.associations": {
+    "*.env.local": "env"
+  },
   "typescript.tsdk": "node_modules/.pnpm/typescript@4.9.4/node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
 }

@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "antfu.iconify",
+    "bradlc.vscode-tailwindcss",
+    "irongeek.vscode-env",
+    "csstools.postcss"
+  ]
+}
