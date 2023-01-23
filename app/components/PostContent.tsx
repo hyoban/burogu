@@ -105,7 +105,7 @@ const RichText = ({
     }
     if (richText.annotations.code) {
       return (
-        <code className="rounded-md py-1 px-2 bg-gray-100 dark:bg-gray-800">
+        <code className="rounded-md px-2 bg-gray-100 dark:bg-gray-800">
           <RichText
             richText={{
               ...richText,
