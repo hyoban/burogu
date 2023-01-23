@@ -3,6 +3,7 @@ export interface NotionPost {
   title: string
   url: string
   tags: string[]
+  publishedTime: string
   createdTime: string
   lastEditedTime: string
 }

@@ -1,4 +1,5 @@
 import ApperanceSwitch from './components/AppearanceSwitch'
+import Link from 'next/link'
 
 import './css/globals.css'
 
@@ -29,6 +30,9 @@ export default function RootLayout({
               rel="noreferrer">
               <Icon className="i-carbon-logo-github"></Icon>
             </a>
+            <Link href="/feed">
+              <Icon className="i-carbon-rss"></Icon>
+            </Link>
           </footer>
         </Provider>
       </body>

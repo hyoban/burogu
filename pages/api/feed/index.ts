@@ -1,0 +1,48 @@
+import dayjs from 'dayjs'
+import { Feed } from 'feed'
+import type { NextApiRequest, NextApiResponse } from 'next'
+
+import { getPostList } from '@/lib/notion'
+import config from '@/siteconfig.json'
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<string>,
+) {
+  const feed = new Feed({
+    title: config.siteName,
+    description: config.description,
+    id: config.siteUrl,
+    link: config.siteUrl,
+    image: config.siteUrl + config.avatarPath,
+    favicon: config.siteUrl + config.faviconPath,
+    copyright: 'All rights reserved, ' + config.siteName,
+    feedLinks: {
+      atom: config.siteUrl + '/feed',
+    },
+    author: {
+      name: config.author,
+      email: config.authorEmail,
+      link: config.authorLink,
+    },
+  })
+
+  const posts = await getPostList()
+
+  posts.forEach((post) => {
+    feed.addItem({
+      title: post.title,
+      link: config.siteUrl + '/' + post.id,
+      date: dayjs(post.publishedTime).toDate(),
+    })
+  })
+
+  res
+    .setHeader('Content-Type', 'text/xml')
+    .setHeader(
+      'Cache-Control',
+      'public, s-maxage=86400, stale-while-revalidate=43200',
+    )
+    .status(200)
+    .send(feed.rss2())
+}

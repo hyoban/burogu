@@ -18,5 +18,9 @@
   "codeTheme": {
     "light": "github-light",
     "dark": "github-dark-dimmed"
-  }
+  },
+  "siteUrl": "https://blog.hyoban.cc",
+  "author": "Stephen Zhou",
+  "authorLink": "https://blog.hyoban.cc",
+  "authorEmail": "hi@hyoban.cc"
 }

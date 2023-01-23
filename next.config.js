@@ -23,6 +23,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/feed',
+        destination: '/api/feed',
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

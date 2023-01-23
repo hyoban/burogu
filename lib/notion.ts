@@ -29,9 +29,10 @@ export const getPostList = async (): Promise<NotionPost[]> => {
         tags,
         createdTime: page.created_time,
         lastEditedTime: page.last_edited_time,
+        publishedTime: (page.properties['Published time'] as any).date?.start,
       }
     })
-    .filter((i) => i.tags.includes('published'))
+    .filter((i) => i.publishedTime)
 }
 
 export const getSinglePostInfo = async (pageId: string) => {
