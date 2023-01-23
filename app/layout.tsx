@@ -30,9 +30,9 @@ export default function RootLayout({
               rel="noreferrer">
               <Icon className="i-carbon-logo-github"></Icon>
             </a>
-            <Link href="/feed">
+            <a href="/feed" target="_blank" rel="noreferrer">
               <Icon className="i-carbon-rss"></Icon>
-            </Link>
+            </a>
           </footer>
         </Provider>
       </body>
