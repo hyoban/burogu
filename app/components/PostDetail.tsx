@@ -2,10 +2,10 @@ import { getSinglePostContent, getSinglePostInfo } from '@/lib/notion'
 
 import PostContent from './PostContent'
 
-export default async function PostDetail({ id }: { id: string }) {
+export default async function PostDetail({ slug }: { slug: string }) {
   const [page, blocks] = await Promise.all([
-    getSinglePostInfo(id),
-    getSinglePostContent(id),
+    getSinglePostInfo(slug, true),
+    getSinglePostContent(slug, true),
   ])
 
   if (!page) {

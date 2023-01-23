@@ -32,7 +32,7 @@ export default async function handler(
   posts.forEach((post) => {
     feed.addItem({
       title: post.title,
-      link: config.siteUrl + '/' + post.id,
+      link: config.siteUrl + '/' + post.slug,
       date: dayjs(post.publishedTime).toDate(),
     })
   })

@@ -11,11 +11,11 @@ export default async function PostList() {
       {posts.map((post) => (
         <div key={post.id} className="flex justify-between w-full">
           <Link
-            href={'/' + post.id}
+            href={'/' + post.slug}
             className="underline decoration-dashed underline-offset-4">
             {post.title}
           </Link>
-          <p>{dayjs(post.createdTime).format('YYYY/MM/DD')}</p>
+          <p>{dayjs(post.publishedTime).format('YYYY/MM/DD')}</p>
         </div>
       ))}
     </>

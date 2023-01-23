@@ -11,11 +11,17 @@ const databaseId = process.env.NOTION_DATABASE_ID!
 const notion = new Client({
   auth: notionToken,
 })
+
 export const getPostList = async (): Promise<NotionPost[]> => {
   const response = await notion.databases.query({
     database_id: databaseId,
   })
   return response.results
+    .filter(
+      (i) =>
+        (i as any).properties['Published time'].date &&
+        (i as any).properties.Slug.rich_text.length > 0,
+    )
     .map((i) => {
       const page = i as PageObjectResponse
       const title = (page as any).properties.Name.title[0].plain_text
@@ -25,23 +31,33 @@ export const getPostList = async (): Promise<NotionPost[]> => {
       return {
         id: i.id,
         title,
-        url: page.url,
         tags,
-        createdTime: page.created_time,
-        lastEditedTime: page.last_edited_time,
         publishedTime: (page.properties['Published time'] as any).date?.start,
+        slug: (page.properties.Slug as any).rich_text[0].plain_text,
       }
     })
-    .filter((i) => i.publishedTime)
 }
 
-export const getSinglePostInfo = async (pageId: string) => {
+export const getSinglePostInfo = async (pageId: string, isSlug = false) => {
   if (pageId === 'sw.js') return null
+
+  if (isSlug) {
+    const postList = await getPostList()
+    const post = postList.find((i) => i.slug === pageId)
+    if (post) {
+      return {
+        id: post.id,
+        title: post.title,
+      }
+    }
+    return null
+  }
+
   try {
     const page = await notion.pages.retrieve({ page_id: pageId })
     return {
       id: page.id,
-      title: (page as any).properties.Name.title[0].plain_text,
+      title: (page as any).properties.Name.title[0].plain_text as string,
     }
   } catch (e) {
     return null
@@ -55,7 +71,17 @@ export type Block = {
 
 export const getSinglePostContent = async (
   blockId: string,
+  isSlug = false,
 ): Promise<Block[] | null> => {
+  if (isSlug) {
+    const postList = await getPostList()
+    const post = postList.find((i) => i.slug === blockId)
+    if (post) {
+      return getSinglePostContent(post.id)
+    }
+    return null
+  }
+
   try {
     const blocks: Block[] = []
     let cursor

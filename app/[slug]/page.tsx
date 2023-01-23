@@ -4,11 +4,11 @@ import PostDetail from '../components/PostDetail'
 
 export const revalidate = 60
 
-export default function Page({ params }: { params: { id: string } }) {
+export default function Page({ params }: { params: { slug: string } }) {
   return (
     <div className="flex flex-col items-center">
       {/* @ts-expect-error Server Component */}
-      <PostDetail id={params.id} />
+      <PostDetail slug={params.slug} />
     </div>
   )
 }
@@ -17,6 +17,6 @@ export async function generateStaticParams() {
   const posts = await getPostList()
 
   return posts.map((post) => ({
-    id: post.id,
+    slug: post.slug,
   }))
 }
