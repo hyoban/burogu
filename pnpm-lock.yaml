@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@next/font': 13.1.4
   '@notionhq/client': ^2.2.3
   '@types/node': 18.11.18
   '@types/react': 18.0.27
@@ -24,7 +23,6 @@ specifiers:
   typescript: 4.9.4
 
 dependencies:
-  '@next/font': 13.1.4
   '@notionhq/client': 2.2.3
   dayjs: 1.11.7
   feed: 4.2.2
@@ -102,10 +100,6 @@ packages:
     dependencies:
       glob: 7.1.7
     dev: true
-
-  /@next/font/13.1.4:
-    resolution: {integrity: sha512-NfqQPAIFJhssdaZEsP0MADZKN+tc040jOkNKVlDZHtVjJWBJSgbe8UHg3w0S6YuQr7PHc0ACbFeVCBQeG4MEvg==}
-    dev: false
 
   /@next/swc-android-arm-eabi/13.1.4:
     resolution: {integrity: sha512-5PAchzFst3In6Ml+9APvBj89H29lcPXcUqEYBVv09fWK/V4IuViKc2qOqM9pyPyw7KsqaZPmuqaG595E6jdZLA==}
