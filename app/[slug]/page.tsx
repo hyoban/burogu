@@ -1,3 +1,4 @@
+import { Giscus } from '@/app/components/Comment'
 import { getPostList } from '@/lib/notion'
 
 import PostDetail from '../components/PostDetail'
@@ -6,9 +7,10 @@ export const revalidate = 60
 
 export default function Page({ params }: { params: { slug: string } }) {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center gap-4">
       {/* @ts-expect-error Server Component */}
       <PostDetail slug={params.slug} />
+      <Giscus />
     </div>
   )
 }
