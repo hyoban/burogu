@@ -1,4 +1,3 @@
-/** @type {import("@ianvs/prettier-plugin-sort-imports").PrettierConfig} */
 module.exports = {
   printWidth: 80,
   tabWidth: 2,
@@ -16,9 +15,4 @@ module.exports = {
   vueIndentScriptAndStyle: false,
   embeddedLanguageFormatting: 'auto',
   singleAttributePerLine: false,
-  plugins: ['@ianvs/prettier-plugin-sort-imports'],
-  importOrder: ['<THIRD_PARTY_MODULES>', '@/', './'],
-  importOrderSeparation: true,
-  importOrderCaseInsensitive: true,
-  importOrderMergeDuplicateImports: true,
 }
