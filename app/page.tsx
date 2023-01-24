@@ -21,7 +21,7 @@ export default async function Home({}) {
             height={64}
           />
           <div className="font-medium dark:text-white">
-            <div className="text-xl mb-1">{config.siteName}</div>
+            <div className="text-xl mb-1">{config.authorName}</div>
             <div className="text-sm text-gray-500 dark:text-gray-400">
               {config.shortDescription}
             </div>
