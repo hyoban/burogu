@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 
 import Icon from '@/app/icons/Icon'
 
-import config from '../siteconfig.json'
+import config from '../site.config.cjs'
 import PostList from './components/PostList'
 import Image from 'next/image'
 

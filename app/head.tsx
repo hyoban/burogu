@@ -1,4 +1,4 @@
-import config from '../siteconfig.json'
+import config from '../site.config.cjs'
 
 export default function Head() {
   return (

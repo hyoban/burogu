@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import siteMetadata from '@/siteconfig.json'
+import siteMetadata from '@/site.config.cjs'
 
 import { useDark } from '../hooks/useDark'
 

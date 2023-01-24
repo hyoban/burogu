@@ -1,7 +1,7 @@
 import { renderToHtml, getHighlighter, IThemedToken } from 'shiki'
 
 import { PostContentType } from '@/lib/notion'
-import config from '@/siteconfig.json'
+import config from '@/site.config.cjs'
 
 import {
   BookmarkBlockObjectResponse,

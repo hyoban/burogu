@@ -3,7 +3,7 @@ import { Feed } from 'feed'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { getPostList } from '@/lib/notion'
-import config from '@/siteconfig.json'
+import config from '@/site.config.cjs'
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,7 +21,7 @@ export default async function handler(
       atom: config.siteUrl + '/feed',
     },
     author: {
-      name: config.author,
+      name: config.authorName,
       email: config.authorEmail,
       link: config.authorLink,
     },
