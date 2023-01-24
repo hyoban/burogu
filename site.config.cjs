@@ -21,7 +21,7 @@ module.exports = {
     dark: 'github-dark-dimmed',
   },
   siteUrl: 'https://blog.hyoban.cc',
-  authorName: 'Stephen Zhou',
+  authorName: 'Hyoban',
   authorLink: 'https://blog.hyoban.cc',
   authorEmail: 'hi@hyoban.cc',
   comment: {
