@@ -10,18 +10,18 @@ export const revalidate = 60
 
 export default async function Home({}) {
   return (
-    <main className="flex flex-col items-start mx-auto w-full max-w-[65ch]">
+    <main className="mx-auto flex w-full max-w-[65ch] flex-col items-start">
       <header className="flex items-center gap-6">
         <div className="flex items-center space-x-4">
           <Image
-            className="w-16 h-16 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+            className="h-16 w-16 rounded-full p-1 ring-2 ring-gray-300 dark:ring-gray-500"
             src={config.avatarPath}
             alt=""
             width={64}
             height={64}
           />
           <div className="font-medium dark:text-white">
-            <div className="text-xl mb-1">{config.authorName}</div>
+            <div className="mb-1 text-xl">{config.authorName}</div>
             <div className="text-sm text-gray-500 dark:text-gray-400">
               {config.shortDescription}
             </div>
@@ -48,7 +48,7 @@ export default async function Home({}) {
           }
         })}
       </p>
-      <article className="flex flex-col w-full gap-6 my-8">
+      <article className="my-8 flex w-full flex-col gap-6">
         <Suspense fallback={<div>Loading post list...</div>}>
           {/* @ts-expect-error Server Component */}
           <PostList />

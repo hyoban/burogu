@@ -105,7 +105,7 @@ const RichText = ({
     }
     if (richText.annotations.code) {
       return (
-        <code className="rounded-md px-2 bg-gray-100 dark:bg-gray-800">
+        <code className="rounded-md bg-gray-100 px-2 dark:bg-gray-800">
           <RichText
             richText={{
               ...richText,
@@ -173,7 +173,7 @@ const H1Block = ({
   block,
 }: { block: Heading1BlockObjectResponse } & ReactChildren) => {
   return (
-    <h1 className="text-3xl my-3">
+    <h1 className="my-3 text-3xl">
       <RichTextGroup richTexts={block.heading_1.rich_text} />
     </h1>
   )
@@ -183,7 +183,7 @@ const H2Block = ({
   block,
 }: { block: Heading2BlockObjectResponse } & ReactChildren) => {
   return (
-    <h2 className="text-2xl my-2">
+    <h2 className="my-2 text-2xl">
       <RichTextGroup richTexts={block.heading_2.rich_text} />
     </h2>
   )
@@ -193,7 +193,7 @@ const H3Block = ({
   block,
 }: { block: Heading3BlockObjectResponse } & ReactChildren) => {
   return (
-    <h3 className="text-xl my-1">
+    <h3 className="my-1 text-xl">
       <RichTextGroup richTexts={block.heading_3.rich_text} />
     </h3>
   )
@@ -203,7 +203,7 @@ const CalloutBlock = ({
   block,
 }: { block: CalloutBlockObjectResponse } & ReactChildren) => {
   return (
-    <blockquote className="pl-4 border-l-4 border-gray-300">
+    <blockquote className="border-l-4 border-gray-300 pl-4">
       <RichTextGroup richTexts={block.callout.rich_text} />
     </blockquote>
   )
@@ -307,7 +307,7 @@ const ImageBlock = ({
 }: { block: ImageBlockObjectResponse } & ReactChildren) => {
   return (
     <Image
-      className="w-full h-auto rounded-[3px] sm:rounded-[6px]"
+      className="h-auto w-full rounded-[3px] sm:rounded-[6px]"
       src={
         block.image.type === 'external'
           ? block.image.external.url
@@ -414,7 +414,7 @@ export default async function PostContent({
     return <div>Post Content Not found</div>
   }
   return (
-    <article className="flex flex-col gap-3 w-full">
+    <article className="flex w-full flex-col gap-3">
       {blocks
         .map((block) => {
           return <RenderBlock block={block} key={block.cur.id} />

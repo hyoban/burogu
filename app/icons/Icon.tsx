@@ -16,7 +16,7 @@ export default function Icon({ className }: IconProps) {
     case 'i-carbon-logo-github':
       return (
         <CarbonLogoGithub
-          className={'inline mx-1 ' + className}
+          className={'mx-1 inline ' + className}
           width={defaultIconSize}
           height={defaultIconSize}
         />
@@ -24,7 +24,7 @@ export default function Icon({ className }: IconProps) {
     case 'i-carbon-moon':
       return (
         <CarbonMoon
-          className={'inline mx-1 ' + className}
+          className={'mx-1 inline ' + className}
           width={defaultIconSize}
           height={defaultIconSize}
         />
@@ -32,7 +32,7 @@ export default function Icon({ className }: IconProps) {
     case 'i-carbon-rss':
       return (
         <CarbonRss
-          className={'inline mx-1 ' + className}
+          className={'mx-1 inline ' + className}
           width={defaultIconSize}
           height={defaultIconSize}
         />
@@ -40,7 +40,7 @@ export default function Icon({ className }: IconProps) {
     case 'i-carbon-sun':
       return (
         <CarbonSun
-          className={'inline mx-1 ' + className}
+          className={'mx-1 inline ' + className}
           width={defaultIconSize}
           height={defaultIconSize}
         />
@@ -48,7 +48,7 @@ export default function Icon({ className }: IconProps) {
     case 'i-mdi-mastodon':
       return (
         <MdiMastodon
-          className={'inline mx-1 ' + className}
+          className={'mx-1 inline ' + className}
           width={defaultIconSize}
           height={defaultIconSize}
         />

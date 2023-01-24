@@ -6,11 +6,11 @@
   }
 
   ul {
-    @apply list-disc list-outside ml-5;
+    @apply ml-5 list-outside list-disc;
   }
 
   ol {
-    @apply list-decimal list-outside ml-5;
+    @apply ml-5 list-outside list-decimal;
   }
 }
 

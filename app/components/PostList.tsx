@@ -9,7 +9,7 @@ export default async function PostList() {
   return (
     <>
       {posts.map((post) => (
-        <div key={post.id} className="flex justify-between w-full">
+        <div key={post.id} className="flex w-full justify-between">
           <Link
             href={'/' + post.slug}
             className="underline decoration-dashed underline-offset-4">
