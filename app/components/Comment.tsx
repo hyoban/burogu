@@ -71,5 +71,5 @@ export const Giscus = () => {
     })
   }, [commentsTheme])
 
-  return <div className="giscus" id={COMMENTS_ID} />
+  return <div className="giscus w-full" id={COMMENTS_ID} />
 }
