@@ -1,9 +1,13 @@
 import Icon from '../icons/Icon'
 import ApperanceSwitch from './AppearanceSwitch'
 
-export default function Footer() {
+export default function Footer({ className }: { className?: string }) {
   return (
-    <footer className="mx-auto my-10 flex flex-col items-center gap-4 font-mono opacity-60">
+    <footer
+      className={
+        'mx-auto flex flex-col items-center gap-4 font-mono opacity-60 ' +
+        className
+      }>
       <p>
         Powered by <a href="https://beta.nextjs.org/">Next.js</a> and{' '}
         <a href="https://tailwindcss.com/">Tailwind CSS</a>

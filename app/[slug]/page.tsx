@@ -7,7 +7,7 @@ export const revalidate = 60
 
 export default function Page({ params }: { params: { slug: string } }) {
   return (
-    <div className="mx-auto flex w-full max-w-[65ch] flex-col items-center gap-4">
+    <div className="mx-auto flex w-full flex-col items-center gap-4">
       {/* @ts-expect-error Server Component */}
       <PostDetail slug={params.slug} />
       <Giscus />

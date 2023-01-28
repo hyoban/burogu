@@ -16,11 +16,11 @@ export default function RootLayout({
       */}
       <head />
 
-      <body className="flex min-h-screen justify-center bg-[#e6e6e6] p-6 font-sans dark:bg-[#121212] dark:text-white">
+      <body className="flex min-h-screen justify-center p-6 font-sans dark:bg-[#121212] dark:text-white md:bg-[#e6e6e6]">
         <Provider>
-          <div className="flex w-full max-w-[70ch] flex-col justify-between bg-white p-6 shadow-lg dark:bg-[#121212]">
+          <div className="flex w-full max-w-[70ch] flex-col justify-between bg-white dark:bg-[#121212] md:p-6 md:shadow-lg">
             {children}
-            <Footer />
+            <Footer className="mt-6" />
           </div>
         </Provider>
       </body>
