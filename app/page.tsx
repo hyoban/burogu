@@ -35,13 +35,21 @@ export default async function Home({}) {
           switch (link.type) {
             case 'GitHub':
               return (
-                <a href={link.url} target="_blank" rel="noreferrer">
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  key={link.url}>
                   <Icon className="i-carbon-logo-github" />
                 </a>
               )
             case 'Mastodon':
               return (
-                <a href={link.url} target="_blank" rel="noreferrer">
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  key={link.url}>
                   <Icon className="i-mdi-mastodon" />
                 </a>
               )

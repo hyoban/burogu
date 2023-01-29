@@ -9,8 +9,14 @@ export default function Footer({ className }: { className?: string }) {
         className
       }>
       <p>
-        Powered by <a href="https://beta.nextjs.org/">Next.js</a> and{' '}
-        <a href="https://tailwindcss.com/">Tailwind CSS</a>
+        Powered by{' '}
+        <a href="https://beta.nextjs.org/" target="_blank" rel="noreferrer">
+          Next.js
+        </a>{' '}
+        and{' '}
+        <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">
+          Tailwind CSS
+        </a>
       </p>
       <div className="flex items-center justify-center">
         <ApperanceSwitch />
