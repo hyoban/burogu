@@ -14,13 +14,13 @@ const ApperanceSwitch = () => {
     setMounted(true)
   }, [])
 
-  if (!mounted) {
-    return <Icon className={'i-carbon-sun'} />
-  }
-
   return (
     <button onClick={toggleDark}>
-      <Icon className={isDark ? 'i-carbon-moon' : 'i-carbon-sun'} />
+      {!mounted ? (
+        <Icon className={'i-carbon-sun'} />
+      ) : (
+        <Icon className={isDark ? 'i-carbon-moon' : 'i-carbon-sun'} />
+      )}
     </button>
   )
 }
