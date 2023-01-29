@@ -16,9 +16,9 @@ export default function RootLayout({
       */}
       <head />
 
-      <body className="flex h-auto min-h-full justify-center p-6 font-sans dark:bg-[#121212] dark:text-white">
+      <body className="flex h-auto min-h-full justify-center p-6 font-sans dark:bg-[#121212] dark:text-white sm:px-14">
         <Provider>
-          <div className="flex w-full max-w-[70ch] flex-col justify-between">
+          <div className="flex w-full max-w-[65ch] flex-col justify-between">
             {children}
             <Footer className="mt-6" />
           </div>
