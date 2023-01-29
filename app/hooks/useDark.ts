@@ -10,7 +10,7 @@ const appearanceAtom = atomWithStorage<'auto' | 'dark' | 'light'>(
 
 export function useDark() {
   const [setting, setSetting] = useAtom(appearanceAtom)
-  const isDark = useMedia('(prefers-color-scheme: dark)', false)
+  const isDark = useMedia('(prefers-color-scheme: dark)')
 
   useEffect(() => {
     const isDarkMode = setting === 'dark' || (isDark && setting !== 'light')
