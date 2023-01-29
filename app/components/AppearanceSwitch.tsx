@@ -15,7 +15,7 @@ const ApperanceSwitch = () => {
   }, [])
 
   if (!mounted) {
-    return null
+    return <Icon className={'i-carbon-sun'} />
   }
 
   return (
