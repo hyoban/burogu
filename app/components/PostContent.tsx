@@ -173,9 +173,9 @@ const H1Block = ({
   block,
 }: { block: Heading1BlockObjectResponse } & ReactChildren) => {
   return (
-    <h1 className="my-3 text-3xl">
+    <h2 className="relative my-3 text-3xl before:absolute before:right-full before:mr-2 before:opacity-30 before:content-['H1']">
       <RichTextGroup richTexts={block.heading_1.rich_text} />
-    </h1>
+    </h2>
   )
 }
 
@@ -183,9 +183,9 @@ const H2Block = ({
   block,
 }: { block: Heading2BlockObjectResponse } & ReactChildren) => {
   return (
-    <h2 className="my-2 text-2xl">
+    <h3 className="relative my-2 text-2xl before:absolute before:right-full before:mr-2 before:opacity-30 before:content-['H2']">
       <RichTextGroup richTexts={block.heading_2.rich_text} />
-    </h2>
+    </h3>
   )
 }
 
@@ -193,9 +193,9 @@ const H3Block = ({
   block,
 }: { block: Heading3BlockObjectResponse } & ReactChildren) => {
   return (
-    <h3 className="my-1 text-xl">
+    <h4 className="relative my-1 text-xl before:absolute before:right-full before:mr-2 before:opacity-30 before:content-['H3']">
       <RichTextGroup richTexts={block.heading_3.rich_text} />
-    </h3>
+    </h4>
   )
 }
 

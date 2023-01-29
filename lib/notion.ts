@@ -17,6 +17,8 @@ const headers = {
   Authorization: `Bearer ${notionToken}`,
 }
 
+const revalidate = 60
+
 export const getPostList = async (): Promise<NotionPost[]> => {
   const response = (await fetch(
     `https://api.notion.com/v1/databases/${databaseId}/query`,
@@ -24,7 +26,7 @@ export const getPostList = async (): Promise<NotionPost[]> => {
       method: 'POST',
       headers,
       next: {
-        revalidate: 60,
+        revalidate,
       },
     },
   ).then((i) => i.json())) as QueryDatabaseResponse
@@ -71,7 +73,7 @@ export const getSinglePostInfo = async (pageId: string, isSlug = false) => {
       method: 'GET',
       headers,
       next: {
-        revalidate: 60,
+        revalidate,
       },
     }).then((i) => i.json())) as GetPageResponse
     return {
@@ -112,7 +114,7 @@ export const getSinglePostContent = async (
           method: 'GET',
           headers,
           next: {
-            revalidate: 60,
+            revalidate,
           },
         },
       ).then((i) => i.json())) as ListBlockChildrenResponse
