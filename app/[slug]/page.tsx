@@ -3,8 +3,6 @@ import { getPostList } from '@/lib/notion'
 
 import PostDetail from '../components/PostDetail'
 
-export const revalidate = 60
-
 export default function Page({ params }: { params: { slug: string } }) {
   return (
     <div className="mx-auto flex w-full flex-col items-center gap-4">

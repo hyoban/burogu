@@ -6,8 +6,6 @@ import config from '../site.config.cjs'
 import PostList from './components/PostList'
 import Image from 'next/image'
 
-export const revalidate = 60
-
 export default async function Home({}) {
   return (
     <main className="flex w-full flex-col items-start">

@@ -1,21 +1,34 @@
 import { NotionPost } from './notionType'
-import { Client } from '@notionhq/client'
 import {
   BlockObjectResponse,
+  GetPageResponse,
   PageObjectResponse,
+  QueryDatabaseResponse,
+  ListBlockChildrenResponse,
 } from '@notionhq/client/build/src/api-endpoints'
 
 const notionToken = process.env.NOTION_TOKEN!
 const databaseId = process.env.NOTION_DATABASE_ID!
 
-const notion = new Client({
-  auth: notionToken,
-})
+const headers = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+  'Notion-Version': '2022-06-28',
+  Authorization: `Bearer ${notionToken}`,
+}
 
 export const getPostList = async (): Promise<NotionPost[]> => {
-  const response = await notion.databases.query({
-    database_id: databaseId,
-  })
+  const response = (await fetch(
+    `https://api.notion.com/v1/databases/${databaseId}/query`,
+    {
+      method: 'POST',
+      headers,
+      next: {
+        revalidate: 60,
+      },
+    },
+  ).then((i) => i.json())) as QueryDatabaseResponse
+
   return response.results
     .filter(
       (i) =>
@@ -54,7 +67,13 @@ export const getSinglePostInfo = async (pageId: string, isSlug = false) => {
   }
 
   try {
-    const page = await notion.pages.retrieve({ page_id: pageId })
+    const page = (await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
+      method: 'GET',
+      headers,
+      next: {
+        revalidate: 60,
+      },
+    }).then((i) => i.json())) as GetPageResponse
     return {
       id: page.id,
       title: (page as any).properties.Name.title[0].plain_text as string,
@@ -86,10 +105,17 @@ export const getSinglePostContent = async (
     const blocks: Block[] = []
     let cursor
     while (true) {
-      const response = await notion.blocks.children.list({
-        start_cursor: cursor,
-        block_id: blockId,
-      })
+      const response = (await fetch(
+        `https://api.notion.com/v1/blocks/${blockId}/children` +
+          (cursor ? `?start_cursor=${cursor}` : ''),
+        {
+          method: 'GET',
+          headers,
+          next: {
+            revalidate: 60,
+          },
+        },
+      ).then((i) => i.json())) as ListBlockChildrenResponse
       const results = response.results as BlockObjectResponse[]
 
       const resultsWithChildren = await Promise.all(
