@@ -52,6 +52,7 @@ export const getPostList = async (): Promise<NotionPost[]> => {
         tags,
         publishedTime: (page.properties['Published time'] as any).date?.start,
         slug: (page.properties.Slug as any).rich_text[0].plain_text,
+        cover: (page.cover as any).file.url,
       }
     })
 }
