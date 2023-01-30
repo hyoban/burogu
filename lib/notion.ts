@@ -1,3 +1,5 @@
+import Parser from 'rss-parser'
+
 import { NotionPost } from './notionType'
 import {
   BlockObjectResponse,
@@ -9,6 +11,7 @@ import {
 
 const notionToken = process.env.NOTION_TOKEN!
 const databaseId = process.env.NOTION_DATABASE_ID!
+const feedId = process.env.NOTION_FEED_ID!
 
 const headers = {
   Accept: 'application/json',
@@ -148,3 +151,45 @@ export const getSinglePostContent = async (
 export type PostContentType = NonNullable<
   Awaited<ReturnType<typeof getSinglePostContent>>
 >
+
+export const getFeedList = async () => {
+  const response = (await fetch(
+    `https://api.notion.com/v1/databases/${feedId}/query`,
+    {
+      method: 'POST',
+      headers,
+    },
+  ).then((i) => i.json())) as QueryDatabaseResponse
+
+  const feedInfoList = response.results.map((i) => {
+    const page = i as PageObjectResponse
+    return {
+      id: i.id,
+      title: (page as any).properties.ID.title[0].plain_text,
+      url: (page as any).properties.Homepage.url,
+      feedUrl: (page as any).properties.RSS.url,
+      avatar: (page.cover as any).external.url,
+    }
+  })
+
+  const feedList = await Promise.all(
+    feedInfoList.map(async (i) => {
+      const parser = new Parser()
+      const feed = await parser.parseURL(i.feedUrl)
+      return feed.items.map((j) => {
+        return {
+          ...j,
+          feedInfo: i,
+        }
+      })
+    }),
+  )
+
+  // sort by published time
+  return feedList.flat().sort((a, b) => {
+    if (a.isoDate && b.isoDate) {
+      return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime()
+    }
+    return 0
+  })
+}

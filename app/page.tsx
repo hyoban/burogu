@@ -1,10 +1,12 @@
 import { Suspense } from 'react'
+import Image from 'next/image'
 
 import Icon from '@/app/icons/Icon'
 
 import config from '../site.config.cjs'
 import PostList from './components/PostList'
-import Image from 'next/image'
+import FeedList from './components/FeedList'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/Tabs'
 
 export default async function Home({}) {
   return (
@@ -55,10 +57,24 @@ export default async function Home({}) {
         })}
       </p>
       <article className="my-8 flex w-full flex-col gap-6">
-        <Suspense fallback={<div>Loading post list...</div>}>
-          {/* @ts-expect-error Server Component */}
-          <PostList />
-        </Suspense>
+        <Tabs defaultValue="post">
+          <TabsList>
+            <TabsTrigger value="post">Posts</TabsTrigger>
+            <TabsTrigger value="feed">Feed</TabsTrigger>
+          </TabsList>
+          <TabsContent value="post">
+            <Suspense fallback={<div>Loading post list...</div>}>
+              {/* @ts-expect-error Server Component */}
+              <PostList />
+            </Suspense>
+          </TabsContent>
+          <TabsContent value="feed" className="w-full">
+            <Suspense fallback={<div>Loading my feed list...</div>}>
+              {/* @ts-expect-error Server Component */}
+              <FeedList />
+            </Suspense>
+          </TabsContent>
+        </Tabs>
       </article>
     </main>
   )
