@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className="flex h-auto min-h-full justify-center p-6 font-sans dark:bg-[#121212] dark:text-white sm:px-14">
         <Provider>
           <div className="flex w-full max-w-[65ch] flex-col justify-between">
-            {children}
+            <main className="flex w-full flex-col items-start">{children}</main>
             <Footer className="mt-6" />
           </div>
         </Provider>

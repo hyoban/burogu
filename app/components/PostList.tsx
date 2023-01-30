@@ -13,7 +13,7 @@ export default async function PostList() {
           key={post.id}
           className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <Link
-            href={'/' + post.slug}
+            href={'/post/' + post.slug}
             className="underline decoration-dashed underline-offset-4">
             {post.title}
           </Link>

@@ -9,7 +9,7 @@ export default async function FeedList() {
     <>
       {feedList.map((feed) => (
         <div
-          key={feed.feedInfo.id}
+          key={feed.link}
           className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <span className="flex flex-col gap-3">
             <a
