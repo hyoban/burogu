@@ -152,6 +152,16 @@ export type PostContentType = NonNullable<
   Awaited<ReturnType<typeof getSinglePostContent>>
 >
 
+type FeedItem = Parser.Item & {
+  feedInfo: {
+    id: string
+    title: string
+    url: string
+    feedUrl: string
+    avatar: string
+  }
+}
+
 export const getFeedList = async () => {
   const response = (await fetch(
     `https://api.notion.com/v1/databases/${feedId}/query`,
@@ -186,10 +196,24 @@ export const getFeedList = async () => {
   )
 
   // sort by published time
-  return feedList.flat().sort((a, b) => {
-    if (a.isoDate && b.isoDate) {
-      return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime()
-    }
-    return 0
-  })
+  // group by year
+  return feedList
+    .flat()
+    .sort((a, b) => {
+      if (a.isoDate && b.isoDate) {
+        return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime()
+      }
+      return 0
+    })
+    .slice(0, 40)
+    .reduce((acc, cur) => {
+      if (!cur.isoDate) return acc
+
+      const year = new Date(cur.isoDate).getFullYear()
+      if (!acc[year]) {
+        acc[year] = []
+      }
+      acc[year].push(cur)
+      return acc
+    }, {} as Record<string, FeedItem[]>)
 }
