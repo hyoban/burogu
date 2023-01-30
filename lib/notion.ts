@@ -37,7 +37,7 @@ export const getPostList = async (): Promise<NotionPost[]> => {
   return response.results
     .filter(
       (i) =>
-        (i as any).properties['Published time'].date &&
+        (i as any).properties['Published Time'].date &&
         (i as any).properties.Slug.rich_text.length > 0,
     )
     .map((i) => {
@@ -50,9 +50,13 @@ export const getPostList = async (): Promise<NotionPost[]> => {
         id: i.id,
         title,
         tags,
-        publishedTime: (page.properties['Published time'] as any).date?.start,
+        publishedTime: (page.properties['Published Time'] as any).date?.start,
         slug: (page.properties.Slug as any).rich_text[0].plain_text,
-        cover: (page.cover as any).file.url,
+        cover: {
+          url: (page.cover as any).file.url,
+          width: (page.properties['Cover Width'] as any).number,
+          height: (page.properties['Cover Height'] as any).number,
+        },
       }
     })
 }

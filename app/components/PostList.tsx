@@ -16,11 +16,10 @@ export default async function PostList() {
           className="flex w-full flex-col gap-3 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600">
           <Image
             className="h-auto w-full"
-            src={post.cover}
+            src={post.cover.url}
             alt="post cover"
-            sizes="100vw"
-            width={0}
-            height={0}
+            width={post.cover.width}
+            height={post.cover.height}
           />
           <p className="mx-4 ">{post.title}</p>
           <p className="mx-4 mb-4 text-sm text-gray-500">

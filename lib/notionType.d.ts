@@ -4,5 +4,9 @@ export interface NotionPost {
   slug: string
   tags: string[]
   publishedTime: string
-  cover: string
+  cover: {
+    url: string
+    width: number
+    height: number
+  }
 }
