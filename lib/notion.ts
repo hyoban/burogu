@@ -53,7 +53,7 @@ export const getPostList = async (): Promise<NotionPost[]> => {
         publishedTime: (page.properties['Published Time'] as any).date?.start,
         slug: (page.properties.Slug as any).rich_text[0].plain_text,
         cover: {
-          url: (page.cover as any).file.url,
+          url: (page.cover as any).external.url,
           width: (page.properties['Cover Width'] as any).number,
           height: (page.properties['Cover Height'] as any).number,
         },
