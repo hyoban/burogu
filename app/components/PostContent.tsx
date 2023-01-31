@@ -1,6 +1,3 @@
-import Image from 'next/image'
-import { getHighlighter, IThemedToken, renderToHtml } from 'shiki'
-
 import {
   BookmarkBlockObjectResponse,
   BulletedListItemBlockObjectResponse,
@@ -16,6 +13,10 @@ import {
   RichTextItemResponse,
   TextRichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints'
+import * as fs from 'fs/promises'
+import Image from 'next/image'
+import { join as pathJoin } from 'path'
+import { getHighlighter, IThemedToken, renderToHtml } from 'shiki'
 
 import Icon from '@/app/icons/Icon'
 import { PostContentType } from '@/lib/notion'
@@ -245,13 +246,31 @@ const NumberedListBlock = ({
   )
 }
 
+const touched = { current: false }
+
+const getShikiPath = (): string => {
+  return pathJoin(process.cwd(), 'lib/shiki')
+}
+
+const touchShikiPath = (): void => {
+  if (touched.current) return // only need to do once
+  fs.readdir(getShikiPath()) // fire and forget
+  touched.current = true
+}
+
 const CodeBlock = async ({
   block,
 }: { block: CodeBlockObjectResponse } & ReactChildren) => {
   const lightCodeTheme = config.codeTheme.light
   const darkCodeTheme = config.codeTheme.dark
+
+  touchShikiPath()
+
   const highlighter = await getHighlighter({
-    themes: [lightCodeTheme, darkCodeTheme],
+    paths: {
+      languages: `${getShikiPath()}/languages/`,
+      themes: `${getShikiPath()}/themes/`,
+    },
   })
   const code = (block.code.rich_text as TextRichTextItemResponse[])
     .map((i) => i.plain_text)
