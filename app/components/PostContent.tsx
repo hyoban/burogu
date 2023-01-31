@@ -1,7 +1,5 @@
-import { renderToHtml, getHighlighter, IThemedToken } from 'shiki'
-
-import { PostContentType } from '@/lib/notion'
-import config from '@/site.config.cjs'
+import Image from 'next/image'
+import { getHighlighter, IThemedToken, renderToHtml } from 'shiki'
 
 import {
   BookmarkBlockObjectResponse,
@@ -18,9 +16,10 @@ import {
   RichTextItemResponse,
   TextRichTextItemResponse,
 } from '@notionhq/client/build/src/api-endpoints'
-import Image from 'next/image'
 
 import Icon from '@/app/icons/Icon'
+import { PostContentType } from '@/lib/notion'
+import config from '@/site.config.cjs'
 
 type ReactChildren = {
   children?: React.ReactNode
