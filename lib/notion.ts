@@ -1,4 +1,5 @@
 import Parser from 'rss-parser'
+import probe from 'probe-image-size'
 
 import { NotionPost } from './notionType'
 import {
@@ -22,6 +23,11 @@ const headers = {
 
 const revalidate = 60
 
+const probeImageSize = async (url: string) => {
+  const dim = await probe(url)
+  return { width: dim.width, height: dim.height }
+}
+
 export const getPostList = async (): Promise<NotionPost[]> => {
   const response = (await fetch(
     `https://api.notion.com/v1/databases/${databaseId}/query`,
@@ -34,31 +40,36 @@ export const getPostList = async (): Promise<NotionPost[]> => {
     },
   ).then((i) => i.json())) as QueryDatabaseResponse
 
-  return response.results
-    .filter(
-      (i) =>
-        (i as any).properties['Published Time'].date &&
-        (i as any).properties.Slug.rich_text.length > 0,
-    )
-    .map((i) => {
-      const page = i as PageObjectResponse
-      const title = (page as any).properties.Name.title[0].plain_text
-      const tags = (page as any).properties.Tags.multi_select.map(
-        (i: any) => i.name,
-      ) as string[]
-      return {
-        id: i.id,
-        title,
-        tags,
-        publishedTime: (page.properties['Published Time'] as any).date?.start,
-        slug: (page.properties.Slug as any).rich_text[0].plain_text,
-        cover: {
-          url: (page.cover as any).external.url,
-          width: (page.properties['Cover Width'] as any).number,
-          height: (page.properties['Cover Height'] as any).number,
-        },
-      }
-    })
+  return Promise.all(
+    response.results
+      .filter(
+        (i) =>
+          (i as any).properties['Published Time'].date &&
+          (i as any).properties.Slug.rich_text.length > 0,
+      )
+      .map(async (i) => {
+        const page = i as PageObjectResponse
+        const title = (page as any).properties.Name.title[0].plain_text
+        const tags = (page as any).properties.Tags.multi_select.map(
+          (i: any) => i.name,
+        ) as string[]
+        const coverUrl = (page.cover as any).external.url
+        const { width, height } = await probeImageSize(coverUrl)
+
+        return {
+          id: i.id,
+          title,
+          tags,
+          publishedTime: (page.properties['Published Time'] as any).date?.start,
+          slug: (page.properties.Slug as any).rich_text[0].plain_text,
+          cover: {
+            url: coverUrl,
+            width,
+            height,
+          },
+        }
+      }),
+  )
 }
 
 export const getSinglePostInfo = async (pageId: string, isSlug = false) => {
