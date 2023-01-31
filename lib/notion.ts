@@ -79,10 +79,7 @@ export const getSinglePostInfo = async (pageId: string, isSlug = false) => {
     const postList = await getPostList()
     const post = postList.find((i) => i.slug === pageId)
     if (post) {
-      return {
-        id: post.id,
-        title: post.title,
-      }
+      return post
     }
     return null
   }
@@ -94,10 +91,18 @@ export const getSinglePostInfo = async (pageId: string, isSlug = false) => {
       next: {
         revalidate,
       },
-    }).then((i) => i.json())) as GetPageResponse
+    }).then((i) => i.json())) as PageObjectResponse
+
+    const coverUrl = (page.cover as any).external.url
+    const { width, height } = await probeImageSize(coverUrl)
     return {
       id: page.id,
       title: (page as any).properties.Name.title[0].plain_text as string,
+      cover: {
+        url: coverUrl,
+        width,
+        height,
+      },
     }
   } catch (e) {
     return null

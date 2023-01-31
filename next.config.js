@@ -16,10 +16,6 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'image-hyoban.pages.dev',
-      },
-      {
-        protocol: 'https',
         hostname: 'image.hyoban.cc',
       },
     ],
