@@ -2,7 +2,11 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ['shiki'],
+    serverComponentsExternalPackages: [
+      'shiki',
+      'vscode-oniguruma',
+      'vscode-textmate',
+    ],
   },
   images: {
     remotePatterns: [
