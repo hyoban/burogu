@@ -20,6 +20,8 @@ import {
 } from '@notionhq/client/build/src/api-endpoints'
 import Image from 'next/image'
 
+import Icon from '@/app/icons/Icon'
+
 type ReactChildren = {
   children?: React.ReactNode
 }
@@ -125,12 +127,19 @@ const RichText = ({
     if (richText.href !== null) {
       return (
         <a href={richText.href} target="_blank" rel="noreferrer">
-          <RichText
-            richText={{
-              ...richText,
-              href: null,
-            }}
-          />
+          {richText.href.startsWith('https://github.com/') ? (
+            <span>
+              <Icon className="i-carbon-logo-github mx-0"></Icon>
+              <span className="ml-2">{richText.href.slice(19)}</span>
+            </span>
+          ) : (
+            <RichText
+              richText={{
+                ...richText,
+                href: null,
+              }}
+            />
+          )}
         </a>
       )
     }
