@@ -288,9 +288,18 @@ const CodeBlock = async ({
   )
 
   const customRenderToHtml = (tokens: IThemedToken[][], themeName: string) => {
+    const themeBg = highlighter
+      .getBackgroundColor(themeName)
+      .toLocaleLowerCase()
+
     return renderToHtml(tokens, {
       fg: highlighter.getForegroundColor(themeName),
-      bg: highlighter.getBackgroundColor(themeName),
+      bg:
+        themeBg === '#ffffff' || themeBg === '#fff'
+          ? '#fafafa'
+          : themeBg === '#121212'
+          ? '#24292e'
+          : themeBg,
       elements: {
         pre({ style, children }) {
           return `<pre class="p-4 rounded-md my-2 overflow-y-auto sm:overflow-y-visible" style="${style}">${children}</pre>`

@@ -18,7 +18,7 @@ module.exports = {
   ],
   codeTheme: {
     light: 'github-light',
-    dark: 'github-dark-dimmed',
+    dark: 'github-dark',
   },
   siteUrl: 'https://blog.hyoban.cc',
   authorName: 'Hyoban',
