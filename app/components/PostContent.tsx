@@ -267,6 +267,7 @@ const CodeBlock = async ({
   touchShikiPath()
 
   const highlighter = await getHighlighter({
+    themes: [lightCodeTheme, darkCodeTheme],
     paths: {
       languages: `${getShikiPath()}/languages/`,
       themes: `${getShikiPath()}/themes/`,
