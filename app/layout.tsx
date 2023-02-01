@@ -1,7 +1,7 @@
-import Provider from './provider'
-import Footer from './components/Footer'
+import Footer from '@/app/components/Footer'
+import ThemeProvider from '@/app/provider'
 
-import './css/globals.css'
+import '@/app/css/globals.css'
 
 export default function RootLayout({
   children,
@@ -17,12 +17,12 @@ export default function RootLayout({
       <head />
 
       <body className="flex h-auto min-h-full justify-center p-6 font-sans dark:bg-[#121212] dark:text-white sm:px-14">
-        <Provider>
+        <ThemeProvider>
           <div className="flex w-full max-w-[65ch] flex-col justify-between">
             <main className="flex w-full flex-col items-start">{children}</main>
             <Footer className="mt-6" />
           </div>
-        </Provider>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -1,14 +1,13 @@
-import Parser from 'rss-parser'
 import probe from 'probe-image-size'
+import Parser from 'rss-parser'
 
-import { NotionPost } from './notionType'
 import {
   BlockObjectResponse,
-  GetPageResponse,
+  ListBlockChildrenResponse,
   PageObjectResponse,
   QueryDatabaseResponse,
-  ListBlockChildrenResponse,
 } from '@notionhq/client/build/src/api-endpoints'
+import { NotionPost } from './notionType'
 
 const notionToken = process.env.NOTION_TOKEN!
 const databaseId = process.env.NOTION_DATABASE_ID!
@@ -21,11 +20,33 @@ const headers = {
   Authorization: `Bearer ${notionToken}`,
 }
 
-const revalidate = 60
+const revalidate = 3600
 
 const probeImageSize = async (url: string) => {
   const dim = await probe(url)
   return { width: dim.width, height: dim.height }
+}
+
+const getPostInfo = async (page: PageObjectResponse) => {
+  const title = (page as any).properties.Name.title[0].plain_text
+  const tags = (page as any).properties.Tags.multi_select.map(
+    (i: any) => i.name,
+  ) as string[]
+  const coverUrl = (page.cover as any).external.url
+  const { width, height } = await probeImageSize(coverUrl)
+
+  return {
+    id: page.id,
+    title,
+    tags,
+    publishedTime: (page.properties['Published Time'] as any).date?.start,
+    slug: (page.properties.Slug as any).rich_text[0].plain_text,
+    cover: {
+      url: coverUrl,
+      width,
+      height,
+    },
+  }
 }
 
 export const getPostList = async (): Promise<NotionPost[]> => {
@@ -41,34 +62,13 @@ export const getPostList = async (): Promise<NotionPost[]> => {
   ).then((i) => i.json())) as QueryDatabaseResponse
 
   return Promise.all(
-    response.results
+    (response.results as PageObjectResponse[])
       .filter(
         (i) =>
           (i as any).properties['Published Time'].date &&
           (i as any).properties.Slug.rich_text.length > 0,
       )
-      .map(async (i) => {
-        const page = i as PageObjectResponse
-        const title = (page as any).properties.Name.title[0].plain_text
-        const tags = (page as any).properties.Tags.multi_select.map(
-          (i: any) => i.name,
-        ) as string[]
-        const coverUrl = (page.cover as any).external.url
-        const { width, height } = await probeImageSize(coverUrl)
-
-        return {
-          id: i.id,
-          title,
-          tags,
-          publishedTime: (page.properties['Published Time'] as any).date?.start,
-          slug: (page.properties.Slug as any).rich_text[0].plain_text,
-          cover: {
-            url: coverUrl,
-            width,
-            height,
-          },
-        }
-      }),
+      .map(getPostInfo),
   )
 }
 
@@ -93,17 +93,7 @@ export const getSinglePostInfo = async (pageId: string, isSlug = false) => {
       },
     }).then((i) => i.json())) as PageObjectResponse
 
-    const coverUrl = (page.cover as any).external.url
-    const { width, height } = await probeImageSize(coverUrl)
-    return {
-      id: page.id,
-      title: (page as any).properties.Name.title[0].plain_text as string,
-      cover: {
-        url: coverUrl,
-        width,
-        height,
-      },
-    }
+    return await getPostInfo(page)
   } catch (e) {
     return null
   }

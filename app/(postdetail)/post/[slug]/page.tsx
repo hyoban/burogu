@@ -1,7 +1,7 @@
-import { getPostList } from '@/lib/notion'
-
-import PostDetail from '@/app/components/PostDetail'
 import { Giscus } from '@/app/components/Comment'
+import PostDetail from '@/app/components/PostDetail'
+
+import { getPostList } from '@/lib/notion'
 
 export default function Page({ params }: { params: { slug: string } }) {
   return (
