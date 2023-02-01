@@ -20,16 +20,15 @@ export default function Nav() {
   }))
 
   return (
-    <nav className="flex w-fit space-x-4 rounded-md bg-[#f1f5f9] p-1 dark:bg-[#1e293b]">
+    <nav className="flex w-fit">
       {tabs.map((tab) => (
         <Link
           key={tab.name}
           href={tab.href}
           className={classNames(
-            tab.current ? 'bg-white dark:bg-[#0f172a]' : '',
+            tab.current ? 'bg-[#f5f5f5] dark:bg-[#262626]' : '',
             'rounded-md px-3 py-1 text-sm no-underline hover:opacity-100',
-          )}
-          aria-current={tab.current ? 'page' : undefined}>
+          )}>
           {tab.name}
         </Link>
       ))}

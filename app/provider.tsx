@@ -1,10 +1,6 @@
 'use client'
 
-interface ThemeProviderProps {
-  children: React.ReactNode
-}
-
-export default function ThemeProvider({ children }: ThemeProviderProps) {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
     <>
       <script

@@ -1,5 +1,5 @@
 import Footer from '@/app/components/Footer'
-import ThemeProvider from '@/app/provider'
+import { ThemeProvider } from '@/app/provider'
 
 import '@/app/css/globals.css'
 
