@@ -27,7 +27,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/feed',
+        source: '/feed.xml',
         destination: '/api/feed',
       },
     ]

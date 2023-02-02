@@ -5,7 +5,7 @@ import {
   BlockObjectResponse,
   ListBlockChildrenResponse,
   PageObjectResponse,
-  QueryDatabaseResponse,
+  QueryDatabaseResponse
 } from '@notionhq/client/build/src/api-endpoints'
 import { NotionPost } from './notionType'
 
@@ -216,7 +216,7 @@ export const getFeedList = async () => {
       }
       return 0
     })
-    .slice(0, 40)
+    .slice(0, 100)
     .reduce((acc, cur) => {
       if (!cur.isoDate) return acc
 

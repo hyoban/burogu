@@ -26,7 +26,7 @@ export default function Footer({ className }: { className?: string }) {
           rel="noreferrer">
           <Icon className="i-carbon-logo-github"></Icon>
         </a>
-        <a href="/feed" target="_blank" rel="noreferrer">
+        <a href="/feed.xml" target="_blank" rel="noreferrer">
           <Icon className="i-carbon-rss"></Icon>
         </a>
       </div>
