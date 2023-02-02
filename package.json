@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "play": "docker build -t nextjs-docker . && docker run --rm -p 3000:3000 nextjs-docker",
     "lint": "next lint",
     "format": "prettier --write ."
   },
@@ -19,6 +20,7 @@
     "react-dom": "18.2.0",
     "react-use": "^17.4.0",
     "rss-parser": "^3.12.0",
+    "sharp": "^0.31.3",
     "shiki": "^0.14.0"
   },
   "devDependencies": {
