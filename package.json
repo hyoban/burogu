@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "play": "docker build -t nextjs-docker . && docker run --rm -p 3000:3000 nextjs-docker",
+    "build:docker": "docker build -t nextjs-docker .",
+    "start:docker": "docker run --rm -p 3000:3000 nextjs-docker",
     "lint": "next lint",
     "format": "prettier --write ."
   },
