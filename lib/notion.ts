@@ -5,7 +5,7 @@ import {
   BlockObjectResponse,
   ListBlockChildrenResponse,
   PageObjectResponse,
-  QueryDatabaseResponse
+  QueryDatabaseResponse,
 } from '@notionhq/client/build/src/api-endpoints'
 import { NotionPost } from './notionType'
 
@@ -27,7 +27,7 @@ const probeImageSize = async (url: string) => {
   return { width: dim.width, height: dim.height }
 }
 
-const getPostInfo = async (page: PageObjectResponse) => {
+async function getPostInfo(page: PageObjectResponse): Promise<NotionPost> {
   const title = (page as any).properties.Name.title[0].plain_text
   const tags = (page as any).properties.Tags.multi_select.map(
     (i: any) => i.name,
@@ -46,6 +46,7 @@ const getPostInfo = async (page: PageObjectResponse) => {
       width,
       height,
     },
+    description: (page.properties.Description as any).rich_text[0].plain_text,
   }
 }
 

@@ -9,4 +9,5 @@ export interface NotionPost {
     width: number
     height: number
   }
+  description: string
 }

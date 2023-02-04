@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import dayjs from 'dayjs'
+import Image from 'next/image'
+import Link from 'next/link'
 
 import { getPostList } from '@/lib/notion'
 
@@ -21,9 +21,17 @@ export default async function PostList() {
             width={post.cover.width}
             height={post.cover.height}
           />
-          <p className="mx-4 ">{post.title}</p>
-          <p className="mx-4 mb-4 text-sm text-gray-500">
-            {dayjs(post.publishedTime).format('YYYY/MM/DD')}
+          <p className="mx-4 text-2xl">{post.title}</p>
+          <p className="mx-4 opacity-70">{post.description}</p>
+          <p className="mx-4 mb-4 text-sm opacity-50">
+            {dayjs(post.publishedTime).format('YYYY/MM/DD')}{' '}
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="mx-1 rounded bg-slate-100 py-[0.2rem] px-[0.3rem] font-mono text-sm dark:bg-slate-800">
+                #{tag}
+              </span>
+            ))}
           </p>
         </Link>
       ))}
