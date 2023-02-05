@@ -197,7 +197,7 @@ type FeedItem = Parser.Item & {
 async function getDatabaseItemList(databaseId: string) {
   try {
     const response = (await fetch(
-      `https://api.notion.com/v1/databases/${feedId}/query`,
+      `https://api.notion.com/v1/databases/${databaseId}/query`,
       {
         method: 'POST',
         headers,
@@ -222,7 +222,10 @@ async function parseRssFeed(feedUrl: string) {
 }
 
 export async function getFeedList() {
-  const feedInfoList = (await getDatabaseItemList(feedId))?.map((i) => {
+  const feedInfoListInDB = await getDatabaseItemList(feedId)
+  if (!feedInfoListInDB) return
+
+  const feedInfoList = feedInfoListInDB.map((i) => {
     const page = i as PageObjectResponse
     return {
       id: i.id,
@@ -230,10 +233,9 @@ export async function getFeedList() {
       url: (page as any).properties.Homepage.url,
       feedUrl: (page as any).properties.RSS.url,
       avatar: (page.cover as any).external.url,
+      type: (page as any).properties.Type.select.name as string,
     }
   })
-
-  if (!feedInfoList) return
 
   try {
     const feedList = await Promise.all(
@@ -250,27 +252,15 @@ export async function getFeedList() {
     )
 
     // sort by published time
-    // group by year
-    return feedList
-      .flat()
-      .sort((a, b) => {
-        if (a.isoDate && b.isoDate) {
-          return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime()
-        }
-        return 0
-      })
-      .slice(0, 100)
-      .reduce((acc, cur) => {
-        if (!cur.isoDate) return acc
-
-        const year = new Date(cur.isoDate).getFullYear()
-        if (!acc[year]) {
-          acc[year] = []
-        }
-        acc[year].push(cur)
-        return acc
-      }, {} as Record<string, FeedItem[]>)
+    return feedList.flat().sort((a, b) => {
+      if (a.isoDate && b.isoDate) {
+        return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime()
+      }
+      return 0
+    })
   } catch (e) {
     console.error('getFeedList', e)
   }
 }
+
+export type FeedListType = NonNullable<Awaited<ReturnType<typeof getFeedList>>>

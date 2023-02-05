@@ -1,18 +1,52 @@
+'use client'
+
 import dayjs from 'dayjs'
 
-import { getFeedList } from '@/lib/notion'
+import { FeedListType } from '@/lib/notion'
+import { useState } from 'react'
 
-export default async function FeedList() {
-  const feedList = await getFeedList()
+export default function FeedList({ feedList }: { feedList: FeedListType }) {
+  const feedTypes = ['All'].concat(
+    feedList
+      .map((feed) => feed.feedInfo.type)
+      .filter((v, i, a) => a.indexOf(v) == i),
+  )
 
-  if (!feedList) return null
+  const [selectedFeedType, setSelectedFeedType] = useState('All')
+
+  const feedListGroupedByYear = feedList
+    .filter(
+      (feed) =>
+        selectedFeedType === 'All' || feed.feedInfo.type === selectedFeedType,
+    )
+    .slice(0, 100)
+    .reduce((acc, feed) => {
+      const feedYear = dayjs(feed.isoDate).format('YYYY')
+      if (!acc[feedYear]) {
+        acc[feedYear] = []
+      }
+      acc[feedYear].push(feed)
+      return acc
+    }, {} as Record<string, typeof feedList>)
 
   return (
     <>
-      {Object.keys(feedList)
+      <div className="flex flex-row items-center gap-3">
+        <span className="text-gray-500">Filter by type:</span>
+        <select
+          className="rounded-md border border-gray-300"
+          onChange={(e) => setSelectedFeedType(e.target.value)}>
+          {feedTypes.map((feedType) => (
+            <option key={feedType} value={feedType}>
+              {feedType}
+            </option>
+          ))}
+        </select>
+      </div>
+      {Object.keys(feedListGroupedByYear)
         .sort((a, b) => Number(b) - Number(a))
         .map((feedYear) => {
-          const feedListByYear = feedList[feedYear]
+          const feedListByYear = feedListGroupedByYear[feedYear]
           return (
             <div key={feedYear}>
               <h2 className="my-3 text-3xl opacity-50">{feedYear}</h2>
