@@ -252,12 +252,15 @@ export async function getFeedList() {
     )
 
     // sort by published time
-    return feedList.flat().sort((a, b) => {
-      if (a.isoDate && b.isoDate) {
-        return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime()
-      }
-      return 0
-    })
+    return feedList
+      .flat()
+      .sort((a, b) => {
+        if (a.isoDate && b.isoDate) {
+          return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime()
+        }
+        return 0
+      })
+      .slice(0, 200)
   } catch (e) {
     console.error('getFeedList', e)
   }
