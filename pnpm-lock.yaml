@@ -6,6 +6,7 @@ specifiers:
   '@types/probe-image-size': ^7.2.0
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
+  '@vercel/analytics': ^0.1.8
   autoprefixer: ^10.4.13
   dayjs: ^1.11.7
   eslint: 8.33.0
@@ -27,6 +28,7 @@ specifiers:
   typescript: 4.9.5
 
 dependencies:
+  '@vercel/analytics': 0.1.8_react@18.2.0
   dayjs: 1.11.7
   feed: 4.2.2
   jotai: 1.13.1_react@18.2.0
@@ -394,6 +396,14 @@ packages:
       '@typescript-eslint/types': 5.48.1
       eslint-visitor-keys: 3.3.0
     dev: true
+
+  /@vercel/analytics/0.1.8_react@18.2.0:
+    resolution: {integrity: sha512-PQrOI8BJ9qUiVJuQfnKiJd15eDjDJH9TBKsNeMrtelT4NAk7d9mBVz1CoZkvoFnHQ0OW7Xnqmr1F2nScfAnznQ==}
+    peerDependencies:
+      react: ^16.8||^17||^18
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@xobotyi/scrollbar-width/1.9.5:
     resolution: {integrity: sha512-N8tkAACJx2ww8vFMneJmaAgmjAG1tnVBZJRLRcx061tmsLRZHSEZSLuGWnwPtunsSLvSqXQ2wfp7Mgqg1I+2dQ==}

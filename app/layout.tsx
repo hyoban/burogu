@@ -1,5 +1,5 @@
 import Footer from '@/app/components/Footer'
-import { ThemeProvider } from '@/app/provider'
+import { AnalyticsWrapper, ThemeProvider } from '@/app/provider'
 
 import '@/app/css/globals.css'
 
@@ -23,6 +23,7 @@ export default function RootLayout({
             <Footer className="mt-6" />
           </div>
         </ThemeProvider>
+        <AnalyticsWrapper />
       </body>
     </html>
   )
