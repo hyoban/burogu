@@ -34,6 +34,10 @@ export default async function handler(
       title: post.title,
       link: config.siteUrl + '/' + post.slug,
       date: dayjs(post.publishedTime).toDate(),
+      description: post.description,
+      category: post.tags.map((tag) => ({
+        name: tag,
+      })),
     })
   })
 
