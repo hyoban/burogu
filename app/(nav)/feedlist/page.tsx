@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import FeedList from '@/app/components/FeedList'
 import { getFeedList } from '@/lib/notion'
 
-export const revalidate = 1
+export const revalidate = 100
 
 export default async function FeedListPage({}) {
   const feedList = await getFeedList()
