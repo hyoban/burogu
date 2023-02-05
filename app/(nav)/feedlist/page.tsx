@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 
 import FeedList from '@/app/components/FeedList'
 
-export const revalidate = 3600
+export const revalidate = 1
 
 export default function FeedListPage({}) {
   return (

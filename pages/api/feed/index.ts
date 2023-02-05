@@ -29,7 +29,7 @@ export default async function handler(
 
   const posts = await getPostList()
 
-  posts.forEach((post) => {
+  posts?.forEach((post) => {
     feed.addItem({
       title: post.title,
       link: config.siteUrl + '/' + post.slug,

@@ -20,19 +20,31 @@ const headers = {
   Authorization: `Bearer ${notionToken}`,
 }
 
-const revalidate = 3600
+const revalidate = 1
 
-const probeImageSize = async (url: string) => {
-  const dim = await probe(url)
-  return { width: dim.width, height: dim.height }
+async function probeImageSize(
+  url: string,
+): Promise<{ width?: number; height?: number }> {
+  try {
+    const dim = await probe(url)
+    return { width: dim.width, height: dim.height }
+  } catch (e) {
+    console.error('probeImageSize', e)
+    return {
+      width: undefined,
+      height: undefined,
+    }
+  }
 }
 
 async function getPostInfo(page: PageObjectResponse): Promise<NotionPost> {
-  const title = (page as any).properties.Name.title[0].plain_text
+  const title = (page as any).properties.Name.title[0].plain_text as string
+
   const tags = (page as any).properties.Tags.multi_select.map(
     (i: any) => i.name,
   ) as string[]
-  const coverUrl = (page.cover as any).external.url
+
+  const coverUrl = (page.cover as any).external.url as string
   const { width, height } = await probeImageSize(coverUrl)
 
   return {
@@ -50,35 +62,41 @@ async function getPostInfo(page: PageObjectResponse): Promise<NotionPost> {
   }
 }
 
-export const getPostList = async (): Promise<NotionPost[]> => {
-  const response = (await fetch(
-    `https://api.notion.com/v1/databases/${databaseId}/query`,
-    {
-      method: 'POST',
-      headers,
-      next: {
-        revalidate,
+export async function getPostList(): Promise<NotionPost[] | undefined> {
+  try {
+    const response = (await fetch(
+      `https://api.notion.com/v1/databases/${databaseId}/query`,
+      {
+        method: 'POST',
+        headers,
+        next: {
+          revalidate,
+        },
       },
-    },
-  ).then((i) => i.json())) as QueryDatabaseResponse
+    ).then((i) => i.json())) as QueryDatabaseResponse
 
-  return Promise.all(
-    (response.results as PageObjectResponse[])
-      .filter(
-        (i) =>
-          (i as any).properties['Published Time'].date &&
-          (i as any).properties.Slug.rich_text.length > 0,
-      )
-      .map(getPostInfo),
-  )
+    if (!response.results) return
+
+    return Promise.all(
+      (response.results as PageObjectResponse[])
+        .filter(
+          (i) =>
+            (i as any).properties['Published Time'].date &&
+            (i as any).properties.Slug.rich_text.length > 0,
+        )
+        .map(getPostInfo),
+    )
+  } catch (e) {
+    console.error('getPostList', e)
+  }
 }
 
-export const getSinglePostInfo = async (pageId: string, isSlug = false) => {
+export async function getSinglePostInfo(pageId: string, isSlug = false) {
   if (pageId === 'sw.js') return null
 
   if (isSlug) {
     const postList = await getPostList()
-    const post = postList.find((i) => i.slug === pageId)
+    const post = postList?.find((i) => i.slug === pageId)
     if (post) {
       return post
     }
@@ -96,6 +114,7 @@ export const getSinglePostInfo = async (pageId: string, isSlug = false) => {
 
     return await getPostInfo(page)
   } catch (e) {
+    console.log('getSinglePostInfo', e)
     return null
   }
 }
@@ -105,13 +124,13 @@ export type Block = {
   children?: Block[]
 }
 
-export const getSinglePostContent = async (
+export async function getSinglePostContent(
   blockId: string,
   isSlug = false,
-): Promise<Block[] | null> => {
+): Promise<Block[] | null> {
   if (isSlug) {
     const postList = await getPostList()
-    const post = postList.find((i) => i.slug === blockId)
+    const post = postList?.find((i) => i.slug === blockId)
     if (post) {
       return getSinglePostContent(post.id)
     }
@@ -156,6 +175,7 @@ export const getSinglePostContent = async (
     }
     return blocks
   } catch (e) {
+    console.log('getSinglePostContent', e)
     return null
   }
 }
@@ -174,16 +194,24 @@ type FeedItem = Parser.Item & {
   }
 }
 
-export const getFeedList = async () => {
-  const response = (await fetch(
-    `https://api.notion.com/v1/databases/${feedId}/query`,
-    {
-      method: 'POST',
-      headers,
-    },
-  ).then((i) => i.json())) as QueryDatabaseResponse
+async function getDatabaseItemList(databaseId: string) {
+  try {
+    const response = (await fetch(
+      `https://api.notion.com/v1/databases/${feedId}/query`,
+      {
+        method: 'POST',
+        headers,
+      },
+    ).then((i) => i.json())) as QueryDatabaseResponse
 
-  const feedInfoList = response.results.map((i) => {
+    if (response.results) return response.results
+  } catch (e) {
+    console.error('getDatabaseItemList', e)
+  }
+}
+
+export async function getFeedList() {
+  const feedInfoList = (await getDatabaseItemList(feedId))?.map((i) => {
     const page = i as PageObjectResponse
     return {
       id: i.id,
@@ -194,38 +222,44 @@ export const getFeedList = async () => {
     }
   })
 
-  const feedList = await Promise.all(
-    feedInfoList.map(async (i) => {
-      const parser = new Parser()
-      const feed = await parser.parseURL(i.feedUrl)
-      return feed.items.map((j) => {
-        return {
-          ...j,
-          feedInfo: i,
+  if (!feedInfoList) return
+
+  try {
+    const feedList = await Promise.all(
+      feedInfoList.map(async (i) => {
+        const parser = new Parser()
+        const feed = await parser.parseURL(i.feedUrl)
+        return feed.items.map((j) => {
+          return {
+            ...j,
+            feedInfo: i,
+          }
+        })
+      }),
+    )
+
+    // sort by published time
+    // group by year
+    return feedList
+      .flat()
+      .sort((a, b) => {
+        if (a.isoDate && b.isoDate) {
+          return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime()
         }
+        return 0
       })
-    }),
-  )
+      .slice(0, 100)
+      .reduce((acc, cur) => {
+        if (!cur.isoDate) return acc
 
-  // sort by published time
-  // group by year
-  return feedList
-    .flat()
-    .sort((a, b) => {
-      if (a.isoDate && b.isoDate) {
-        return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime()
-      }
-      return 0
-    })
-    .slice(0, 100)
-    .reduce((acc, cur) => {
-      if (!cur.isoDate) return acc
-
-      const year = new Date(cur.isoDate).getFullYear()
-      if (!acc[year]) {
-        acc[year] = []
-      }
-      acc[year].push(cur)
-      return acc
-    }, {} as Record<string, FeedItem[]>)
+        const year = new Date(cur.isoDate).getFullYear()
+        if (!acc[year]) {
+          acc[year] = []
+        }
+        acc[year].push(cur)
+        return acc
+      }, {} as Record<string, FeedItem[]>)
+  } catch (e) {
+    console.error('getFeedList', e)
+  }
 }

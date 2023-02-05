@@ -6,6 +6,7 @@ import { getPostList } from '@/lib/notion'
 
 export default async function PostList() {
   const posts = await getPostList()
+  if (!posts) return null
 
   return (
     <>

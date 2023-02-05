@@ -6,8 +6,8 @@ export interface NotionPost {
   publishedTime: string
   cover: {
     url: string
-    width: number
-    height: number
+    width?: number
+    height?: number
   }
   description: string
 }

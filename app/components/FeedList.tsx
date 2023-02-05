@@ -5,6 +5,8 @@ import { getFeedList } from '@/lib/notion'
 export default async function FeedList() {
   const feedList = await getFeedList()
 
+  if (!feedList) return null
+
   return (
     <>
       {Object.keys(feedList)

@@ -15,6 +15,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
 export async function generateStaticParams() {
   const posts = await getPostList()
+  if (!posts) return []
 
   return posts.map((post) => ({
     slug: post.slug,
