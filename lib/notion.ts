@@ -210,6 +210,17 @@ async function getDatabaseItemList(databaseId: string) {
   }
 }
 
+const parser = new Parser()
+
+async function parseRssFeed(feedUrl: string) {
+  try {
+    const feed = await parser.parseURL(feedUrl)
+    return feed.items
+  } catch (e) {
+    console.error('parseRssFeed', e)
+  }
+}
+
 export async function getFeedList() {
   const feedInfoList = (await getDatabaseItemList(feedId))?.map((i) => {
     const page = i as PageObjectResponse
@@ -227,9 +238,9 @@ export async function getFeedList() {
   try {
     const feedList = await Promise.all(
       feedInfoList.map(async (i) => {
-        const parser = new Parser()
-        const feed = await parser.parseURL(i.feedUrl)
-        return feed.items.map((j) => {
+        const feeds = await parseRssFeed(i.feedUrl)
+        if (!feeds) return []
+        return feeds.map((j) => {
           return {
             ...j,
             feedInfo: i,
