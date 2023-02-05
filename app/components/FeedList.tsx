@@ -56,7 +56,7 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
                     key={feed.link}
                     className="flex w-full flex-row items-center justify-between gap-3">
                     <span className="flex items-center gap-3">
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500" title={feed.isoDate}>
                         {dayjs(feed.isoDate).format('MM/DD')}
                       </p>
                       <a

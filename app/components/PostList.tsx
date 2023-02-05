@@ -14,7 +14,7 @@ export default async function PostList() {
         <Link
           href={'/post/' + post.slug}
           key={post.id}
-          className="flex w-full flex-col gap-3 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600">
+          className="flex w-full flex-col gap-4 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600">
           <Image
             className="h-auto w-full"
             src={post.cover.url}
@@ -22,9 +22,11 @@ export default async function PostList() {
             width={post.cover.width}
             height={post.cover.height}
           />
-          <p className="mx-4 text-2xl">{post.title}</p>
-          <p className="mx-4 opacity-70">{post.description}</p>
-          <p className="mx-4 mb-4 text-sm opacity-50">
+          <p className="mx-4 text-xl opacity-90">{post.title}</p>
+          <p className="mx-4 text-sm opacity-60">{post.description}</p>
+          <p
+            className="mx-4 mb-4 text-sm opacity-50"
+            title={post.publishedTime}>
             {dayjs(post.publishedTime).format('YYYY/MM/DD')}{' '}
             {post.tags.map((tag) => (
               <span
