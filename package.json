@@ -15,7 +15,7 @@
     "@vercel/analytics": "^0.1.8",
     "dayjs": "^1.11.7",
     "feed": "^4.2.2",
-    "jotai": "^1.13.1",
+    "jotai": "^2.0.0",
     "next": "13.1.6",
     "probe-image-size": "^7.2.3",
     "react": "18.2.0",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@notionhq/client": "^2.2.3",
-    "@types/node": "18.11.18",
+    "@types/node": "18.11.19",
     "@types/probe-image-size": "^7.2.0",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",

@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@notionhq/client': ^2.2.3
-  '@types/node': 18.11.18
+  '@types/node': 18.11.19
   '@types/probe-image-size': ^7.2.0
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
@@ -12,7 +12,7 @@ specifiers:
   eslint: 8.33.0
   eslint-config-next: 13.1.6
   feed: ^4.2.2
-  jotai: ^1.13.1
+  jotai: ^2.0.0
   next: 13.1.6
   postcss: ^8.4.21
   prettier: ^2.8.3
@@ -31,7 +31,7 @@ dependencies:
   '@vercel/analytics': 0.1.8_react@18.2.0
   dayjs: 1.11.7
   feed: 4.2.2
-  jotai: 1.13.1_react@18.2.0
+  jotai: 2.0.0_react@18.2.0
   next: 13.1.6_biqbaboplfbrettd7655fr4n2y
   probe-image-size: 7.2.3
   react: 18.2.0
@@ -43,7 +43,7 @@ dependencies:
 
 devDependencies:
   '@notionhq/client': 2.2.3
-  '@types/node': 18.11.18
+  '@types/node': 18.11.19
   '@types/probe-image-size': 7.2.0
   '@types/react': 18.0.27
   '@types/react-dom': 18.0.10
@@ -292,25 +292,25 @@ packages:
   /@types/needle/3.2.0:
     resolution: {integrity: sha512-6XzvzEyJ2ozFNfPajFmqH9JOt0Hp+9TawaYpJT59iIP/zR0U37cfWCRwosyIeEBBZBi021Osq4jGAD3AOju5fg==}
     dependencies:
-      '@types/node': 18.11.18
+      '@types/node': 18.11.19
     dev: true
 
   /@types/node-fetch/2.6.2:
     resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
     dependencies:
-      '@types/node': 18.11.18
+      '@types/node': 18.11.19
       form-data: 3.0.1
     dev: true
 
-  /@types/node/18.11.18:
-    resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
+  /@types/node/18.11.19:
+    resolution: {integrity: sha512-YUgMWAQBWLObABqrvx8qKO1enAvBUdjZOAWQ5grBAkp5LQv45jBvYKZ3oFS9iKRCQyFjqw6iuEa1vmFqtxYLZw==}
     dev: true
 
   /@types/probe-image-size/7.2.0:
     resolution: {integrity: sha512-R5H3vw62gHNHrn+JGZbKejb+Z2D/6E5UNVlhCzIaBBLroMQMOFqy5Pap2gM+ZZHdqBtVU0/cx/M6to+mOJcoew==}
     dependencies:
       '@types/needle': 3.2.0
-      '@types/node': 18.11.18
+      '@types/node': 18.11.19
     dev: true
 
   /@types/prop-types/15.7.5:
@@ -1839,44 +1839,13 @@ packages:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
 
-  /jotai/1.13.1_react@18.2.0:
-    resolution: {integrity: sha512-RUmH1S4vLsG3V6fbGlKzGJnLrDcC/HNb5gH2AeA9DzuJknoVxSGvvg8OBB7lke+gDc4oXmdVsaKn/xDUhWZ0vw==}
+  /jotai/2.0.0_react@18.2.0:
+    resolution: {integrity: sha512-04G0CRZQgp3xrFAezd6X14psZ2TRGekHeYMBcbDJ/BR8ZJQPS+j0YkMTxUxyG58HJnN2+adfj5sWQWoqgtp1XQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
-      '@babel/core': '*'
-      '@babel/template': '*'
-      jotai-devtools: '*'
-      jotai-immer: '*'
-      jotai-optics: '*'
-      jotai-redux: '*'
-      jotai-tanstack-query: '*'
-      jotai-urql: '*'
-      jotai-valtio: '*'
-      jotai-xstate: '*'
-      jotai-zustand: '*'
-      react: '>=16.8'
+      react: '>=17.0.0'
     peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      '@babel/template':
-        optional: true
-      jotai-devtools:
-        optional: true
-      jotai-immer:
-        optional: true
-      jotai-optics:
-        optional: true
-      jotai-redux:
-        optional: true
-      jotai-tanstack-query:
-        optional: true
-      jotai-urql:
-        optional: true
-      jotai-valtio:
-        optional: true
-      jotai-xstate:
-        optional: true
-      jotai-zustand:
+      react:
         optional: true
     dependencies:
       react: 18.2.0
