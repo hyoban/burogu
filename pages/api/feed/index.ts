@@ -1,9 +1,14 @@
+import { getPostList } from '@/lib/notion'
+import config, { timeZone } from '@/site.config.cjs'
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { Feed } from 'feed'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { getPostList } from '@/lib/notion'
-import config from '@/site.config.cjs'
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.setDefault(timeZone)
 
 export default async function handler(
   req: NextApiRequest,
@@ -33,7 +38,7 @@ export default async function handler(
     feed.addItem({
       title: post.title,
       link: config.siteUrl + '/' + post.slug,
-      date: dayjs(post.publishedTime).toDate(),
+      date: dayjs(post.publishedTime).tz(timeZone).toDate(),
       description: post.description,
       category: post.tags.map((tag) => ({
         name: tag,

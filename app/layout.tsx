@@ -1,7 +1,15 @@
+import '@/app/css/globals.css'
+
 import Footer from '@/app/components/Footer'
 import { AnalyticsWrapper, ThemeProvider } from '@/app/provider'
+import { timeZone } from '@/site.config.cjs'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 
-import '@/app/css/globals.css'
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.setDefault(timeZone)
 
 export default function RootLayout({
   children,

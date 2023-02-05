@@ -1,8 +1,15 @@
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { getPostList } from '@/lib/notion'
+import { timeZone } from '@/site.config.cjs'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.setDefault(timeZone)
 
 export default async function PostList() {
   const posts = await getPostList()
@@ -27,7 +34,7 @@ export default async function PostList() {
           <p
             className="mx-4 mb-4 text-sm opacity-50"
             title={post.publishedTime}>
-            {dayjs(post.publishedTime).format('YYYY/MM/DD')}{' '}
+            {dayjs(post.publishedTime).tz(timeZone).format('YYYY/MM/DD')}{' '}
             {post.tags.map((tag) => (
               <span
                 key={tag}

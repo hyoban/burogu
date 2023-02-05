@@ -1,9 +1,15 @@
 'use client'
 
-import dayjs from 'dayjs'
-
 import { FeedListType } from '@/lib/notion'
+import { timeZone } from '@/site.config.cjs'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { useState } from 'react'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.setDefault(timeZone)
 
 export default function FeedList({ feedList }: { feedList: FeedListType }) {
   const feedTypes = ['All'].concat(
@@ -21,7 +27,7 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
     )
     .slice(0, 100)
     .reduce((acc, feed) => {
-      const feedYear = dayjs(feed.isoDate).format('YYYY')
+      const feedYear = dayjs(feed.isoDate).tz(timeZone).format('YYYY')
       if (!acc[feedYear]) {
         acc[feedYear] = []
       }
@@ -57,7 +63,7 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
                     className="flex w-full flex-row items-center justify-between gap-3">
                     <span className="flex items-center gap-3">
                       <p className="text-sm text-gray-500" title={feed.isoDate}>
-                        {dayjs(feed.isoDate).format('MM/DD')}
+                        {dayjs(feed.isoDate).tz(timeZone).format('MM/DD')}
                       </p>
                       <a
                         href={feed.link ?? '/'}

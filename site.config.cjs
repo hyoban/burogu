@@ -39,4 +39,5 @@ module.exports = {
       darkTheme: 'dark',
     },
   },
+  timeZone: 'Asia/Shanghai',
 }
