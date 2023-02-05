@@ -260,7 +260,7 @@ export async function getFeedList() {
         }
         return 0
       })
-      .slice(0, 200)
+      .slice(0, 100)
   } catch (e) {
     console.error('getFeedList', e)
   }

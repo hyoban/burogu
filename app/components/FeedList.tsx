@@ -25,7 +25,6 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
       (feed) =>
         selectedFeedType === 'All' || feed.feedInfo.type === selectedFeedType,
     )
-    .slice(0, 100)
     .reduce((acc, feed) => {
       const feedYear = dayjs(feed.isoDate).tz(timeZone).format('YYYY')
       if (!acc[feedYear]) {
