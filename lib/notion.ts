@@ -1,6 +1,7 @@
 import probe from 'probe-image-size'
 import Parser from 'rss-parser'
 
+import { isFeedItemValid, joinFeedItemUrl } from '@/lib/utils'
 import {
   BlockObjectResponse,
   ListBlockChildrenResponse,
@@ -184,7 +185,7 @@ export type PostContentType = NonNullable<
   Awaited<ReturnType<typeof getSinglePostContent>>
 >
 
-type FeedItem = Parser.Item & {
+export type FeedItem = Parser.Item & {
   feedInfo: {
     id: string
     title: string
@@ -215,9 +216,9 @@ const parser = new Parser()
 async function parseRssFeed(feedUrl: string) {
   try {
     const feed = await parser.parseURL(feedUrl)
-    return feed.items
+    return feed
   } catch (e) {
-    console.error('parseRssFeed', e)
+    console.error('parseRssFeed', feedUrl, e)
   }
 }
 
@@ -240,11 +241,13 @@ export async function getFeedList() {
   try {
     const feedList = await Promise.all(
       feedInfoList.map(async (i) => {
-        const feeds = await parseRssFeed(i.feedUrl)
-        if (!feeds) return []
-        return feeds.map((j) => {
+        const feed = await parseRssFeed(i.feedUrl)
+        if (!feed) return []
+        return feed.items.filter(isFeedItemValid).map((j) => {
           return {
-            ...j,
+            link: joinFeedItemUrl(feed.feedUrl ? feed.link : i.url, j.link),
+            title: j.title,
+            isoDate: j.isoDate,
             feedInfo: i,
           }
         })
