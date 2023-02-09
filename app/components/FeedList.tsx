@@ -34,7 +34,7 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
 
   return (
     <>
-      <div className="flex items-center gap-2">
+      <div className="my-2 flex items-center gap-2">
         <p className="grow"></p>
         <label className="text-gray-700 dark:text-white">Type</label>
         <select
