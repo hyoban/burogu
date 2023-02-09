@@ -1,12 +1,6 @@
 import { FeedListType } from '@/lib/notion'
 import { timeZone } from '@/site.config.cjs'
 import dayjs from 'dayjs'
-import timezone from 'dayjs/plugin/timezone'
-import utc from 'dayjs/plugin/utc'
-
-dayjs.extend(utc)
-dayjs.extend(timezone)
-dayjs.tz.setDefault(timeZone)
 
 export default function FeedList({ feedList }: { feedList: FeedListType }) {
   const feedListGroupedByYear = feedList.reduce((acc, feed) => {
