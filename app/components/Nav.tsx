@@ -27,7 +27,7 @@ export default function Nav() {
           href={tab.href}
           className={classNames(
             tab.current ? 'bg-[#f5f5f5] dark:bg-[#262626]' : '',
-            'rounded-md px-3 py-1 text-sm no-underline hover:opacity-100',
+            'rounded-md px-3 py-1 no-underline hover:opacity-100',
           )}>
           {tab.name}
         </Link>
