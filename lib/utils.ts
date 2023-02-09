@@ -1,3 +1,5 @@
+import { timeZone } from '@/site.config.cjs'
+import dayjs from 'dayjs'
 import Parser from 'rss-parser'
 
 export function isExternalLink(url?: string): boolean {
@@ -18,5 +20,12 @@ export function isFeedItemValid(item: Parser.Item): boolean {
   if (!item.title) return false
   if (!item.isoDate) return false
   if (item.title === 'No title') return false
+  // limit to 2 year
+  if (
+    dayjs(item.isoDate)
+      .tz(timeZone)
+      .isBefore(dayjs().tz(timeZone).subtract(2, 'year'))
+  )
+    return false
   return true
 }

@@ -1,7 +1,11 @@
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import probe from 'probe-image-size'
 import Parser from 'rss-parser'
 
 import { isFeedItemValid, joinFeedItemUrl } from '@/lib/utils'
+import { timeZone } from '@/site.config.cjs'
 import {
   BlockObjectResponse,
   ListBlockChildrenResponse,
@@ -9,6 +13,10 @@ import {
   QueryDatabaseResponse,
 } from '@notionhq/client/build/src/api-endpoints'
 import { NotionPost } from './notionType'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.setDefault(timeZone)
 
 const notionToken = process.env.NOTION_TOKEN!
 const databaseId = process.env.NOTION_DATABASE_ID!
@@ -258,6 +266,7 @@ export async function getFeedList() {
 
     const numberOfFeedSent = 100
     const numberOfTotalFeed = feedList.reduce((acc, i) => acc + i.length, 0)
+    console.log('numberOfTotalFeed', numberOfTotalFeed)
 
     // sort by published time
     return feedList
