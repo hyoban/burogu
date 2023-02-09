@@ -15,7 +15,7 @@ export default async function PostList() {
         <Link
           href={'/post/' + post.slug}
           key={post.id}
-          className="flex w-full flex-col gap-4 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600">
+          className="my-6 flex w-full flex-col gap-4 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600">
           <Image
             className="h-auto w-full"
             src={post.cover.url}
