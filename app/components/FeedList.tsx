@@ -34,24 +34,28 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
 
   return (
     <>
-      <select
-        className="w-full rounded-md border border-gray-300 p-2 text-lg dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-white"
-        onChange={(e) => {
-          setType(e.target.value)
-        }}
-        value={type}>
-        {typeList.map((type) => (
-          <option key={type} value={type}>
-            {type}
-          </option>
-        ))}
-      </select>
+      <div className="flex items-center gap-2">
+        <p className="grow"></p>
+        <label className="text-gray-700 dark:text-white">Type</label>
+        <select
+          className="rounded-md border border-gray-300 p-1 dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-white"
+          onChange={(e) => {
+            setType(e.target.value)
+          }}
+          value={type}>
+          {typeList.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+      </div>
       {Object.keys(feedListGroupedByYear)
         .sort((a, b) => Number(b) - Number(a))
         .map((feedYear) => {
           const feedListByYear = feedListGroupedByYear[feedYear]
           return (
-            <div key={feedYear}>
+            <div key={feedYear} className="my-2">
               <h2 className="my-3 text-3xl opacity-50">{feedYear}</h2>
               <div className="flex flex-col gap-3">
                 {feedListByYear.map((feed) => (

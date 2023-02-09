@@ -256,8 +256,17 @@ export async function getFeedList() {
       }),
     )
 
+    const numberOfFeedSent = 100
+    const numberOfTotalFeed = feedList.reduce((acc, i) => acc + i.length, 0)
+
     // sort by published time
     return feedList
+      .map((i) =>
+        i.slice(
+          0,
+          Math.ceil((i.length / numberOfTotalFeed) * numberOfFeedSent),
+        ),
+      )
       .flat()
       .sort((a, b) => {
         if (a.isoDate && b.isoDate) {
@@ -265,7 +274,6 @@ export async function getFeedList() {
         }
         return 0
       })
-      .slice(0, 100)
   } catch (e) {
     console.error('getFeedList', e)
   }

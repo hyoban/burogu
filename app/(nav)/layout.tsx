@@ -5,7 +5,7 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <article className="my-8 flex w-full flex-col gap-6">
+      <article className="my-8 flex w-full flex-col">
         <Nav></Nav>
         {children}
       </article>
