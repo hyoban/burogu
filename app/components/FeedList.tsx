@@ -13,9 +13,7 @@ dayjs.tz.setDefault(timeZone)
 
 export default function FeedList({ feedList }: { feedList: FeedListType }) {
   const typeList = ['All'].concat(
-    feedList
-      .map((i) => i.feedInfo.type)
-      .filter((v, i, a) => a.indexOf(v) === i),
+    feedList.map((i) => i.type).filter((v, i, a) => a.indexOf(v) === i),
   )
 
   const [type, setType] = useState('Personal Blog')
@@ -23,7 +21,7 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
   const feedListGroupedByYear = feedList
     .filter((feed) => {
       if (type === 'All') return true
-      return feed.feedInfo.type === type
+      return feed.type === type
     })
     .reduce((acc, feed) => {
       const feedYear = dayjs(feed.isoDate).tz(timeZone).format('YYYY')
@@ -72,11 +70,11 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
                       </a>
                     </span>
                     <a
-                      href={feed.feedInfo.url}
+                      href={feed.homeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hidden text-gray-500 no-underline sm:inline">
-                      {feed.feedInfo.title}
+                      {feed.homeTitle}
                     </a>
                   </div>
                 ))}

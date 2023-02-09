@@ -248,7 +248,9 @@ export async function getFeedList() {
             link: joinFeedItemUrl(feed.feedUrl ? feed.link : i.url, j.link),
             title: j.title,
             isoDate: j.isoDate,
-            feedInfo: i,
+            type: i.type,
+            homeUrl: i.url,
+            homeTitle: i.title,
           }
         })
       }),
@@ -263,7 +265,7 @@ export async function getFeedList() {
         }
         return 0
       })
-      .slice(0, 10)
+      .slice(0, 100)
   } catch (e) {
     console.error('getFeedList', e)
   }
