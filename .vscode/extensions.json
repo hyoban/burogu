@@ -5,6 +5,7 @@
     "antfu.iconify",
     "bradlc.vscode-tailwindcss",
     "irongeek.vscode-env",
-    "csstools.postcss"
+    "csstools.postcss",
+    "editorconfig.editorconfig",
   ]
 }
