@@ -221,12 +221,55 @@ async function getDatabaseItemList(databaseId: string) {
 
 const parser = new Parser()
 
-async function parseRssFeed(feedUrl: string) {
+export interface Feed {
+  version: string
+  title: string
+  author: Author
+  items: Item[]
+}
+
+export interface Author {
+  name: string
+  url: string
+}
+
+export interface Item {
+  content_html: string
+  url: string
+  title: string
+  date_modified: string
+}
+
+async function parseRssFeed(
+  feedUrl: string,
+): Promise<Parser.Output<{ [key: string]: any }> | undefined> {
   try {
     const feed = await parser.parseURL(feedUrl)
     return feed
   } catch (e) {
-    console.error('parseRssFeed', feedUrl, e)
+    console.log('not xml feed, try json feed', feedUrl)
+    try {
+      const response = await fetch(feedUrl)
+      const feed = (await response.json()) as Feed
+      return {
+        title: feed.title,
+        itunes: {
+          owner: {
+            name: feed.author.name,
+          },
+        },
+        items: feed.items.map((i) => {
+          return {
+            title: i.title,
+            content: i.content_html,
+            link: i.url,
+            isoDate: i.date_modified,
+          }
+        }),
+      }
+    } catch (e) {
+      console.error('parseRssFeed', e)
+    }
   }
 }
 
