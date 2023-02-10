@@ -1,37 +1,40 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function Nav() {
   const pathname = usePathname()
 
   const tabs = [
-    { name: 'Me', href: '/' },
-    { name: 'Posts', href: '/post' },
-    { name: 'Feed List', href: '/feedlist' },
+    { name: 'Me', href: '/', width: 48, x: 0 },
+    { name: 'Posts', href: '/post', width: 64, x: 48 },
+    { name: 'Feed List', href: '/feedlist', width: 92, x: 112 },
   ].map((tab) => ({
     ...tab,
     current: tab.href === pathname,
   }))
 
+  const currentTab = tabs.find((tab) => tab.current)
+
   return (
-    <nav className="flex w-fit">
+    <nav className="relative flex w-fit">
       {tabs.map((tab) => (
         <Link
           key={tab.name}
           href={tab.href}
-          className={classNames(
-            tab.current ? 'bg-[#f5f5f5] dark:bg-[#262626]' : '',
-            'rounded-md px-3 py-1 no-underline hover:opacity-100',
-          )}>
+          className="px-3 py-1 no-underline hover:opacity-100">
           {tab.name}
         </Link>
       ))}
+      <motion.div
+        className="absolute -z-10 h-full rounded-md bg-[#f5f5f5] dark:bg-[#262626]"
+        animate={{
+          width: currentTab?.width,
+          x: currentTab?.x,
+        }}
+      />
     </nav>
   )
 }
