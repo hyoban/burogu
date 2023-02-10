@@ -62,7 +62,7 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
                     key={feed.link}
                     className="flex w-full flex-row items-center justify-between gap-3">
                     <span className="flex items-center gap-3">
-                      <p className="text-sm text-gray-500" title={feed.isoDate}>
+                      <p className="text-sm opacity-50" title={feed.isoDate}>
                         {dayjs(feed.isoDate).tz(timeZone).format('MM/DD')}
                       </p>
                       <a
@@ -72,13 +72,11 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
                         {feed.title}
                       </a>
                     </span>
-                    <a
-                      href={feed.homeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hidden text-gray-500 no-underline sm:inline">
+                    <span
+                      title={feed.homeTitle}
+                      className="hidden w-[100px] overflow-hidden text-ellipsis whitespace-nowrap text-right opacity-50 sm:inline">
                       {feed.homeTitle}
-                    </a>
+                    </span>
                   </div>
                 ))}
               </div>

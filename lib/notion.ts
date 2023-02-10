@@ -273,11 +273,11 @@ async function parseRssFeed(
   }
 }
 
-export async function getFeedList() {
+export async function getFeedInfoList() {
   const feedInfoListInDB = await getDatabaseItemList(feedId)
   if (!feedInfoListInDB) return
 
-  const feedInfoList = feedInfoListInDB.map((i) => {
+  return feedInfoListInDB.map((i) => {
     const page = i as PageObjectResponse
     return {
       id: i.id,
@@ -288,7 +288,11 @@ export async function getFeedList() {
       type: (page as any).properties.Type.select.name as string,
     }
   })
+}
 
+export async function getFeedList(
+  feedInfoList: NonNullable<Awaited<ReturnType<typeof getFeedInfoList>>>,
+) {
   try {
     const feedList = await Promise.all(
       feedInfoList.map(async (i) => {
@@ -300,8 +304,7 @@ export async function getFeedList() {
             title: j.title,
             isoDate: j.isoDate,
             type: i.type,
-            homeUrl: i.url,
-            homeTitle: i.title,
+            homeTitle: feed.title,
           }
         })
       }),
