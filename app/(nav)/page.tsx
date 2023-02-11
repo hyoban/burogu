@@ -21,6 +21,7 @@ export default async function Home({}) {
           </Fragment>
         )
       })}
+      <h2 className="text-2xl font-bold">联系我</h2>
       <p>
         你可以在
         {config.links.map((link) => {
@@ -47,7 +48,8 @@ export default async function Home({}) {
               )
           }
         })}
-        找到我
+        找到我，或是给我发邮件{' '}
+        <a href={`mailto: ${config.authorEmail}`}>{config.authorEmail}</a>
       </p>
     </div>
   )

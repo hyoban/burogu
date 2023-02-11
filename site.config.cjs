@@ -5,12 +5,17 @@ module.exports = {
   shortDescription: 'undefined',
   fullDescription: [
     {
-      title: '关键词',
+      title: '技能点',
       content: [
         '前端开发者，TypeScript，Next.js，Vue.js',
-        '偏好于 jsx 风格语法，而非模板语法',
-        '热爱开源，memos 开源项目维护者之一',
+        '偏好于 jsx 风格，而非模板语法',
+        '热爱开源，memos 项目维护者之一',
         '技多不压身，也会写点 Java, Kotlin, Golang, Android',
+      ],
+    },
+    {
+      title: '偏好',
+      content: [
         'VSCode 是最好滴，站队双空格缩进',
         'PC 用户，使用 WSL2 + Ubuntu',
       ],
