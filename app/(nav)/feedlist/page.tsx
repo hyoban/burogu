@@ -14,7 +14,7 @@ export default async function FeedListPage({}) {
   return (
     <>
       <FeedList feedList={feedList} />
-      <div className="absolute top-0 right-0 hidden translate-x-full flex-col gap-4 px-20 2xl:flex">
+      <div className="absolute top-0 right-0 hidden translate-x-full flex-col gap-4 px-20 xl:flex">
         {feedInfoList
           // sort by title
           .sort((a, b) => a.title.localeCompare(b.title))
