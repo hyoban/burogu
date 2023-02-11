@@ -1,9 +1,21 @@
 module.exports = {
   siteName: "Hyoban's Blog",
+  siteLanguage: 'zh-Hans',
   description: 'Hyoban 的个人博客，胡乱写些东西',
-  shortDescription: 'Student | Love react',
-  fullDescription:
-    "My name is Stephen Zhou ( 周云亮 in Chinese ), Hyoban is my ID on the web. I'm studying at NCUT.",
+  shortDescription: 'undefined',
+  fullDescription: [
+    {
+      title: '关键词',
+      content: [
+        '前端开发者，TypeScript，Next.js，Vue.js',
+        '偏好于 jsx 风格语法，而非模板语法',
+        '热爱开源，memos 开源项目维护者之一',
+        '技多不压身，也会写点 Java, Kotlin, Golang, Android',
+        'VSCode 是最好滴，站队双空格缩进',
+        'PC 用户，使用 WSL2 + Ubuntu',
+      ],
+    },
+  ],
   avatarPath: '/hyoban.png',
   faviconPath: '/favicon.svg',
   links: [

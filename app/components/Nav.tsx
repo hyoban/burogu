@@ -8,9 +8,9 @@ export default function Nav() {
   const pathname = usePathname()
 
   const tabs = [
-    { name: 'Me', href: '/', width: 48, x: 0 },
-    { name: 'Posts', href: '/post', width: 64, x: 48 },
-    { name: 'Feed List', href: '/feedlist', width: 92, x: 112 },
+    { name: '关于', href: '/', width: 56, x: 0 },
+    { name: '文章', href: '/post', width: 56, x: 56 },
+    { name: '订阅列表', href: '/feedlist', width: 88, x: 112 },
   ].map((tab) => ({
     ...tab,
     current: tab.href === pathname,

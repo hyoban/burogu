@@ -35,7 +35,7 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
   return (
     <>
       <div className="my-2 flex items-center gap-2">
-        <label className="text-gray-700 dark:text-white">Type</label>
+        <label className="text-gray-700 dark:text-white">分类</label>
         <select
           className="rounded-md border border-gray-300 p-1 dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-white"
           onChange={(e) => {
