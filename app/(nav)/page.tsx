@@ -1,13 +1,13 @@
-import config from '@/site.config.cjs'
-
 import Icon from '@/app/icons/Icon'
+import config from '@/site.config.cjs'
+import { Fragment } from 'react'
 
 export default async function Home({}) {
   return (
     <div className="flex flex-col gap-4">
       {config.fullDescription.map((paragraph) => {
         return (
-          <>
+          <Fragment key={paragraph.title}>
             <h2 className="text-2xl font-bold">{paragraph.title}</h2>
             <ul>
               {paragraph.content.map((item) => {
@@ -18,7 +18,7 @@ export default async function Home({}) {
                 )
               })}
             </ul>
-          </>
+          </Fragment>
         )
       })}
       <p>
