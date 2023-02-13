@@ -264,6 +264,7 @@ async function parseRssFeed(
   } catch (e: any) {
     if (e.message === 'timeout') {
       console.error('timeout', feedUrl)
+      return
     }
 
     console.log('not xml feed, try json feed', feedUrl)
