@@ -240,13 +240,32 @@ export interface Item {
   date_modified: string
 }
 
+function delay(ms: number) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, ms)
+  })
+}
+
+function timeout<T>(ms: number, promise: Promise<T>): Promise<Awaited<T>> {
+  return Promise.race([
+    delay(ms).then(() => {
+      throw new Error('timeout')
+    }),
+    promise,
+  ])
+}
+
 async function parseRssFeed(
   feedUrl: string,
 ): Promise<Parser.Output<{ [key: string]: any }> | undefined> {
   try {
-    const feed = await parser.parseURL(feedUrl)
+    const feed = await timeout(5000, parser.parseURL(feedUrl))
     return feed
-  } catch (e) {
+  } catch (e: any) {
+    if (e.message === 'timeout') {
+      console.error('timeout', feedUrl)
+    }
+
     console.log('not xml feed, try json feed', feedUrl)
     try {
       const response = await fetch(feedUrl)
@@ -295,19 +314,21 @@ export async function getFeedList(
 ) {
   try {
     const feedList = await Promise.all(
-      feedInfoList.map(async (i) => {
-        const feed = await parseRssFeed(i.feedUrl)
-        if (!feed) return []
-        return feed.items.filter(isFeedItemValid).map((j) => {
-          return {
-            link: joinFeedItemUrl(feed.feedUrl ? feed.link : i.url, j.link),
-            title: j.title,
-            isoDate: j.isoDate,
-            type: i.type,
-            homeTitle: feed.title,
-          }
-        })
-      }),
+      feedInfoList
+        .filter((i) => i.feedUrl)
+        .map(async (i) => {
+          const feed = await parseRssFeed(i.feedUrl)
+          if (!feed) return []
+          return feed.items.filter(isFeedItemValid).map((j) => {
+            return {
+              link: joinFeedItemUrl(feed.feedUrl ? feed.link : i.url, j.link),
+              title: j.title,
+              isoDate: j.isoDate,
+              type: i.type,
+              homeTitle: feed.title,
+            }
+          })
+        }),
     )
 
     const numberOfFeedSent = 100
