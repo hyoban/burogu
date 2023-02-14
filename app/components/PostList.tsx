@@ -13,9 +13,9 @@ export default async function PostList() {
     <>
       {posts.map((post) => (
         <Link
-          href={'/post/' + post.slug}
+          href={post.slug}
           key={post.id}
-          className="my-6 flex w-full flex-col gap-4 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600">
+          className="flex w-full flex-col gap-4 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600">
           <Image
             className="h-auto w-full"
             src={post.cover.url}
