@@ -262,8 +262,11 @@ async function parseRssFeed(
     const feed = await timeout(5000, parser.parseURL(feedUrl))
     return feed
   } catch (e: any) {
-    if (e.message === 'timeout') {
-      console.error('timeout', feedUrl)
+    if (
+      e.message === 'timeout' ||
+      !e.message.includes('Non-whitespace before first tag.')
+    ) {
+      console.error(e.message, feedUrl)
       return
     }
 
@@ -289,6 +292,7 @@ async function parseRssFeed(
       }
     } catch (e) {
       console.error('parseRssFeed', e)
+      return
     }
   }
 }
