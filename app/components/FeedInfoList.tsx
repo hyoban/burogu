@@ -17,7 +17,7 @@ export default async function FeedInfoList({}) {
               alt="feed item avatar"
               width={40}
               height={40}
-              className="rounded-full"
+              className="h-[40px] w-[40px] rounded-full object-cover"
             />
             <a href={feedInfo.url} target="_blank" rel="noopener noreferrer">
               {feedInfo.title}
