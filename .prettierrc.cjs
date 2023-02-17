@@ -12,5 +12,5 @@ module.exports = {
   vueIndentScriptAndStyle: false,
   embeddedLanguageFormatting: 'auto',
   singleAttributePerLine: false,
-  plugins: [require('prettier-plugin-tailwindcss')],
+  plugins: [],
 }

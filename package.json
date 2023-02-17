@@ -27,6 +27,9 @@
     "shiki": "^0.14.0"
   },
   "devDependencies": {
+    "@egoist/tailwindcss-icons": "^1.0.3",
+    "@iconify-json/carbon": "^1.1.15",
+    "@iconify-json/mdi": "^1.1.47",
     "@notionhq/client": "^2.2.3",
     "@types/node": "18.11.19",
     "@types/probe-image-size": "^7.2.0",
