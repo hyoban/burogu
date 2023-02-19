@@ -1,7 +1,7 @@
 import { Giscus } from '@/app/components/Comment'
 import PostDetail from '@/app/components/PostDetail'
-
-import { getPostList } from '@/lib/notion'
+import { getPostList, getSinglePostInfo } from '@/lib/notion'
+import config from '@/site.config.cjs'
 
 export default function Page({ params }: { params: { slug: string } }) {
   return (
@@ -20,4 +20,14 @@ export async function generateStaticParams() {
   return posts.map((post) => ({
     slug: post.slug,
   }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const page = await getSinglePostInfo(params.slug, true)
+
+  return { title: page?.title + ' | ' + config.siteName }
 }

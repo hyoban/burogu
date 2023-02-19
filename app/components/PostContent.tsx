@@ -18,7 +18,6 @@ import Image from 'next/image'
 import { join as pathJoin } from 'path'
 import { getHighlighter, IThemedToken, renderToHtml } from 'shiki'
 
-import Icon from '@/app/icons/Icon'
 import { PostContentType } from '@/lib/notion'
 import config from '@/site.config.cjs'
 
@@ -129,7 +128,7 @@ const RichText = ({
         <a href={richText.href} target="_blank" rel="noreferrer">
           {richText.href.startsWith('https://github.com/') ? (
             <span>
-              <Icon className="i-carbon-logo-github mx-0"></Icon>
+              <div className="i-carbon-logo-github mx-0 text-2xl"></div>
               <span className="ml-2">{richText.href.slice(19)}</span>
             </span>
           ) : (

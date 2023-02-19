@@ -6,11 +6,19 @@ import utc from 'dayjs/plugin/utc'
 
 import Footer from '@/app/components/Footer'
 import { AnalyticsWrapper, ThemeProvider } from '@/app/provider'
-import { siteLanguage, timeZone } from '@/site.config.cjs'
+import config from '@/site.config.cjs'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
-dayjs.tz.setDefault(timeZone)
+dayjs.tz.setDefault(config.timeZone)
+
+export const metadata = {
+  title: config.siteName,
+  description: config.description,
+  icons: {
+    icon: config.faviconPath,
+  },
+}
 
 export default function RootLayout({
   children,
@@ -18,7 +26,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang={siteLanguage} suppressHydrationWarning className="h-full">
+    <html
+      lang={config.siteLanguage}
+      suppressHydrationWarning
+      className="h-full">
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head

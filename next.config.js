@@ -1,11 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   experimental: {
     appDir: true,
+    typedRoutes: true,
     serverComponentsExternalPackages: [
       'shiki',
       'vscode-oniguruma',
       'vscode-textmate',
+      'stream-parser',
+      'needle',
     ],
   },
   images: {
@@ -15,14 +21,6 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/feed.xml',
-        destination: '/api/feed',
-      },
-    ]
   },
   output: 'standalone',
 }

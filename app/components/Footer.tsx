@@ -1,4 +1,3 @@
-import Icon from '../icons/Icon'
 import ApperanceSwitch from './AppearanceSwitch'
 
 export default function Footer({ className }: { className?: string }) {
@@ -18,16 +17,16 @@ export default function Footer({ className }: { className?: string }) {
           Tailwind CSS
         </a>
       </p>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center text-2xl gap-2">
         <ApperanceSwitch />
         <a
           href="https://github.com/hyoban/blog-next-notion"
           target="_blank"
           rel="noreferrer">
-          <Icon className="i-carbon-logo-github"></Icon>
+          <div className="i-carbon-logo-github"></div>
         </a>
         <a href="/feed.xml" target="_blank" rel="noreferrer">
-          <Icon className="i-carbon-rss"></Icon>
+          <div className="i-carbon-rss"></div>
         </a>
       </div>
     </footer>

@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useDark } from '@/app/hooks/useDark'
-import Icon from '@/app/icons/Icon'
 
 const ApperanceSwitch = () => {
   const [mounted, setMounted] = useState(false)
@@ -17,9 +16,9 @@ const ApperanceSwitch = () => {
   return (
     <button onClick={toggleDark}>
       {!mounted ? (
-        <Icon className={'i-carbon-sun'} />
+        <div className={'i-carbon-sun'} />
       ) : (
-        <Icon className={isDark ? 'i-carbon-moon' : 'i-carbon-sun'} />
+        <div className={isDark ? 'i-carbon-moon' : 'i-carbon-sun'} />
       )}
     </button>
   )

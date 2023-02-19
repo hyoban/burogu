@@ -4,16 +4,12 @@ import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { Feed } from 'feed'
-import type { NextApiRequest, NextApiResponse } from 'next'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault(timeZone)
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<string>,
-) {
+export async function GET(request: Request) {
   const feed = new Feed({
     title: config.siteName,
     description: config.description,
@@ -46,12 +42,11 @@ export default async function handler(
     })
   })
 
-  res
-    .setHeader('Content-Type', 'text/xml')
-    .setHeader(
-      'Cache-Control',
-      'public, s-maxage=86400, stale-while-revalidate=43200',
-    )
-    .status(200)
-    .send(feed.rss2())
+  return new Response(feed.rss2(), {
+    headers: {
+      'Content-Type': 'text/xml',
+      'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=43200',
+    },
+    status: 200,
+  })
 }
