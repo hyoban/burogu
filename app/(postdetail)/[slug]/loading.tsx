@@ -3,5 +3,5 @@ export default function Loading() {
     <div className="my-20 text-center">
       <span>Loading...</span>
     </div>
-  )
+  );
 }

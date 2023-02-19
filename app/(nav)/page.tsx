@@ -1,6 +1,6 @@
-import { Suspense } from 'react'
+import { Suspense } from "react";
 
-import PostList from '@/app/components/PostList'
+import PostList from "@/app/components/PostList";
 
 export default function PostListPage({}) {
   return (
@@ -8,5 +8,5 @@ export default function PostListPage({}) {
       {/* @ts-expect-error Server Component */}
       <PostList />
     </Suspense>
-  )
+  );
 }

@@ -1,21 +1,21 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Nav() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   const tabs = [
-    { name: '文章', href: '/', width: 56, x: 0 },
-    { name: '订阅列表', href: '/feedlist', width: 88, x: 56 },
+    { name: "文章", href: "/", width: 56, x: 0 },
+    { name: "订阅列表", href: "/feedlist", width: 88, x: 56 },
   ].map((tab) => ({
     ...tab,
     current: tab.href === pathname,
-  }))
+  }));
 
-  const currentTab = tabs.find((tab) => tab.current)
+  const currentTab = tabs.find((tab) => tab.current);
 
   return (
     <nav className="relative flex w-fit">
@@ -23,7 +23,8 @@ export default function Nav() {
         <Link
           key={tab.name}
           href={tab.href}
-          className="px-3 py-1 no-underline hover:opacity-100">
+          className="px-3 py-1 no-underline hover:opacity-100"
+        >
           {tab.name}
         </Link>
       ))}
@@ -35,5 +36,5 @@ export default function Nav() {
         }}
       />
     </nav>
-  )
+  );
 }

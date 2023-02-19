@@ -1,9 +1,9 @@
-import { getFeedInfoList } from '@/lib/notion'
-import Image from 'next/image'
+import { getFeedInfoList } from "@/lib/notion";
+import Image from "next/image";
 
 export default async function FeedInfoList({}) {
-  const feedInfoList = await getFeedInfoList()
-  if (!feedInfoList) return null
+  const feedInfoList = await getFeedInfoList();
+  if (!feedInfoList) return null;
 
   return (
     <div className="absolute top-0 right-0 hidden translate-x-full flex-col gap-4 px-20 xl:flex">
@@ -25,5 +25,5 @@ export default async function FeedInfoList({}) {
           </div>
         ))}
     </div>
-  )
+  );
 }

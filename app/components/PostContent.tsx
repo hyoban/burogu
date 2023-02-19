@@ -12,25 +12,25 @@ import {
   ParagraphBlockObjectResponse,
   RichTextItemResponse,
   TextRichTextItemResponse,
-} from '@notionhq/client/build/src/api-endpoints'
-import * as fs from 'fs/promises'
-import Image from 'next/image'
-import { join as pathJoin } from 'path'
-import { getHighlighter, IThemedToken, renderToHtml } from 'shiki'
+} from "@notionhq/client/build/src/api-endpoints";
+import * as fs from "fs/promises";
+import Image from "next/image";
+import { join as pathJoin } from "path";
+import { getHighlighter, IThemedToken, renderToHtml } from "shiki";
 
-import { PostContentType } from '@/lib/notion'
-import config from '@/site.config.cjs'
+import { PostContentType } from "@/lib/notion";
+import config from "@/site.config.cjs";
 
 type ReactChildren = {
-  children?: React.ReactNode
-}
+  children?: React.ReactNode;
+};
 
 const RichText = ({
   richText,
 }: {
-  richText: TextRichTextItemResponse | MentionRichTextItemResponse
+  richText: TextRichTextItemResponse | MentionRichTextItemResponse;
 } & ReactChildren) => {
-  if (richText.type === 'text') {
+  if (richText.type === "text") {
     if (richText.href !== null) {
       return (
         <a href={richText.href} target="_blank" rel="noreferrer">
@@ -41,7 +41,7 @@ const RichText = ({
             }}
           />
         </a>
-      )
+      );
     }
 
     if (richText.annotations.bold) {
@@ -57,7 +57,7 @@ const RichText = ({
             }}
           />
         </b>
-      )
+      );
     }
     if (richText.annotations.italic) {
       return (
@@ -72,7 +72,7 @@ const RichText = ({
             }}
           />
         </i>
-      )
+      );
     }
     if (richText.annotations.strikethrough) {
       return (
@@ -87,7 +87,7 @@ const RichText = ({
             }}
           />
         </s>
-      )
+      );
     }
     if (richText.annotations.underline) {
       return (
@@ -102,7 +102,7 @@ const RichText = ({
             }}
           />
         </u>
-      )
+      );
     }
     if (richText.annotations.code) {
       return (
@@ -117,16 +117,16 @@ const RichText = ({
             }}
           />
         </code>
-      )
+      );
     }
-    return <>{richText.plain_text}</>
+    return <>{richText.plain_text}</>;
   }
 
-  if (richText.type === 'mention') {
+  if (richText.type === "mention") {
     if (richText.href !== null) {
       return (
         <a href={richText.href} target="_blank" rel="noreferrer">
-          {richText.href.startsWith('https://github.com/') ? (
+          {richText.href.startsWith("https://github.com/") ? (
             <span>
               <div className="i-carbon-logo-github mx-0 text-2xl"></div>
               <span className="ml-2">{richText.href.slice(19)}</span>
@@ -140,22 +140,22 @@ const RichText = ({
             />
           )}
         </a>
-      )
+      );
     }
   }
 
-  return <>{richText.plain_text}</>
-}
+  return <>{richText.plain_text}</>;
+};
 
 const RichTextGroup = ({
   richTexts,
 }: {
-  richTexts: RichTextItemResponse[]
+  richTexts: RichTextItemResponse[];
 } & ReactChildren) => {
   return (
     <>
       {richTexts
-        .filter((i) => i.type === 'text' || i.type === 'mention')
+        .filter((i) => i.type === "text" || i.type === "mention")
         .map((i) => (
           <RichText
             key={i.plain_text}
@@ -163,8 +163,8 @@ const RichTextGroup = ({
           />
         ))}
     </>
-  )
-}
+  );
+};
 
 const PBlock = ({
   block,
@@ -174,8 +174,8 @@ const PBlock = ({
     <p className="leading-7">
       <RichTextGroup richTexts={block.paragraph.rich_text} />
     </p>
-  )
-}
+  );
+};
 
 const H1Block = ({
   block,
@@ -184,8 +184,8 @@ const H1Block = ({
     <h2 className="relative my-3 text-3xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H1']">
       <RichTextGroup richTexts={block.heading_1.rich_text} />
     </h2>
-  )
-}
+  );
+};
 
 const H2Block = ({
   block,
@@ -194,8 +194,8 @@ const H2Block = ({
     <h3 className="relative my-2 text-2xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H2']">
       <RichTextGroup richTexts={block.heading_2.rich_text} />
     </h3>
-  )
-}
+  );
+};
 
 const H3Block = ({
   block,
@@ -204,8 +204,8 @@ const H3Block = ({
     <h4 className="relative my-1 text-xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H3']">
       <RichTextGroup richTexts={block.heading_3.rich_text} />
     </h4>
-  )
-}
+  );
+};
 
 const CalloutBlock = ({
   block,
@@ -214,56 +214,56 @@ const CalloutBlock = ({
     <blockquote className="border-l-4 border-gray-300 pl-4">
       <RichTextGroup richTexts={block.callout.rich_text} />
     </blockquote>
-  )
-}
+  );
+};
 
 const BulletedListBlock = ({
   block,
   children,
 }: {
-  block: BulletedListItemBlockObjectResponse
+  block: BulletedListItemBlockObjectResponse;
 } & ReactChildren) => {
   return (
     <li className="my-2">
       <RichTextGroup richTexts={block.bulleted_list_item.rich_text} />
       {children}
     </li>
-  )
-}
+  );
+};
 
 const NumberedListBlock = ({
   block,
   children,
 }: {
-  block: NumberedListItemBlockObjectResponse
+  block: NumberedListItemBlockObjectResponse;
 } & ReactChildren) => {
   return (
     <li className="my-2">
       <RichTextGroup richTexts={block.numbered_list_item.rich_text} />
       {children}
     </li>
-  )
-}
+  );
+};
 
-const touched = { current: false }
+const touched = { current: false };
 
 const getShikiPath = (): string => {
-  return pathJoin(process.cwd(), 'lib/shiki')
-}
+  return pathJoin(process.cwd(), "lib/shiki");
+};
 
 const touchShikiPath = (): void => {
-  if (touched.current) return // only need to do once
-  fs.readdir(getShikiPath()) // fire and forget
-  touched.current = true
-}
+  if (touched.current) return; // only need to do once
+  fs.readdir(getShikiPath()); // fire and forget
+  touched.current = true;
+};
 
 const CodeBlock = async ({
   block,
 }: { block: CodeBlockObjectResponse } & ReactChildren) => {
-  const lightCodeTheme = config.codeTheme.light
-  const darkCodeTheme = config.codeTheme.dark
+  const lightCodeTheme = config.codeTheme.light;
+  const darkCodeTheme = config.codeTheme.dark;
 
-  touchShikiPath()
+  touchShikiPath();
 
   const highlighter = await getHighlighter({
     themes: [lightCodeTheme, darkCodeTheme],
@@ -271,56 +271,56 @@ const CodeBlock = async ({
       languages: `${getShikiPath()}/languages/`,
       themes: `${getShikiPath()}/themes/`,
     },
-  })
+  });
   const code = (block.code.rich_text as TextRichTextItemResponse[])
     .map((i) => i.plain_text)
-    .join('')
+    .join("");
   const lightTokens = highlighter.codeToThemedTokens(
     code,
     block.code.language,
-    lightCodeTheme,
-  )
+    lightCodeTheme
+  );
   const darkTokens = highlighter.codeToThemedTokens(
     code,
     block.code.language,
-    darkCodeTheme,
-  )
+    darkCodeTheme
+  );
 
   const customRenderToHtml = (tokens: IThemedToken[][], themeName: string) => {
     const themeBg = highlighter
       .getBackgroundColor(themeName)
-      .toLocaleLowerCase()
+      .toLocaleLowerCase();
 
     return renderToHtml(tokens, {
       fg: highlighter.getForegroundColor(themeName),
       bg:
-        themeBg === '#ffffff' || themeBg === '#fff'
-          ? '#fafafa'
-          : themeBg === '#121212'
-          ? '#24292e'
+        themeBg === "#ffffff" || themeBg === "#fff"
+          ? "#fafafa"
+          : themeBg === "#121212"
+          ? "#24292e"
           : themeBg,
       elements: {
         pre({ style, children }) {
-          return `<pre class="p-4 rounded-md my-2 overflow-y-auto sm:overflow-y-visible" style="${style}">${children}</pre>`
+          return `<pre class="p-4 rounded-md my-2 overflow-y-auto sm:overflow-y-visible" style="${style}">${children}</pre>`;
         },
 
         code({ children }) {
-          return `<code class="sm:whitespace-pre-wrap sm:break-all">${children}</code>`
+          return `<code class="sm:whitespace-pre-wrap sm:break-all">${children}</code>`;
         },
 
         line({ className, children }) {
-          return `<span class="${className}">${children}</span>`
+          return `<span class="${className}">${children}</span>`;
         },
 
         token({ style, children }) {
-          return `<span style="${style}">${children}</span>`
+          return `<span style="${style}">${children}</span>`;
         },
       },
-    })
-  }
+    });
+  };
 
-  const lightHighlightedCode = customRenderToHtml(lightTokens, lightCodeTheme)
-  const darkHighlightedCode = customRenderToHtml(darkTokens, darkCodeTheme)
+  const lightHighlightedCode = customRenderToHtml(lightTokens, lightCodeTheme);
+  const darkHighlightedCode = customRenderToHtml(darkTokens, darkCodeTheme);
 
   return (
     <>
@@ -328,15 +328,17 @@ const CodeBlock = async ({
         className="dark:hidden "
         dangerouslySetInnerHTML={{
           __html: lightHighlightedCode,
-        }}></div>
+        }}
+      ></div>
       <div
         className="hidden dark:block"
         dangerouslySetInnerHTML={{
           __html: darkHighlightedCode,
-        }}></div>
+        }}
+      ></div>
     </>
-  )
-}
+  );
+};
 
 const ImageBlock = ({
   block,
@@ -345,21 +347,21 @@ const ImageBlock = ({
     <Image
       className="h-auto w-full rounded-[3px] sm:rounded-[6px]"
       src={
-        block.image.type === 'external'
+        block.image.type === "external"
           ? block.image.external.url
           : block.image.file.url
       }
       alt={
         block.image.caption.length !== 0
-          ? block.image.caption.map((i) => i.plain_text).join('')
-          : ''
+          ? block.image.caption.map((i) => i.plain_text).join("")
+          : ""
       }
       sizes="100vw"
       width={0}
       height={0}
     />
-  )
-}
+  );
+};
 
 const BookmarkBlock = ({
   block,
@@ -370,7 +372,8 @@ const BookmarkBlock = ({
         href={block.bookmark.url}
         target="_blank"
         rel="noreferrer"
-        className="block ">
+        className="block "
+      >
         {block.bookmark.caption.length !== 0 ? (
           <RichTextGroup richTexts={block.bookmark.caption} />
         ) : (
@@ -378,26 +381,26 @@ const BookmarkBlock = ({
         )}
       </a>
     </p>
-  )
-}
+  );
+};
 
 const RenderBlock = ({ block }: { block: PostContentType[number] }) => {
   switch (block.cur.type) {
-    case 'paragraph':
-      return <PBlock block={block.cur} />
-    case 'heading_1':
-      return <H1Block block={block.cur} />
-    case 'heading_2':
-      return <H2Block block={block.cur} />
-    case 'heading_3':
-      return <H3Block block={block.cur} />
-    case 'callout':
-      return <CalloutBlock block={block.cur} />
-    case 'bulleted_list_item':
+    case "paragraph":
+      return <PBlock block={block.cur} />;
+    case "heading_1":
+      return <H1Block block={block.cur} />;
+    case "heading_2":
+      return <H2Block block={block.cur} />;
+    case "heading_3":
+      return <H3Block block={block.cur} />;
+    case "callout":
+      return <CalloutBlock block={block.cur} />;
+    case "bulleted_list_item":
       return (
         <BulletedListBlock block={block.cur}>
           {block.children?.some(
-            (child) => child.cur.type === 'bulleted_list_item',
+            (child) => child.cur.type === "bulleted_list_item"
           ) ? (
             <ul>
               {block.children?.map((child) => (
@@ -410,12 +413,12 @@ const RenderBlock = ({ block }: { block: PostContentType[number] }) => {
             ))
           )}
         </BulletedListBlock>
-      )
-    case 'numbered_list_item':
+      );
+    case "numbered_list_item":
       return (
         <NumberedListBlock block={block.cur}>
           {block.children?.some(
-            (child) => child.cur.type === 'numbered_list_item',
+            (child) => child.cur.type === "numbered_list_item"
           ) ? (
             <ol>
               {block.children?.map((child) => (
@@ -428,74 +431,74 @@ const RenderBlock = ({ block }: { block: PostContentType[number] }) => {
             ))
           )}
         </NumberedListBlock>
-      )
-    case 'code':
+      );
+    case "code":
       // @ts-expect-error Server Component
-      return <CodeBlock block={block.cur} />
-    case 'image':
-      return <ImageBlock block={block.cur} />
-    case 'bookmark':
-      return <BookmarkBlock block={block.cur} />
+      return <CodeBlock block={block.cur} />;
+    case "image":
+      return <ImageBlock block={block.cur} />;
+    case "bookmark":
+      return <BookmarkBlock block={block.cur} />;
     default:
-      return null
+      return null;
   }
-}
+};
 
 export default async function PostContent({
   blocks,
 }: {
-  blocks: PostContentType
+  blocks: PostContentType;
 }) {
   if (blocks.length === 0) {
-    return <div>Post Content Not found</div>
+    return <div>Post Content Not found</div>;
   }
   return (
     <article className="flex w-full flex-col gap-3">
       {blocks
         .map((block) => {
-          return <RenderBlock block={block} key={block.cur.id} />
+          return <RenderBlock block={block} key={block.cur.id} />;
         })
         .reduce((prev, curr) => {
           if (curr === null) {
-            return prev
+            return prev;
           }
 
           if (prev.length === 0) {
-            return [[curr]]
+            return [[curr]];
           }
-          const last = prev[prev.length - 1]
-          const lastBlock = last[last.length - 1]
+          const last = prev[prev.length - 1];
+          const lastBlock = last[last.length - 1];
           if (
             (isJsxElementABulletedList(lastBlock) &&
               isJsxElementABulletedList(curr)) ||
             (isJsxElementANumberedList(lastBlock) &&
               isJsxElementANumberedList(curr))
           ) {
-            return [...prev.slice(0, prev.length - 1), [...last, curr]]
+            return [...prev.slice(0, prev.length - 1), [...last, curr]];
           }
-          return [...prev, [curr]]
+          return [...prev, [curr]];
         }, [] as JSX.Element[][])
         .map((blocks, i) => {
           if (blocks.length === 1) {
-            return blocks[0]
+            return blocks[0];
           }
-          const block = blocks[0]
+          const block = blocks[0];
           if (isJsxElementABulletedList(block)) {
-            return <ul key={i}>{blocks}</ul>
+            return <ul key={i}>{blocks}</ul>;
           }
           if (isJsxElementANumberedList(block)) {
-            return <ol key={i}>{blocks}</ol>
+            return <ol key={i}>{blocks}</ol>;
           }
-          return null
+          return null;
         })}
     </article>
-  )
+  );
 }
 
 function isJsxElementABulletedList(element: JSX.Element) {
-  return element.props.block.cur.type === 'bulleted_list_item'
+  return element.props.block.cur.type === "bulleted_list_item";
 }
 
 function isJsxElementANumberedList(element: JSX.Element) {
-  return element.props.block.cur.type === 'numbered_list_item'
+  return element.props.block.cur.type === "numbered_list_item";
 }

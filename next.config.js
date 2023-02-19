@@ -7,22 +7,22 @@ const nextConfig = {
     appDir: true,
     typedRoutes: true,
     serverComponentsExternalPackages: [
-      'shiki',
-      'vscode-oniguruma',
-      'vscode-textmate',
-      'stream-parser',
-      'needle',
+      "shiki",
+      "vscode-oniguruma",
+      "vscode-textmate",
+      "stream-parser",
+      "needle",
     ],
   },
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: '**',
+        protocol: "https",
+        hostname: "**",
       },
     ],
   },
-  output: 'standalone',
-}
+  output: "standalone",
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

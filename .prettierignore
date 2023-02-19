@@ -37,4 +37,4 @@ next-env.d.ts
 
 # Different ignore files with gitignore
 pnpm-lock.yaml
-.vscode
+lib/shiki

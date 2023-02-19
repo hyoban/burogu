@@ -1,18 +1,19 @@
-import ApperanceSwitch from './AppearanceSwitch'
+import ApperanceSwitch from "./AppearanceSwitch";
 
 export default function Footer({ className }: { className?: string }) {
   return (
     <footer
       className={
-        'mx-auto flex flex-col items-center gap-4 font-mono opacity-60 ' +
+        "mx-auto flex flex-col items-center gap-4 font-mono opacity-60 " +
         className
-      }>
+      }
+    >
       <p>
-        Powered by{' '}
+        Powered by{" "}
         <a href="https://beta.nextjs.org/" target="_blank" rel="noreferrer">
           Next.js
-        </a>{' '}
-        and{' '}
+        </a>{" "}
+        and{" "}
         <a href="https://tailwindcss.com/" target="_blank" rel="noreferrer">
           Tailwind CSS
         </a>
@@ -22,7 +23,8 @@ export default function Footer({ className }: { className?: string }) {
         <a
           href="https://github.com/hyoban/blog-next-notion"
           target="_blank"
-          rel="noreferrer">
+          rel="noreferrer"
+        >
           <div className="i-carbon-logo-github"></div>
         </a>
         <a href="/feed.xml" target="_blank" rel="noreferrer">
@@ -30,5 +32,5 @@ export default function Footer({ className }: { className?: string }) {
         </a>
       </div>
     </footer>
-  )
+  );
 }

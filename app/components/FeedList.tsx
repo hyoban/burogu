@@ -1,36 +1,36 @@
-'use client'
+"use client";
 
-import { FeedListType } from '@/lib/notion'
-import { timeZone } from '@/site.config.cjs'
-import dayjs from 'dayjs'
-import timezone from 'dayjs/plugin/timezone'
-import utc from 'dayjs/plugin/utc'
-import { useState } from 'react'
+import { FeedListType } from "@/lib/notion";
+import { timeZone } from "@/site.config.cjs";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+import { useState } from "react";
 
-dayjs.extend(utc)
-dayjs.extend(timezone)
-dayjs.tz.setDefault(timeZone)
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault(timeZone);
 
 export default function FeedList({ feedList }: { feedList: FeedListType }) {
-  const typeList = ['All'].concat(
-    feedList.map((i) => i.type).filter((v, i, a) => a.indexOf(v) === i),
-  )
+  const typeList = ["All"].concat(
+    feedList.map((i) => i.type).filter((v, i, a) => a.indexOf(v) === i)
+  );
 
-  const [type, setType] = useState('Personal Blog')
+  const [type, setType] = useState("Personal Blog");
 
   const feedListGroupedByYear = feedList
     .filter((feed) => {
-      if (type === 'All') return true
-      return feed.type === type
+      if (type === "All") return true;
+      return feed.type === type;
     })
     .reduce((acc, feed) => {
-      const feedYear = dayjs(feed.isoDate).tz(timeZone).format('YYYY')
+      const feedYear = dayjs(feed.isoDate).tz(timeZone).format("YYYY");
       if (!acc[feedYear]) {
-        acc[feedYear] = []
+        acc[feedYear] = [];
       }
-      acc[feedYear].push(feed)
-      return acc
-    }, {} as Record<string, typeof feedList>)
+      acc[feedYear].push(feed);
+      return acc;
+    }, {} as Record<string, typeof feedList>);
 
   return (
     <>
@@ -39,9 +39,10 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
         <select
           className="rounded-md border border-gray-300 p-1 dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-white"
           onChange={(e) => {
-            setType(e.target.value)
+            setType(e.target.value);
           }}
-          value={type}>
+          value={type}
+        >
           {typeList.map((type) => (
             <option key={type} value={type}>
               {type}
@@ -52,7 +53,7 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
       {Object.keys(feedListGroupedByYear)
         .sort((a, b) => Number(b) - Number(a))
         .map((feedYear) => {
-          const feedListByYear = feedListGroupedByYear[feedYear]
+          const feedListByYear = feedListGroupedByYear[feedYear];
           return (
             <div key={feedYear} className="my-2">
               <h2 className="my-3 text-3xl opacity-50">{feedYear}</h2>
@@ -60,29 +61,32 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
                 {feedListByYear.map((feed) => (
                   <div
                     key={feed.link}
-                    className="flex w-full flex-row items-center justify-between gap-3">
+                    className="flex w-full flex-row items-center justify-between gap-3"
+                  >
                     <span className="flex items-center gap-3">
                       <p className="text-sm opacity-50" title={feed.isoDate}>
-                        {dayjs(feed.isoDate).tz(timeZone).format('MM/DD')}
+                        {dayjs(feed.isoDate).tz(timeZone).format("MM/DD")}
                       </p>
                       <a
-                        href={feed.link ?? '/'}
+                        href={feed.link ?? "/"}
                         target="_blank"
-                        rel="noopener noreferrer">
+                        rel="noopener noreferrer"
+                      >
                         {feed.title}
                       </a>
                     </span>
                     <span
                       title={feed.homeTitle}
-                      className="hidden w-[100px] overflow-hidden text-ellipsis whitespace-nowrap text-right opacity-50 sm:inline">
+                      className="hidden w-[100px] overflow-hidden text-ellipsis whitespace-nowrap text-right opacity-50 sm:inline"
+                    >
                       {feed.homeTitle}
                     </span>
                   </div>
                 ))}
               </div>
             </div>
-          )
+          );
         })}
     </>
-  )
+  );
 }

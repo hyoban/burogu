@@ -1,6 +1,6 @@
-import Nav from '@/app/components/Nav'
-import config from '@/site.config.cjs'
-import Image from 'next/image'
+import Nav from "@/app/components/Nav";
+import config from "@/site.config.cjs";
+import Image from "next/image";
 
 export default function Header({}) {
   return (
@@ -10,7 +10,8 @@ export default function Header({}) {
           href={config.authorLink}
           target="_blank"
           className="hover:opacity-100"
-          rel="noreferrer">
+          rel="noreferrer"
+        >
           <Image
             className="h-16 w-16 rounded-full p-1 ring-2 ring-gray-300 dark:ring-gray-500"
             src={config.avatarPath}
@@ -28,5 +29,5 @@ export default function Header({}) {
       </div>
       <Nav />
     </header>
-  )
+  );
 }

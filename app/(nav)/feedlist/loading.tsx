@@ -1,3 +1,3 @@
 export default function Loading() {
-  return <div>Loading feedlist page...</div>
+  return <div>Loading feedlist page...</div>;
 }
