@@ -338,20 +338,28 @@ export async function getFeedList(
 
     const numberOfFeedSent = 100;
     const numberOfTotalFeed = feedList.reduce((acc, i) => acc + i.length, 0);
+    const numberOfAuthor = feedList.filter((i) => i.length > 0).length;
+    const maxNumberOfFeedSentPerAuthor = Math.floor(
+      (numberOfFeedSent / numberOfAuthor) * 1.5
+    );
     console.log("numberOfTotalFeed", numberOfTotalFeed);
 
     // sort by published time
     return feedList
-      .map((i) =>
-        i.slice(0, Math.ceil((i.length / numberOfTotalFeed) * numberOfFeedSent))
-      )
+      .map((i) => {
+        if (i.length > maxNumberOfFeedSentPerAuthor) {
+          return i.slice(0, maxNumberOfFeedSentPerAuthor);
+        }
+        return i;
+      })
       .flat()
       .sort((a, b) => {
         if (a.isoDate && b.isoDate) {
           return new Date(b.isoDate).getTime() - new Date(a.isoDate).getTime();
         }
         return 0;
-      });
+      })
+      .slice(0, numberOfFeedSent);
   } catch (e) {
     console.error("getFeedList", e);
   }
