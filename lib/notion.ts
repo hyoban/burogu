@@ -210,6 +210,9 @@ async function getDatabaseItemList(databaseId: string) {
       {
         method: "POST",
         headers,
+        next: {
+          revalidate,
+        },
       }
     ).then((i) => i.json())) as QueryDatabaseResponse;
 
