@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { useDark } from "@/app/hooks/useDark";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const ApperanceSwitch = () => {
   const [mounted, setMounted] = useState(false);
@@ -15,11 +15,21 @@ const ApperanceSwitch = () => {
 
   return (
     <button onClick={toggleDark}>
-      {!mounted ? (
-        <div className={"i-carbon-sun"} />
-      ) : (
-        <div className={isDark ? "i-carbon-moon" : "i-carbon-sun"} />
-      )}
+      <motion.div
+        className={
+          !mounted
+            ? "i-carbon-contrast"
+            : isDark
+            ? "i-carbon-moon"
+            : "i-carbon-sun"
+        }
+        animate={{
+          rotate: isDark ? 0 : 360,
+        }}
+        transition={{
+          duration: 0.5,
+        }}
+      />
     </button>
   );
 };

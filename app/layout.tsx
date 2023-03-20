@@ -37,7 +37,7 @@ export default function RootLayout({
       */}
       <head />
 
-      <body className="flex h-auto min-h-full justify-center p-6 font-sans dark:bg-[#1f1f1f] dark:text-white sm:px-14">
+      <body className="flex h-auto min-h-full justify-center p-6 font-sans dark:bg-[#1f1f1f] dark:text-white sm:px-14 transition-colors duration-500">
         <ThemeProvider>
           <div className="flex w-full max-w-[64ch] flex-col justify-between">
             <main className="flex w-full flex-col items-start">{children}</main>
