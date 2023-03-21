@@ -9,5 +9,9 @@ export default function SharedElement({
 }: React.PropsWithChildren<{
 	layoutId: string
 }>) {
-	return <motion.div layoutId={layoutId}>{children}</motion.div>
+	return (
+		<motion.div layoutId={layoutId} className="relative z-50">
+			{children}
+		</motion.div>
+	)
 }
