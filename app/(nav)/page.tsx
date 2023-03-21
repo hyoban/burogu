@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import PostList from "@/app/components/PostList";
+import { siteName } from "@/site.config.cjs";
 
 export default function PostListPage({}) {
   return (
@@ -10,3 +11,7 @@ export default function PostListPage({}) {
     </Suspense>
   );
 }
+
+export const metadata = {
+  title: "首页 | " + siteName,
+};

@@ -1,6 +1,7 @@
 import FeedInfoList from "@/app/components/FeedInfoList";
 import FeedList from "@/app/components/FeedList";
 import { getFeedInfoList, getFeedList } from "@/lib/notion";
+import { siteName } from "@/site.config.cjs";
 import { Suspense } from "react";
 
 export const revalidate = 100;
@@ -25,3 +26,7 @@ export default async function FeedListPage({}) {
     </>
   );
 }
+
+export const metadata = {
+  title: "订阅列表 | " + siteName,
+};
