@@ -7,7 +7,7 @@ specifiers:
   '@radix-ui/react-navigation-menu': ^1.1.2
   '@radix-ui/react-scroll-area': ^1.0.3
   '@radix-ui/react-select': ^1.2.1
-  '@types/node': 18.15.3
+  '@types/node': 18.15.5
   '@types/probe-image-size': ^7.2.0
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -18,12 +18,12 @@ specifiers:
   eslint: 8.36.0
   eslint-config-next: 13.2.4
   feed: ^4.2.2
-  framer-motion: ^10.6.0
+  framer-motion: ^10.6.1
   jotai: ^2.0.3
   lucide-react: ^0.127.0
   next: 13.2.4
   postcss: ^8.4.21
-  prettier: ^2.8.5
+  prettier: ^2.8.6
   prettier-plugin-tailwindcss: ^0.2.5
   probe-image-size: ^7.2.3
   react: 18.2.0
@@ -44,7 +44,7 @@ dependencies:
   clsx: 1.2.1
   dayjs: 1.11.7
   feed: 4.2.2
-  framer-motion: 10.6.0_biqbaboplfbrettd7655fr4n2y
+  framer-motion: 10.6.1_biqbaboplfbrettd7655fr4n2y
   jotai: 2.0.3_react@18.2.0
   lucide-react: 0.127.0_react@18.2.0
   next: 13.2.4_biqbaboplfbrettd7655fr4n2y
@@ -61,7 +61,7 @@ devDependencies:
   '@egoist/tailwindcss-icons': 1.0.7_tailwindcss@3.2.7
   '@iconify/json': 2.2.37
   '@notionhq/client': 2.2.3
-  '@types/node': 18.15.3
+  '@types/node': 18.15.5
   '@types/probe-image-size': 7.2.0
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -69,8 +69,8 @@ devDependencies:
   eslint: 8.36.0
   eslint-config-next: 13.2.4_j4766f7ecgqbon3u7zlxn5zszu
   postcss: 8.4.21
-  prettier: 2.8.5
-  prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.5
+  prettier: 2.8.6
+  prettier-plugin-tailwindcss: 0.2.5_prettier@2.8.6
   tailwindcss: 3.2.7_postcss@8.4.21
   typescript: 5.0.2
 
@@ -762,25 +762,25 @@ packages:
   /@types/needle/3.2.0:
     resolution: {integrity: sha512-6XzvzEyJ2ozFNfPajFmqH9JOt0Hp+9TawaYpJT59iIP/zR0U37cfWCRwosyIeEBBZBi021Osq4jGAD3AOju5fg==}
     dependencies:
-      '@types/node': 18.15.3
+      '@types/node': 18.15.5
     dev: true
 
   /@types/node-fetch/2.6.2:
     resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
     dependencies:
-      '@types/node': 18.15.3
+      '@types/node': 18.15.5
       form-data: 3.0.1
     dev: true
 
-  /@types/node/18.15.3:
-    resolution: {integrity: sha512-p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==}
+  /@types/node/18.15.5:
+    resolution: {integrity: sha512-Ark2WDjjZO7GmvsyFFf81MXuGTA/d6oP38anyxWOL6EREyBKAxKoFHwBhaZxCfLRLpO8JgVXwqOwSwa7jRcjew==}
     dev: true
 
   /@types/probe-image-size/7.2.0:
     resolution: {integrity: sha512-R5H3vw62gHNHrn+JGZbKejb+Z2D/6E5UNVlhCzIaBBLroMQMOFqy5Pap2gM+ZZHdqBtVU0/cx/M6to+mOJcoew==}
     dependencies:
       '@types/needle': 3.2.0
-      '@types/node': 18.15.3
+      '@types/node': 18.15.5
     dev: true
 
   /@types/prop-types/15.7.5:
@@ -1890,8 +1890,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion/10.6.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-RkZe8iBhdWNs1y2HfYh4WlM9Co11/Vu+JCSQzmLaP5alM3QbBiue6OkeXygfxsRDp4yCar95ExoHE0CZQNyuVQ==}
+  /framer-motion/10.6.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-e1o4JKJ98/pfUkYkze+23A+r5SW6JujDSAEzIKWq6jsrVIE+QSwpu4U7L8+maOXcTnfAZlI930MfpvA/+zaa5g==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -2956,7 +2956,7 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-tailwindcss/0.2.5_prettier@2.8.5:
+  /prettier-plugin-tailwindcss/0.2.5_prettier@2.8.6:
     resolution: {integrity: sha512-vZ/iKieyCx0WTxHbkf5E1rBlv/ybFk8WTT4hL5W2jlVxum2Zbe0jMUpuQdDrpa4z2vnPiJ5KIWCqL/kd16fKYg==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -3008,11 +3008,11 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      prettier: 2.8.5
+      prettier: 2.8.6
     dev: true
 
-  /prettier/2.8.5:
-    resolution: {integrity: sha512-3gzuxrHbKUePRBB4ZeU08VNkUcqEHaUaouNt0m7LGP4Hti/NuB07C7PPTM/LkWqXoJYJn2McEo5+kxPNrtQkLQ==}
+  /prettier/2.8.6:
+    resolution: {integrity: sha512-mtuzdiBbHwPEgl7NxWlqOkithPyp4VN93V7VeHVWBF+ad3I5avc0RVDT4oImXQy9H/AqxA2NSQH8pSxHW6FYbQ==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true

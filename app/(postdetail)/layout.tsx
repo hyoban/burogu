@@ -1,7 +1,7 @@
 export default function PostDetailLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }) {
-  return <article className="flex w-full flex-col gap-6">{children}</article>;
+	return <article className="flex w-full flex-col gap-6">{children}</article>;
 }
