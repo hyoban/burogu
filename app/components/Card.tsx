@@ -14,7 +14,7 @@ export default function Card({
       className={className}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
       {...{ children }}
     ></motion.div>
   );
