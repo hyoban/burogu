@@ -1,5 +1,6 @@
 import Card from "@/app/components/Card"
 import Link from "@/app/components/Link"
+import SharedElement from "@/app/components/SharedElement"
 import { getPostList } from "@/lib/notion"
 import { timeZone } from "@/site.config.cjs"
 import dayjs from "dayjs"
@@ -17,13 +18,15 @@ export default async function PostList() {
 						href={`/post/${post.slug}`}
 						className="flex w-full flex-col gap-4 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600"
 					>
-						<Image
-							className="h-auto w-full"
-							src={post.cover.url}
-							alt="post cover"
-							width={post.cover.width}
-							height={post.cover.height}
-						/>
+						<SharedElement layoutId={`post-cover-${post.id}`}>
+							<Image
+								className="h-auto w-full"
+								src={post.cover.url}
+								alt="post cover"
+								width={post.cover.width}
+								height={post.cover.height}
+							/>
+						</SharedElement>
 						<p className="mx-4 text-xl opacity-90">{post.title}</p>
 						<p className="mx-4 text-sm opacity-60">{post.description}</p>
 						<p
