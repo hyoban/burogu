@@ -125,7 +125,12 @@ const RichText = ({
   if (richText.type === "mention") {
     if (richText.href !== null) {
       return (
-        <a href={richText.href} target="_blank" rel="noreferrer">
+        <a
+          href={richText.href}
+          target="_blank"
+          rel="noreferrer"
+          className="align-text-bottom"
+        >
           {richText.href.startsWith("https://github.com/") ? (
             <>
               <span className="i-carbon-logo-github mx-0 align-text-bottom"></span>
