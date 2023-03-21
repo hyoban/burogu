@@ -1,12 +1,10 @@
 import "@/app/css/globals.css";
-import "nprogress/nprogress.css";
 
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 
 import Footer from "@/app/components/Footer";
-import RouteUpdater from "@/app/components/RouteUpdater";
 import { AnalyticsWrapper, ThemeProvider } from "@/app/provider";
 import config from "@/site.config.cjs";
 
@@ -44,7 +42,6 @@ export default function RootLayout({
           <div className="flex w-full max-w-[64ch] flex-col justify-between">
             <main className="flex w-full flex-col items-start">{children}</main>
             <Footer className="mt-6" />
-            <RouteUpdater />
           </div>
         </ThemeProvider>
         <AnalyticsWrapper />

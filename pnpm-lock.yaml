@@ -5,7 +5,6 @@ specifiers:
   '@iconify/json': ^2.2.37
   '@notionhq/client': ^2.2.3
   '@types/node': 18.15.3
-  '@types/nprogress': ^0.2.0
   '@types/probe-image-size': ^7.2.0
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -18,7 +17,6 @@ specifiers:
   framer-motion: ^10.6.0
   jotai: ^2.0.3
   next: 13.2.4
-  nprogress: ^0.2.0
   postcss: ^8.4.21
   prettier: ^2.8.5
   prettier-plugin-tailwindcss: ^0.2.5
@@ -39,7 +37,6 @@ dependencies:
   framer-motion: 10.6.0_biqbaboplfbrettd7655fr4n2y
   jotai: 2.0.3_react@18.2.0
   next: 13.2.4_biqbaboplfbrettd7655fr4n2y
-  nprogress: 0.2.0
   probe-image-size: 7.2.3
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -53,7 +50,6 @@ devDependencies:
   '@iconify/json': 2.2.37
   '@notionhq/client': 2.2.3
   '@types/node': 18.15.3
-  '@types/nprogress': 0.2.0
   '@types/probe-image-size': 7.2.0
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -393,10 +389,6 @@ packages:
 
   /@types/node/18.15.3:
     resolution: {integrity: sha512-p6ua9zBxz5otCmbpb5D3U4B5Nanw6Pk3PPyX05xnxbB/fRv71N7CPmORg7uAD5P70T0xmx1pzAx/FUfa5X+3cw==}
-    dev: true
-
-  /@types/nprogress/0.2.0:
-    resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==}
     dev: true
 
   /@types/probe-image-size/7.2.0:
@@ -2277,10 +2269,6 @@ packages:
     dependencies:
       path-key: 3.1.1
     dev: true
-
-  /nprogress/0.2.0:
-    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
-    dev: false
 
   /object-assign/4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
