@@ -1,6 +1,12 @@
 import { timeZone } from "@/site.config.cjs";
+import clsx, { ClassValue } from "clsx";
 import dayjs from "dayjs";
 import Parser from "rss-parser";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export function isExternalLink(url?: string): boolean {
   if (!url) return false;
