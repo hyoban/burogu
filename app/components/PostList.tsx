@@ -1,9 +1,8 @@
-import dayjs from "dayjs";
-import Image from "next/image";
-import Link from "next/link";
-
+import Link from "@/app/components/Link";
 import { getPostList } from "@/lib/notion";
 import { timeZone } from "@/site.config.cjs";
+import dayjs from "dayjs";
+import Image from "next/image";
 
 export default async function PostList() {
   const posts = await getPostList();
@@ -13,7 +12,7 @@ export default async function PostList() {
     <>
       {posts.map((post) => (
         <Link
-          href={`post/${post.slug}`}
+          href={`/post/${post.slug}`}
           key={post.id}
           className="flex w-full flex-col gap-4 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600"
         >

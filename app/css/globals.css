@@ -21,9 +21,3 @@
 html.dark {
   color-scheme: dark;
 }
-
-@supports (scrollbar-gutter: stable) {
-  html {
-    scrollbar-gutter: stable both-edges;
-  }
-}
