@@ -13,7 +13,7 @@ export default async function PostList() {
     <>
       {posts.map((post) => (
         <Link
-          href={post.slug}
+          href={`post/${post.slug}`}
           key={post.id}
           className="flex w-full flex-col gap-4 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600"
         >

@@ -6,7 +6,7 @@ export default async function FeedInfoList({}) {
   if (!feedInfoList) return null;
 
   return (
-    <div className="absolute top-0 right-0 hidden translate-x-full flex-col gap-4 px-20 xl:flex">
+    <div className="absolute top-0 right-0 hidden translate-x-[130%] flex-col gap-4 xl:flex">
       {feedInfoList
         // sort by title
         .sort((a, b) => a.title.localeCompare(b.title))
