@@ -1,4 +1,4 @@
-import config from "@/site.config.cjs";
+import config from "@/site.config.cjs"
 
 export default function DefaultTags() {
 	return (
@@ -13,5 +13,5 @@ export default function DefaultTags() {
 				href="/rss.xml"
 			></link>
 		</>
-	);
+	)
 }

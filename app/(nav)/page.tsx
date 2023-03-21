@@ -1,7 +1,7 @@
-import { Suspense } from "react";
+import { Suspense } from "react"
 
-import PostList from "@/app/components/PostList";
-import { siteName } from "@/site.config.cjs";
+import PostList from "@/app/components/PostList"
+import { siteName } from "@/site.config.cjs"
 
 export default function PostListPage({}) {
 	return (
@@ -9,9 +9,9 @@ export default function PostListPage({}) {
 			{/* @ts-expect-error Server Component */}
 			<PostList />
 		</Suspense>
-	);
+	)
 }
 
 export const metadata = {
 	title: "首页 | " + siteName,
-};
+}

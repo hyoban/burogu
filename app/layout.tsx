@@ -1,16 +1,16 @@
-import "@/app/css/globals.css";
+import "@/app/css/globals.css"
 
-import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone";
-import utc from "dayjs/plugin/utc";
+import dayjs from "dayjs"
+import timezone from "dayjs/plugin/timezone"
+import utc from "dayjs/plugin/utc"
 
-import Footer from "@/app/components/Footer";
-import { AnalyticsWrapper, ThemeProvider } from "@/app/provider";
-import config from "@/site.config.cjs";
+import Footer from "@/app/components/Footer"
+import { AnalyticsWrapper, ThemeProvider } from "@/app/provider"
+import config from "@/site.config.cjs"
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.tz.setDefault(config.timeZone);
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.setDefault(config.timeZone)
 
 export const metadata = {
 	title: config.siteName,
@@ -18,12 +18,12 @@ export const metadata = {
 	icons: {
 		icon: config.faviconPath,
 	},
-};
+}
 
 export default function RootLayout({
 	children,
 }: {
-	children: React.ReactNode;
+	children: React.ReactNode
 }) {
 	return (
 		<html
@@ -47,5 +47,5 @@ export default function RootLayout({
 				<AnalyticsWrapper />
 			</body>
 		</html>
-	);
+	)
 }

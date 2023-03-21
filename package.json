@@ -6,8 +6,6 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"build:docker": "docker build -t nextjs-docker .",
-		"start:docker": "docker run --rm -p 3000:3000 nextjs-docker",
 		"lint": "next lint",
 		"format": "prettier --write ."
 	},
@@ -52,5 +50,7 @@
 	"engines": {
 		"node": ">=16.8.0"
 	},
-	"prettier": {}
+	"prettier": {
+		"semi": false
+	}
 }

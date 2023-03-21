@@ -1,4 +1,4 @@
-import Header from "@/app/components/Header";
+import Header from "@/app/components/Header"
 
 export default function NavLayout({ children }: { children: React.ReactNode }) {
 	return (
@@ -8,5 +8,5 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
 				{children}
 			</article>
 		</>
-	);
+	)
 }

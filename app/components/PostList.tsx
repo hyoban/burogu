@@ -1,13 +1,13 @@
-import Card from "@/app/components/Card";
-import Link from "@/app/components/Link";
-import { getPostList } from "@/lib/notion";
-import { timeZone } from "@/site.config.cjs";
-import dayjs from "dayjs";
-import Image from "next/image";
+import Card from "@/app/components/Card"
+import Link from "@/app/components/Link"
+import { getPostList } from "@/lib/notion"
+import { timeZone } from "@/site.config.cjs"
+import dayjs from "dayjs"
+import Image from "next/image"
 
 export default async function PostList() {
-	const posts = await getPostList();
-	if (!posts) return null;
+	const posts = await getPostList()
+	if (!posts) return null
 
 	return (
 		<>
@@ -44,5 +44,5 @@ export default async function PostList() {
 				</Card>
 			))}
 		</>
-	);
+	)
 }

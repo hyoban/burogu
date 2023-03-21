@@ -1,16 +1,16 @@
-import Image from "next/image";
+import Image from "next/image"
 
-import { getSinglePostContent, getSinglePostInfo } from "@/lib/notion";
-import PostContent from "./PostContent";
+import { getSinglePostContent, getSinglePostInfo } from "@/lib/notion"
+import PostContent from "./PostContent"
 
 export default async function PostDetail({ slug }: { slug: string }) {
 	const [page, blocks] = await Promise.all([
 		getSinglePostInfo(slug, true),
 		getSinglePostContent(slug, true),
-	]);
+	])
 
 	if (!page) {
-		return <div className="my-20 text-center">Post Not found</div>;
+		return <div className="my-20 text-center">Post Not found</div>
 	}
 	return (
 		<>
@@ -25,5 +25,5 @@ export default async function PostDetail({ slug }: { slug: string }) {
 			{/* @ts-expect-error Server Component */}
 			<PostContent blocks={blocks} />
 		</>
-	);
+	)
 }

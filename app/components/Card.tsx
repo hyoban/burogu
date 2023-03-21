@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"
 
 export default function Card({
 	children,
 	className,
 }: {
-	children: React.ReactNode;
-	className?: string;
+	children: React.ReactNode
+	className?: string
 }) {
 	return (
 		<motion.div
@@ -17,5 +17,5 @@ export default function Card({
 			transition={{ type: "spring", stiffness: 400, damping: 17 }}
 			{...{ children }}
 		></motion.div>
-	);
+	)
 }

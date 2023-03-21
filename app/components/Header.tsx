@@ -1,6 +1,6 @@
-import Avatar from "@/app/components/Avatar";
-import Nav from "@/app/components/Nav";
-import config from "@/site.config.cjs";
+import Avatar from "@/app/components/Avatar"
+import Nav from "@/app/components/Nav"
+import config from "@/site.config.cjs"
 
 export default function Header({}) {
 	return (
@@ -16,5 +16,5 @@ export default function Header({}) {
 			</div>
 			<Nav />
 		</header>
-	);
+	)
 }

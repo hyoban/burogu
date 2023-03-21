@@ -1,13 +1,13 @@
-import { getPostList } from "@/lib/notion";
-import config, { timeZone } from "@/site.config.cjs";
-import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone";
-import utc from "dayjs/plugin/utc";
-import { Feed } from "feed";
+import { getPostList } from "@/lib/notion"
+import config, { timeZone } from "@/site.config.cjs"
+import dayjs from "dayjs"
+import timezone from "dayjs/plugin/timezone"
+import utc from "dayjs/plugin/utc"
+import { Feed } from "feed"
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.tz.setDefault(timeZone);
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.setDefault(timeZone)
 
 export async function GET(request: Request) {
 	const feed = new Feed({
@@ -26,9 +26,9 @@ export async function GET(request: Request) {
 			email: config.authorEmail,
 			link: config.authorLink,
 		},
-	});
+	})
 
-	const posts = await getPostList();
+	const posts = await getPostList()
 
 	posts?.forEach((post) => {
 		feed.addItem({
@@ -39,8 +39,8 @@ export async function GET(request: Request) {
 			category: post.tags.map((tag) => ({
 				name: tag,
 			})),
-		});
-	});
+		})
+	})
 
 	return new Response(feed.rss2(), {
 		headers: {
@@ -48,5 +48,5 @@ export async function GET(request: Request) {
 			"Cache-Control": "public, s-maxage=86400, stale-while-revalidate=43200",
 		},
 		status: 200,
-	});
+	})
 }

@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu"
+import { motion } from "framer-motion"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 const Nav = () => {
-	const pathname = usePathname();
+	const pathname = usePathname()
 
 	const navList = (
 		[
@@ -16,9 +16,9 @@ const Nav = () => {
 	).map((tab) => ({
 		...tab,
 		active: tab.href === pathname,
-	}));
+	}))
 
-	const activeNav = navList.find((tab) => tab.active);
+	const activeNav = navList.find((tab) => tab.active)
 
 	return (
 		<NavigationMenu.Root
@@ -47,7 +47,7 @@ const Nav = () => {
 				/>
 			</NavigationMenu.List>
 		</NavigationMenu.Root>
-	);
-};
+	)
+}
 
-export default Nav;
+export default Nav

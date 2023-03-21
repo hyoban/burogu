@@ -1,17 +1,17 @@
-"use client";
+"use client"
 
-import { useDark } from "@/app/hooks/useDark";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useDark } from "@/app/hooks/useDark"
+import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 
 const ApperanceSwitch = () => {
-	const [mounted, setMounted] = useState(false);
-	const [isDark, toggleDark] = useDark();
+	const [mounted, setMounted] = useState(false)
+	const [isDark, toggleDark] = useDark()
 
 	// useEffect only runs on the client, so now we can safely show the UI
 	useEffect(() => {
-		setMounted(true);
-	}, []);
+		setMounted(true)
+	}, [])
 
 	return (
 		<button onClick={toggleDark}>
@@ -31,7 +31,7 @@ const ApperanceSwitch = () => {
 				}}
 			/>
 		</button>
-	);
-};
+	)
+}
 
-export default ApperanceSwitch;
+export default ApperanceSwitch

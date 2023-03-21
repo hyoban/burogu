@@ -1,10 +1,10 @@
-import { ScrollArea } from "@/app/components/ScrollArea";
-import { getFeedInfoList } from "@/lib/notion";
-import Image from "next/image";
+import { ScrollArea } from "@/app/components/ScrollArea"
+import { getFeedInfoList } from "@/lib/notion"
+import Image from "next/image"
 
 export default async function FeedInfoList({}) {
-	const feedInfoList = await getFeedInfoList();
-	if (!feedInfoList) return null;
+	const feedInfoList = await getFeedInfoList()
+	if (!feedInfoList) return null
 
 	return (
 		<div className="absolute top-0 right-0 translate-x-[130%] ">
@@ -28,5 +28,5 @@ export default async function FeedInfoList({}) {
 					))}
 			</ScrollArea>
 		</div>
-	);
+	)
 }

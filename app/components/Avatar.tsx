@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import config from "@/site.config.cjs";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import config from "@/site.config.cjs"
+import { motion } from "framer-motion"
+import Image from "next/image"
 
 const Avatar = () => {
 	return (
@@ -23,7 +23,7 @@ const Avatar = () => {
 				height={64}
 			/>
 		</motion.a>
-	);
-};
+	)
+}
 
-export default Avatar;
+export default Avatar

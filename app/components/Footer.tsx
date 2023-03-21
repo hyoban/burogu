@@ -1,4 +1,4 @@
-import ApperanceSwitch from "./AppearanceSwitch";
+import ApperanceSwitch from "./AppearanceSwitch"
 
 export default function Footer({ className }: { className?: string }) {
 	return (
@@ -32,5 +32,5 @@ export default function Footer({ className }: { className?: string }) {
 				</a>
 			</div>
 		</footer>
-	);
+	)
 }

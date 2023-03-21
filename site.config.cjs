@@ -39,4 +39,4 @@ module.exports = {
 		},
 	},
 	timeZone: "Asia/Shanghai",
-};
+}

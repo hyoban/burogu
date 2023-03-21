@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/react"
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	return (
@@ -13,9 +13,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 			></script>
 			{children}
 		</>
-	);
+	)
 }
 
 export function AnalyticsWrapper() {
-	return <Analytics />;
+	return <Analytics />
 }
