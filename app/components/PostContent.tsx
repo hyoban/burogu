@@ -16,7 +16,7 @@ import {
 import * as fs from "fs/promises";
 import Image from "next/image";
 import { join as pathJoin } from "path";
-import { getHighlighter, IThemedToken, renderToHtml } from "shiki";
+import { IThemedToken, getHighlighter, renderToHtml } from "shiki";
 
 import { PostContentType } from "@/lib/notion";
 import config from "@/site.config.cjs";
@@ -127,10 +127,10 @@ const RichText = ({
       return (
         <a href={richText.href} target="_blank" rel="noreferrer">
           {richText.href.startsWith("https://github.com/") ? (
-            <span>
-              <div className="i-carbon-logo-github mx-0 text-2xl"></div>
-              <span className="ml-2">{richText.href.slice(19)}</span>
-            </span>
+            <>
+              <span className="i-carbon-logo-github mx-0 align-text-bottom"></span>
+              <span className="ml-1">{richText.href.slice(19)}</span>
+            </>
           ) : (
             <RichText
               richText={{
