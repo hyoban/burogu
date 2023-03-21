@@ -1,5 +1,13 @@
 "use client";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/app/components/Select";
+
 import { FeedListType } from "@/lib/notion";
 import { timeZone } from "@/site.config.cjs";
 import dayjs from "dayjs";
@@ -34,21 +42,25 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
 
   return (
     <>
-      <div className="my-2 flex items-center gap-2">
+      <div className="my-2 flex items-center gap-4">
         <label className="text-gray-700 dark:text-white">分类</label>
-        <select
-          className="rounded-md border border-gray-300 p-1 dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-white"
-          onChange={(e) => {
-            setType(e.target.value);
-          }}
+        <Select
           value={type}
+          onValueChange={(e) => {
+            setType(e);
+          }}
         >
-          {typeList.map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue>{type}</SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {typeList.map((type) => (
+              <SelectItem key={type} value={type}>
+                {type}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       {Object.keys(feedListGroupedByYear)
         .sort((a, b) => Number(b) - Number(a))
