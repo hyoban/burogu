@@ -33,7 +33,7 @@ export async function GET(request: Request) {
 	posts?.forEach((post) => {
 		feed.addItem({
 			title: post.title,
-			link: config.siteUrl + "/" + post.slug,
+			link: config.siteUrl + "/post/" + post.slug,
 			date: dayjs(post.publishedTime).tz(timeZone).toDate(),
 			description: post.description,
 			category: post.tags.map((tag) => ({
