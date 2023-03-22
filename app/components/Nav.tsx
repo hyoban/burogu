@@ -10,8 +10,9 @@ const Nav = () => {
 
 	const navList = (
 		[
-			{ name: "文章", href: "/", width: 56, x: 0 },
-			{ name: "订阅列表", href: "/feedlist", width: 88, x: 56 },
+			{ name: "主页", href: "/", width: 56, x: 0 },
+			{ name: "文章", href: "/post", width: 56, x: 56 },
+			{ name: "订阅列表", href: "/feedlist", width: 88, x: 112 },
 		] as const
 	).map((tab) => ({
 		...tab,

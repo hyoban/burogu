@@ -171,33 +171,47 @@ const RichTextGroup = ({
 	)
 }
 
-const PBlock = ({
+export const PBlock = ({
 	block,
+	children,
 }: { block: ParagraphBlockObjectResponse } & ReactChildren) => {
-	// TODO: handle children
 	return (
 		<p className="leading-7">
-			<RichTextGroup richTexts={block.paragraph.rich_text} />
+			{children ? (
+				children
+			) : (
+				<RichTextGroup richTexts={block.paragraph.rich_text} />
+			)}
 		</p>
 	)
 }
 
-const H1Block = ({
+export const H1Block = ({
 	block,
+	children,
 }: { block: Heading1BlockObjectResponse } & ReactChildren) => {
 	return (
 		<h2 className="relative my-3 text-3xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H2']">
-			<RichTextGroup richTexts={block.heading_1.rich_text} />
+			{children ? (
+				children
+			) : (
+				<RichTextGroup richTexts={block.heading_1.rich_text} />
+			)}
 		</h2>
 	)
 }
 
-const H2Block = ({
+export const H2Block = ({
 	block,
+	children,
 }: { block: Heading2BlockObjectResponse } & ReactChildren) => {
 	return (
 		<h3 className="relative my-2 text-2xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H3']">
-			<RichTextGroup richTexts={block.heading_2.rich_text} />
+			{children ? (
+				children
+			) : (
+				<RichTextGroup richTexts={block.heading_2.rich_text} />
+			)}
 		</h3>
 	)
 }

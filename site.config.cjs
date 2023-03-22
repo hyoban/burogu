@@ -11,15 +11,19 @@ module.exports = {
 			url: "https://github.com/hyoban",
 		},
 		{
-			type: "Mastodon",
-			url: "https://elk.zone/mas.to/@hyoban",
+			type: "Twitter",
+			url: "https://twitter.com/0xhyoban",
+		},
+		{
+			type: "Email",
+			url: "mailto:hi@hyoban.cc",
 		},
 	],
 	codeTheme: {
 		light: "github-light",
 		dark: "github-dark",
 	},
-	siteUrl: "https://blog.hyoban.cc",
+	siteUrl: "https://hyoban.cc",
 	authorName: "Hyoban",
 	authorLink: "https://hyoban.cc",
 	authorEmail: "hi@hyoban.cc",

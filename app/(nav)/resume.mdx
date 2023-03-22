@@ -1,0 +1,46 @@
+import config from "@/site.config.cjs"
+
+## 联系方式
+
+<div class="flex gap-2">
+	{config.links.map((link) => (
+		<a href={link.url} target="_blank" rel="noopener noreferrer">
+			{link.type}
+		</a>
+	))}
+</div>
+
+## 关于我
+
+我叫周云亮，Hyoban 是我在网络上的 ID。
+北方工业大学计算机硕士在读。
+一名前端开发者，最擅长 Next.js, TypeScript，也会一点 Golang, Kotlin。
+
+我喜欢开源，是 memos 的维护者之一，也喜欢分享我自己的创作。
+
+## 项目
+
+1. [blog-next-notion](https://github.com/hyoban/blog-next-notion)
+   - 你正在看到的网站
+   - 使用 Next.js 13 最新的 app 目录特性
+   - 使用 Notion 官方 API 作为 CMS，利用 react 的服务端组件进行 SSR
+   - 作为实验基地，来尝试我最喜欢的一些技术
+2. [memos](https://github.com/usememos/memos)
+   - 参与的开源项目，作为维护者之一处理一些 issue，实现一些小功能
+
+## 技术栈
+
+- React & Vite / Next.js（主擅长）
+- Vue.js（写过一段时间）
+- TypeScript 这是当然的
+- Tailwind CSS / Uno CSS 原子化 CSS
+- Framer Motion 最优雅的动画库
+- Prisma & TRPC (T3 stack) 全栈也能写
+- Linux, Docker, CI/CD
+- Kotlin / Android (Jetpack Compose) 前安卓开发者，现在不怎么写了
+
+## 个人偏好
+
+1. 轻度强迫症，使用 Tab 缩进
+1. 讨厌 Windows，目前在用 14 寸 MacBook Pro 和 PC 中的 WSL 2 进行开发
+1. 更喜欢 jsx 模式的前端框架，讨厌模版语法

@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@egoist/tailwindcss-icons': ^1.0.7
   '@iconify/json': ^2.2.37
+  '@next/mdx': ^13.2.4
   '@notionhq/client': ^2.2.3
   '@radix-ui/react-navigation-menu': ^1.1.2
   '@radix-ui/react-scroll-area': ^1.0.3
@@ -37,6 +38,7 @@ specifiers:
   typescript: 5.0.2
 
 dependencies:
+  '@next/mdx': 13.2.4
   '@radix-ui/react-navigation-menu': 1.1.2_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-scroll-area': 1.0.3_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-select': 1.2.1_zula6vjvt3wdocc4mwcxqa6nzi
@@ -231,6 +233,20 @@ packages:
     dependencies:
       glob: 7.1.7
     dev: true
+
+  /@next/mdx/13.2.4:
+    resolution: {integrity: sha512-inl7u+OEa4Ok3uL052oa8EDw1bUkMGLVKzFfVBIgG19s29gxQvcWYzxa5t438J31ljApjh6Y5k4AD6yLaCAlQw==}
+    peerDependencies:
+      '@mdx-js/loader': '>=0.15.0'
+      '@mdx-js/react': '>=0.15.0'
+    peerDependenciesMeta:
+      '@mdx-js/loader':
+        optional: true
+      '@mdx-js/react':
+        optional: true
+    dependencies:
+      source-map: 0.7.4
+    dev: false
 
   /@next/swc-android-arm-eabi/13.2.4:
     resolution: {integrity: sha512-DWlalTSkLjDU11MY11jg17O1gGQzpRccM9Oes2yTqj2DpHndajrXHGxj9HGtJ+idq2k7ImUdJVWS2h2l/EDJOw==}
@@ -3401,6 +3417,11 @@ packages:
   /source-map/0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /source-map/0.7.4:
+    resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
+    engines: {node: '>= 8'}
     dev: false
 
   /sourcemap-codec/1.4.8:
