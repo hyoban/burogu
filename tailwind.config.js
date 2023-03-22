@@ -1,4 +1,5 @@
 const { iconsPlugin, getIconCollections } = require("@egoist/tailwindcss-icons")
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,7 +9,12 @@ module.exports = {
 		"./components/**/*.{js,ts,jsx,tsx}",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+				// https://tailwindcss.com/docs/font-family#customizing-the-default-font
+				mono: ["var(--font-dm-mono)", ...defaultTheme.fontFamily.mono],
+			},
+		},
 	},
 	plugins: [
 		iconsPlugin({

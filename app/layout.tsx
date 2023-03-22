@@ -1,16 +1,23 @@
 import "@/app/css/globals.css"
 
-import dayjs from "dayjs"
-import timezone from "dayjs/plugin/timezone"
-import utc from "dayjs/plugin/utc"
-
 import Footer from "@/app/components/Footer"
 import { AnalyticsWrapper, ThemeProvider } from "@/app/provider"
 import config from "@/site.config.cjs"
+import dayjs from "dayjs"
+import timezone from "dayjs/plugin/timezone"
+import utc from "dayjs/plugin/utc"
+import { DM_Mono } from "next/font/google"
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault(config.timeZone)
+
+// https://beta.nextjs.org/docs/optimizing/fonts#with-tailwind-css
+const font = DM_Mono({
+	variable: "--font-dm-mono",
+	weight: ["300", "400", "500"],
+	subsets: ["latin"],
+})
 
 export const metadata = {
 	title: config.siteName,
@@ -25,7 +32,7 @@ export default function RootLayout({ children }: React.PropsWithChildren<{}>) {
 		<html
 			lang={config.siteLanguage}
 			suppressHydrationWarning
-			className="h-full"
+			className={`h-full ${font.variable}`}
 		>
 			{/*
         <head /> will contain the components returned by the nearest parent
