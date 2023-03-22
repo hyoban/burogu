@@ -186,12 +186,35 @@ export const PBlock = ({
 	)
 }
 
+const HeaderAnchor = ({
+	anchor,
+	level = 1,
+}: {
+	anchor: string
+	level?: number
+}) => {
+	return (
+		<a
+			href={`#${anchor}`}
+			className="opacity-0 no-underline hover:sm:opacity-30 group-hover:sm:opacity-30 sm:absolute sm:right-full sm:mr-2"
+		>
+			{Array.from({ length: level }, () => "#").join("")}
+		</a>
+	)
+}
+
 export const H1Block = ({
 	block,
 	children,
-}: { block: Heading1BlockObjectResponse } & ReactChildren) => {
+}: { block?: Heading1BlockObjectResponse } & ReactChildren) => {
+	if (!block) return <h2 className="relative my-3 text-3xl">{children}</h2>
+
+	const anchor = encodeURIComponent(
+		block?.heading_1.rich_text.map((i) => i.plain_text).join("")
+	)
 	return (
-		<h2 className="relative my-3 text-3xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H2']">
+		<h2 className="relative my-3 text-3xl group" id={anchor}>
+			<HeaderAnchor anchor={anchor} level={2} />
 			{children ? (
 				children
 			) : (
@@ -204,9 +227,15 @@ export const H1Block = ({
 export const H2Block = ({
 	block,
 	children,
-}: { block: Heading2BlockObjectResponse } & ReactChildren) => {
+}: { block?: Heading2BlockObjectResponse } & ReactChildren) => {
+	if (!block) return <h3 className="relative my-2 text-2xl">{children}</h3>
+
+	const anchor = encodeURIComponent(
+		block.heading_2.rich_text.map((i) => i.plain_text).join("")
+	)
 	return (
-		<h3 className="relative my-2 text-2xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H3']">
+		<h3 className="relative my-2 text-2xl group" id={anchor}>
+			<HeaderAnchor anchor={anchor} level={3} />
 			{children ? (
 				children
 			) : (
@@ -218,9 +247,16 @@ export const H2Block = ({
 
 const H3Block = ({
 	block,
-}: { block: Heading3BlockObjectResponse } & ReactChildren) => {
+	children,
+}: { block?: Heading3BlockObjectResponse } & ReactChildren) => {
+	if (!block) return <h4 className="relative my-1 text-xl">{children}</h4>
+
+	const anchor = encodeURIComponent(
+		block.heading_3.rich_text.map((i) => i.plain_text).join("")
+	)
 	return (
-		<h4 className="relative my-1 text-xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H4']">
+		<h4 className="relative my-1 text-xl group" id={anchor}>
+			<HeaderAnchor anchor={anchor} level={4} />
 			<RichTextGroup richTexts={block.heading_3.rich_text} />
 		</h4>
 	)
