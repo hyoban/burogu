@@ -186,7 +186,7 @@ const H1Block = ({
 	block,
 }: { block: Heading1BlockObjectResponse } & ReactChildren) => {
 	return (
-		<h2 className="relative my-3 text-3xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H1']">
+		<h2 className="relative my-3 text-3xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H2']">
 			<RichTextGroup richTexts={block.heading_1.rich_text} />
 		</h2>
 	)
@@ -196,7 +196,7 @@ const H2Block = ({
 	block,
 }: { block: Heading2BlockObjectResponse } & ReactChildren) => {
 	return (
-		<h3 className="relative my-2 text-2xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H2']">
+		<h3 className="relative my-2 text-2xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H3']">
 			<RichTextGroup richTexts={block.heading_2.rich_text} />
 		</h3>
 	)
@@ -206,7 +206,7 @@ const H3Block = ({
 	block,
 }: { block: Heading3BlockObjectResponse } & ReactChildren) => {
 	return (
-		<h4 className="relative my-1 text-xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H3']">
+		<h4 className="relative my-1 text-xl sm:before:absolute sm:before:right-full sm:before:mr-2 sm:before:opacity-30 sm:before:content-['H4']">
 			<RichTextGroup richTexts={block.heading_3.rich_text} />
 		</h4>
 	)
@@ -306,11 +306,11 @@ const CodeBlock = async ({
 					: themeBg,
 			elements: {
 				pre({ style, children }) {
-					return `<pre class="p-4 rounded-md my-2 overflow-y-auto sm:overflow-y-visible" style="${style}">${children}</pre>`
+					return `<pre class="p-4 rounded-md my-2 overflow-y-auto" style="${style}">${children}</pre>`
 				},
 
 				code({ children }) {
-					return `<code class="sm:whitespace-pre-wrap sm:break-all">${children}</code>`
+					return `<code>${children}</code>`
 				},
 
 				line({ className, children }) {
