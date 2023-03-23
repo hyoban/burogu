@@ -19,6 +19,7 @@ const font = DM_Mono({
 	subsets: ["latin"],
 })
 
+// https://beta.nextjs.org/docs/api-reference/metadata
 export const metadata = {
 	title: {
 		default: config.siteName,
@@ -27,6 +28,44 @@ export const metadata = {
 	description: config.description,
 	icons: {
 		icon: config.faviconPath,
+	},
+	openGraph: {
+		title: config.authorName,
+		description: config.description,
+		url: config.siteUrl,
+		siteName: config.siteName,
+		locale: config.siteLanguage,
+		type: "website",
+		images: [
+			{
+				url: config.siteUrl + config.avatarPath,
+			},
+		],
+	},
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			"max-video-preview": -1,
+			"max-image-preview": "large",
+			"max-snippet": -1,
+		},
+	},
+	themeColor: [
+		{
+			media: "(prefers-color-scheme: light)",
+			color: "#ffffff",
+		},
+		{
+			media: "(prefers-color-scheme: dark)",
+			color: "#1f1f1f",
+		},
+	],
+	twitter: {
+		title: config.authorName,
+		card: "summary_large_image",
 	},
 }
 

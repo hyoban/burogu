@@ -1,6 +1,7 @@
 import { Giscus } from "@/app/components/Comment"
 import PostDetail from "@/app/components/PostDetail"
 import { getPostList, getSinglePostInfo } from "@/lib/notion"
+import { Metadata } from "next"
 
 export default function Page({ params }: { params: { slug: string } }) {
 	return (
@@ -25,8 +26,8 @@ export async function generateMetadata({
 	params,
 }: {
 	params: { slug: string }
-}) {
+}): Promise<Metadata> {
 	const page = await getSinglePostInfo(params.slug, true)
 
-	return { title: page?.title }
+	return { title: page?.title, description: page?.description }
 }
