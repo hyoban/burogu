@@ -13,9 +13,12 @@ export default function Avatar({ className = "" }: { className?: string }) {
 			whileTap={{ scale: 0.9 }}
 			transition={{ type: "spring", stiffness: 400, damping: 17 }}
 		>
-			<Link href="/" className="hover:opacity-100">
+			<Link href="/">
 				<Image
-					className={cn("rounded-full", className)}
+					className={cn(
+						"rounded-full ring-2 ring-gray-300 dark:ring-gray-700 p-1",
+						className
+					)}
 					src={config.avatarPath}
 					alt={config.authorName}
 					width={64}
