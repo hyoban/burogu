@@ -27,7 +27,7 @@ export default function Footer({ className }: { className?: string }) {
 				>
 					<div className="i-carbon-logo-github"></div>
 				</a>
-				<a href="/feed.xml" target="_blank" rel="noreferrer">
+				<a href="/rss.xml" target="_blank" rel="noreferrer">
 					<div className="i-carbon-rss"></div>
 				</a>
 			</div>

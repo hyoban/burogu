@@ -9,7 +9,7 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault(timeZone)
 
-export async function GET(request: Request) {
+export async function GET() {
 	const feed = new Feed({
 		title: config.siteName,
 		description: config.description,
@@ -45,8 +45,6 @@ export async function GET(request: Request) {
 	return new Response(feed.rss2(), {
 		headers: {
 			"Content-Type": "text/xml",
-			"Cache-Control": "public, s-maxage=86400, stale-while-revalidate=43200",
 		},
-		status: 200,
 	})
 }

@@ -67,6 +67,11 @@ export const metadata = {
 		title: config.authorName,
 		card: "summary_large_image",
 	},
+	alternates: {
+		types: {
+			"application/rss+xml": "/rss.xml",
+		},
+	},
 }
 
 export default function RootLayout({ children }: React.PropsWithChildren<{}>) {
