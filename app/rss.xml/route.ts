@@ -9,6 +9,8 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault(timeZone)
 
+// https://beta.nextjs.org/docs/routing/route-handlers
+// https://beta.nextjs.org/docs/routing/route-handlers#robotstxt-rssxml-and-sitemapxml
 export async function GET() {
 	const feed = new Feed({
 		title: config.siteName,
