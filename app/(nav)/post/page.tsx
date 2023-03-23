@@ -1,7 +1,6 @@
 import { Suspense } from "react"
 
 import PostList from "@/app/components/PostList"
-import { siteName } from "@/site.config.cjs"
 
 export default function PostListPage({}) {
 	return (
@@ -13,5 +12,5 @@ export default function PostListPage({}) {
 }
 
 export const metadata = {
-	title: "文章 | " + siteName,
+	title: "文章",
 }

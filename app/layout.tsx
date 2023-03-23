@@ -20,7 +20,10 @@ const font = DM_Mono({
 })
 
 export const metadata = {
-	title: config.siteName,
+	title: {
+		default: config.siteName,
+		template: `%s | ${config.siteName}`,
+	},
 	description: config.description,
 	icons: {
 		icon: config.faviconPath,
