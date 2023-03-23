@@ -508,7 +508,7 @@ export default async function PostContent({
 		return <div>Post Content Not found</div>
 	}
 	return (
-		<article className="flex w-full flex-col gap-3">
+		<article className="flex w-full flex-col gap-3 prose">
 			{blocks
 				.map((block) => {
 					return <RenderBlock block={block} key={block.cur.id} />

@@ -1,9 +1,8 @@
 "use client"
 
-import { cn } from "@/lib/utils"
 import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 import { motion } from "framer-motion"
-import Link from "next/link"
+import NextLink from "next/link"
 import { usePathname } from "next/navigation"
 
 export default function Nav({ className = "" }: { className?: string }) {
@@ -23,21 +22,16 @@ export default function Nav({ className = "" }: { className?: string }) {
 	const activeNav = navList.find((tab) => tab.active)
 
 	return (
-		<NavigationMenu.Root
-			className={cn("relative flex w-fit py-1 items-center", className)}
-			asChild
-		>
-			<NavigationMenu.List>
+		<NavigationMenu.Root className={className}>
+			<NavigationMenu.List className="flex py-1 items-center">
 				{navList.map((tab) => (
-					<NavigationMenu.Item key={tab.name} className="list-none">
-						<Link href={tab.href} passHref legacyBehavior>
-							<NavigationMenu.Link
-								active={tab.active}
-								className="px-3 no-underline hover:opacity-100"
-							>
+					// https://www.radix-ui.com/docs/primitives/components/navigation-menu#with-client-side-routing
+					<NavigationMenu.Item key={tab.name}>
+						<NextLink href={tab.href} passHref legacyBehavior>
+							<NavigationMenu.Link active={tab.active} className="px-3">
 								{tab.name}
 							</NavigationMenu.Link>
-						</Link>
+						</NextLink>
 					</NavigationMenu.Item>
 				))}
 				<motion.div
