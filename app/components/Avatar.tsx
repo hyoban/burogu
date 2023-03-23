@@ -1,11 +1,12 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import config from "@/site.config.cjs"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 
-const Avatar = () => {
+export default function Avatar({ className = "" }: { className?: string }) {
 	return (
 		<motion.button
 			whileHover={{ scale: 1.1 }}
@@ -14,7 +15,7 @@ const Avatar = () => {
 		>
 			<Link href="/" className="hover:opacity-100">
 				<Image
-					className="h-20 w-20 rounded-full ring-2 ring-gray-300 dark:ring-gray-700 p-[1px]"
+					className={cn("rounded-full", className)}
 					src={config.avatarPath}
 					alt={config.authorName}
 					width={64}
@@ -24,5 +25,3 @@ const Avatar = () => {
 		</motion.button>
 	)
 }
-
-export default Avatar

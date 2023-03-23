@@ -5,17 +5,20 @@ import config from "@/site.config.cjs"
 
 export default function Header({}) {
 	return (
-		<header className="flex w-full items-center justify-between">
-			<div className="flex items-center space-x-6">
-				<Avatar />
-				<div className="space-y-2">
-					<p className="text-xl text-slate-700 dark:text-slate-400">
+		<header className="flex flex-col sm:flex-row gap-6 w-full items-center sm:justify-between">
+			<div className="sm:order-last">
+				<Nav />
+			</div>
+			<div className="flex items-center gap-4">
+				<Avatar className="w-24 h-24 ring-2 ring-gray-300 dark:ring-gray-700 p-1" />
+				<div className="flex flex-col gap-2 items-center">
+					<p className="font-mono text-2xl text-slate-700 dark:text-slate-400">
 						{config.authorName}
 					</p>
-					<p className="text-sm text-slate-500 dark:text-slate-400">
+					<p className="text-slate-500 dark:text-slate-400">
 						{config.shortDescription}
 					</p>
-					<div className="flex gap-2">
+					<div className="flex gap-2 mt-2">
 						{config.links.map((link) => (
 							<IconLink
 								key={link.url}
@@ -26,7 +29,6 @@ export default function Header({}) {
 					</div>
 				</div>
 			</div>
-			<Nav />
 		</header>
 	)
 }

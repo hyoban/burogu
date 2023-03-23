@@ -1,11 +1,12 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-const Nav = () => {
+export default function Nav({ className = "" }: { className?: string }) {
 	const pathname = usePathname()
 
 	const navList = (
@@ -23,7 +24,7 @@ const Nav = () => {
 
 	return (
 		<NavigationMenu.Root
-			className="relative flex w-fit py-1 items-center"
+			className={cn("relative flex w-fit py-1 items-center", className)}
 			asChild
 		>
 			<NavigationMenu.List>
@@ -50,5 +51,3 @@ const Nav = () => {
 		</NavigationMenu.Root>
 	)
 }
-
-export default Nav
