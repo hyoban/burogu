@@ -14,7 +14,7 @@ const Avatar = () => {
 		>
 			<Link href="/" className="hover:opacity-100">
 				<Image
-					className="h-16 w-16 rounded-full"
+					className="h-20 w-20 rounded-full ring-2 ring-gray-300 dark:ring-gray-700 p-[1px]"
 					src={config.avatarPath}
 					alt={config.authorName}
 					width={64}
