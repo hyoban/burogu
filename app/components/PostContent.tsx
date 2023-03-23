@@ -196,7 +196,7 @@ const HeaderAnchor = ({
 	return (
 		<a
 			href={`#${anchor}`}
-			className="opacity-0 no-underline hover:sm:opacity-30 group-hover:sm:opacity-30 sm:absolute sm:right-full sm:mr-2"
+			className="hidden sm:inline opacity-0 no-underline hover:sm:opacity-30 group-hover:sm:opacity-30 sm:absolute sm:right-full sm:mr-2"
 		>
 			{Array.from({ length: level }, () => "#").join("")}
 		</a>
