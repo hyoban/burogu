@@ -1,3 +1,4 @@
+import FadeInAndOut from "@/app/components/FadeInAndOut"
 import FeedInfoList from "@/app/components/FeedInfoList"
 import FeedList from "@/app/components/FeedList"
 import { getFeedInfoList, getFeedList } from "@/lib/notion"
@@ -16,12 +17,14 @@ async function FeedListServer({}) {
 export default async function FeedListPage({}) {
 	return (
 		<article className="relative my-8 flex w-full flex-col gap-4">
-			<Suspense fallback={<p>Loading FeedInfoList...</p>}>
+			<FadeInAndOut>
+				<Suspense fallback={<p>Loading FeedInfoList...</p>}>
+					{/* @ts-expect-error Server Component */}
+					<FeedListServer />
+				</Suspense>
 				{/* @ts-expect-error Server Component */}
-				<FeedListServer />
-			</Suspense>
-			{/* @ts-expect-error Server Component */}
-			<FeedInfoList />
+				<FeedInfoList />
+			</FadeInAndOut>
 		</article>
 	)
 }
