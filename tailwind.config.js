@@ -14,6 +14,9 @@ module.exports = {
 				// https://tailwindcss.com/docs/font-family#customizing-the-default-font
 				mono: ["var(--font-dm-mono)", ...defaultTheme.fontFamily.mono],
 			},
+			screens: {
+				sm: "645px",
+			},
 		},
 	},
 	plugins: [
@@ -21,6 +24,7 @@ module.exports = {
 			// Select the icon collections you want to use
 			collections: getIconCollections(["mdi", "carbon"]),
 		}),
+		require("tailwindcss-animate"),
 	],
 	darkMode: "class",
 }
