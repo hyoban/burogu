@@ -362,7 +362,7 @@ const CodeBlock = async ({
 					: themeBg,
 			elements: {
 				pre({ style, children }) {
-					return `<pre class="p-4 rounded-md my-2 overflow-y-auto" style="${style}">${children}</pre>`
+					return `<pre class="p-4 rounded-md my-2 overflow-y-auto" style="tab-size: 2; ${style}">${children}</pre>`
 				},
 
 				code({ children }) {
