@@ -23,7 +23,6 @@ specifiers:
   feed: ^4.2.2
   framer-motion: ^10.8.5
   jotai: ^2.0.3
-  lucide-react: ^0.127.0
   next: 13.2.4
   postcss: ^8.4.21
   prettier: ^2.8.6
@@ -52,7 +51,6 @@ dependencies:
   feed: 4.2.2
   framer-motion: 10.8.5_biqbaboplfbrettd7655fr4n2y
   jotai: 2.0.3_react@18.2.0
-  lucide-react: 0.127.0_react@18.2.0
   next: 13.2.4_biqbaboplfbrettd7655fr4n2y
   probe-image-size: 7.2.3
   react: 18.2.0
@@ -2535,14 +2533,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
-
-  /lucide-react/0.127.0_react@18.2.0:
-    resolution: {integrity: sha512-9xxwl2FbdwWDjB0L6FEsOSbeOVp7Pj+L3urz+xDJNx1xggmQgGjeKDJQ28i/9ON8rV9HaqwQveBtsYnHqtWLqg==}
-    peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
-    dev: false
 
   /mdn-data/2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}

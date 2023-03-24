@@ -1,10 +1,8 @@
 "use client"
 
-import * as SelectPrimitive from "@radix-ui/react-select"
-import { Check, ChevronDown } from "lucide-react"
-import * as React from "react"
-
 import { cn } from "@/lib/utils"
+import * as SelectPrimitive from "@radix-ui/react-select"
+import * as React from "react"
 
 const Select = SelectPrimitive.Root
 
@@ -25,7 +23,7 @@ const SelectTrigger = React.forwardRef<
 		{...props}
 	>
 		{children}
-		<ChevronDown className="h-4 w-4 opacity-50" />
+		<span className="h-4 w-4 opacity-50 i-carbon-chevron-down" />
 	</SelectPrimitive.Trigger>
 ))
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
@@ -78,9 +76,9 @@ const SelectItem = React.forwardRef<
 		)}
 		{...props}
 	>
-		<span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-			<SelectPrimitive.ItemIndicator>
-				<Check className="h-4 w-4" />
+		<span className="absolute left-2 flex h-4 w-4 items-center justify-center">
+			<SelectPrimitive.ItemIndicator asChild>
+				<span className="i-carbon-checkmark" />
 			</SelectPrimitive.ItemIndicator>
 		</span>
 
