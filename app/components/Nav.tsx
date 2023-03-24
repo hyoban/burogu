@@ -7,9 +7,11 @@ import NextLink from "next/link"
 import { usePathname } from "next/navigation"
 
 export default function Nav({
+	children,
 	className = "",
 	onNavIitemClick,
 }: {
+	children?: React.ReactNode
 	className?: string
 	onNavIitemClick?: () => void
 }) {
@@ -31,10 +33,11 @@ export default function Nav({
 	return (
 		<NavigationMenu.Root
 			className={cn(
-				"h-full sm:h-auto w-full sm:w-auto flex items-stretch justify-center",
+				"h-full sm:h-auto w-full sm:w-auto flex flex-col sm:flex-row sm:gap-4 items-center justify-center",
 				className
 			)}
 		>
+			{children}
 			<NavigationMenu.List className="flex flex-col sm:flex-row gap-5 sm:gap-0 h-full pt-10 sm:py-1 items-center justify-start">
 				{navList.map((tab) => (
 					// https://www.radix-ui.com/docs/primitives/components/navigation-menu#with-client-side-routing

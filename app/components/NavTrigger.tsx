@@ -5,7 +5,13 @@ import { Sheet, SheetContent, SheetTrigger } from "@/app/components/Sheet"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 
-export default function NavTrigger({ className }: { className?: string }) {
+export default function NavTrigger({
+	className,
+	children,
+}: {
+	className?: string
+	children?: React.ReactNode
+}) {
 	const [isNavOpen, setIsNavOpen] = useState(false)
 
 	return (
@@ -19,7 +25,7 @@ export default function NavTrigger({ className }: { className?: string }) {
 				></button>
 			</SheetTrigger>
 			<SheetContent position="left" size="lg">
-				<Nav onNavIitemClick={() => setIsNavOpen(false)} />
+				<Nav onNavIitemClick={() => setIsNavOpen(false)}>{children}</Nav>
 			</SheetContent>
 		</Sheet>
 	)

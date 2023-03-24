@@ -1,3 +1,18 @@
+import IconLink from "@/app/components/IconLink"
+import config from "@/site.config.cjs"
+
+## 找到我
+
+{
+
+<div className="flex gap-2 mt-2">
+	{config.links.map((link) => (
+		<IconLink key={link.url} type={link.type} href={link.url}></IconLink>
+	))}
+</div>
+
+}
+
 ## 关于我
 
 我叫周云亮，Hyoban 是我在网络上的 ID。
