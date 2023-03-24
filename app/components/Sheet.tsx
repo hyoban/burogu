@@ -1,11 +1,9 @@
 "use client"
 
+import { cn } from "@/lib/utils"
 import * as SheetPrimitive from "@radix-ui/react-dialog"
 import { VariantProps, cva } from "class-variance-authority"
-import { X } from "lucide-react"
 import * as React from "react"
-
-import { cn } from "@/lib/utils"
 
 const Sheet = SheetPrimitive.Root
 
@@ -158,8 +156,8 @@ const SheetContent = React.forwardRef<
 			{...props}
 		>
 			{children}
-			<SheetPrimitive.Close className="absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-neutral-100 dark:focus:ring-neutral-400 dark:focus:ring-offset-neutral-900 dark:data-[state=open]:bg-neutral-800">
-				<X className="h-4 w-4" />
+			<SheetPrimitive.Close className="h-6 w-6 absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-neutral-100 dark:focus:ring-neutral-400 dark:focus:ring-offset-neutral-900 dark:data-[state=open]:bg-neutral-800">
+				<span className="i-carbon-close h-6 w-6" />
 				<span className="sr-only">Close</span>
 			</SheetPrimitive.Close>
 		</SheetPrimitive.Content>
@@ -167,72 +165,4 @@ const SheetContent = React.forwardRef<
 ))
 SheetContent.displayName = SheetPrimitive.Content.displayName
 
-const SheetHeader = ({
-	className,
-	...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-	<div
-		className={cn(
-			"flex flex-col space-y-2 text-center sm:text-left",
-			className
-		)}
-		{...props}
-	/>
-)
-SheetHeader.displayName = "SheetHeader"
-
-const SheetFooter = ({
-	className,
-	...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
-	<div
-		className={cn(
-			"flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-			className
-		)}
-		{...props}
-	/>
-)
-SheetFooter.displayName = "SheetFooter"
-
-const SheetTitle = React.forwardRef<
-	React.ElementRef<typeof SheetPrimitive.Title>,
-	React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
->(({ className, ...props }, ref) => (
-	<SheetPrimitive.Title
-		ref={ref}
-		className={cn(
-			"text-lg font-semibold text-neutral-900",
-			"dark:text-neutral-50",
-			className
-		)}
-		{...props}
-	/>
-))
-SheetTitle.displayName = SheetPrimitive.Title.displayName
-
-const SheetDescription = React.forwardRef<
-	React.ElementRef<typeof SheetPrimitive.Description>,
-	React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
->(({ className, ...props }, ref) => (
-	<SheetPrimitive.Description
-		ref={ref}
-		className={cn(
-			"text-sm text-neutral-500",
-			"dark:text-neutral-400",
-			className
-		)}
-		{...props}
-	/>
-))
-SheetDescription.displayName = SheetPrimitive.Description.displayName
-
-export {
-	Sheet,
-	SheetTrigger,
-	SheetContent,
-	SheetHeader,
-	SheetFooter,
-	SheetTitle,
-	SheetDescription,
-}
+export { Sheet, SheetTrigger, SheetContent }
