@@ -10,19 +10,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	if (!page) return null
 	return (
 		<>
-			<SharedElement
-				layoutId={`post-cover-${page.id}`}
-				className="absolute top-0 left-0 right-0 sm:static"
-			>
-				<Image
-					className="h-auto w-full  sm:rounded-lg"
-					src={page.cover.url}
-					alt="post cover"
-					width={page.cover.width}
-					height={page.cover.height}
-				/>
-			</SharedElement>
-			<div className="mx-auto flex w-full flex-col items-center gap-4 mt-20 sm:mt-0">
+			<div className="mx-auto flex w-full flex-col items-center gap-4">
+				<SharedElement layoutId={`post-cover-${page.id}`}>
+					<Image
+						className="h-auto w-full rounded-lg"
+						src={page.cover.url}
+						alt="post cover"
+						width={page.cover.width}
+						height={page.cover.height}
+					/>
+				</SharedElement>
 				<h1 className="my-6 self-start text-4xl">{page.title}</h1>
 				{/* @ts-expect-error Server Component */}
 				<PostDetail slug={params.slug} />
