@@ -330,14 +330,20 @@ const CodeBlock = async ({
 	const code = (block.code.rich_text as TextRichTextItemResponse[])
 		.map((i) => i.plain_text)
 		.join("")
+
+	let language: string = block.code.language
+	if (language === "plain text") {
+		language = ""
+	}
+
 	const lightTokens = highlighter.codeToThemedTokens(
 		code,
-		block.code.language,
+		language,
 		lightCodeTheme
 	)
 	const darkTokens = highlighter.codeToThemedTokens(
 		code,
-		block.code.language,
+		language,
 		darkCodeTheme
 	)
 
