@@ -14,59 +14,68 @@ import dayjs from "dayjs"
 import timezone from "dayjs/plugin/timezone"
 import utc from "dayjs/plugin/utc"
 import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
+import { atom, useAtom } from "jotai"
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault(timeZone)
 
+const typeFilterAtom = atom("all")
+
+function FeedTypeSelector({ typeList }: { typeList: string[] }) {
+	const [type, setType] = useAtom(typeFilterAtom)
+	return (
+		<div className="my-2 flex items-center gap-4">
+			<label className="text-gray-700 dark:text-white">分类</label>
+			<Select
+				value={type}
+				onValueChange={(e) => {
+					setType(e)
+				}}
+			>
+				<SelectTrigger className="w-[180px]">
+					<SelectValue>{type}</SelectValue>
+				</SelectTrigger>
+				<SelectContent>
+					{typeList.map((type) => (
+						<SelectItem key={type} value={type}>
+							{type}
+						</SelectItem>
+					))}
+				</SelectContent>
+			</Select>
+		</div>
+	)
+}
+
 export default function FeedList({ feedList }: { feedList: FeedListType }) {
-	const typeList = ["All"].concat(
+	const typeList = ["all"].concat(
 		feedList.map((i) => i.type).filter((v, i, a) => a.indexOf(v) === i)
 	)
-
-	const [type, setType] = useState("All")
-
-	const feedListGroupedByYear = feedList
+	const [type] = useAtom(typeFilterAtom)
+	const feedListGroupedByYearAndMonth = feedList
 		.filter((feed) => {
-			if (type === "All") return true
+			if (type === "all") return true
 			return feed.type === type
 		})
 		.reduce((acc, feed) => {
-			const feedYear = dayjs(feed.isoDate).tz(timeZone).format("YYYY")
-			if (!acc[feedYear]) {
-				acc[feedYear] = []
+			const feedYearWithMonth = dayjs(feed.isoDate)
+				.tz(timeZone)
+				.format("YYYY MM")
+			if (!acc[feedYearWithMonth]) {
+				acc[feedYearWithMonth] = []
 			}
-			acc[feedYear].push(feed)
+			acc[feedYearWithMonth].push(feed)
 			return acc
 		}, {} as Record<string, typeof feedList>)
 
 	return (
 		<>
-			<div className="my-2 flex items-center gap-4">
-				<label className="text-gray-700 dark:text-white">分类</label>
-				<Select
-					value={type}
-					onValueChange={(e) => {
-						setType(e)
-					}}
-				>
-					<SelectTrigger className="w-[180px]">
-						<SelectValue>{type}</SelectValue>
-					</SelectTrigger>
-					<SelectContent>
-						{typeList.map((type) => (
-							<SelectItem key={type} value={type}>
-								{type}
-							</SelectItem>
-						))}
-					</SelectContent>
-				</Select>
-			</div>
-			{Object.keys(feedListGroupedByYear)
+			<FeedTypeSelector typeList={typeList} />
+			{Object.keys(feedListGroupedByYearAndMonth)
 				.sort((a, b) => Number(b) - Number(a))
 				.map((feedYear) => {
-					const feedListByYear = feedListGroupedByYear[feedYear]
+					const feedListByYear = feedListGroupedByYearAndMonth[feedYear]
 					return (
 						<div key={feedYear} className="my-2">
 							<h2 className="my-3 text-3xl opacity-50">{feedYear}</h2>
