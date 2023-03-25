@@ -16,15 +16,13 @@ async function FeedListServer({}) {
 
 export default async function FeedListPage({}) {
 	return (
-		<FadeInAndOut>
-			<article className="relative my-8 flex w-full flex-col gap-4">
-				<Suspense fallback={<p>Loading FeedInfoList...</p>}>
-					{/* @ts-expect-error Server Component */}
-					<FeedListServer />
-				</Suspense>
+		<FadeInAndOut className="relative my-8 flex w-full flex-col gap-4">
+			<Suspense fallback={<p>Loading FeedInfoList...</p>}>
 				{/* @ts-expect-error Server Component */}
-				<FeedInfoList />
-			</article>
+				<FeedListServer />
+			</Suspense>
+			{/* @ts-expect-error Server Component */}
+			<FeedInfoList />
 		</FadeInAndOut>
 	)
 }

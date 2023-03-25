@@ -24,7 +24,7 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
 		feedList.map((i) => i.type).filter((v, i, a) => a.indexOf(v) === i)
 	)
 
-	const [type, setType] = useState("Personal Blog")
+	const [type, setType] = useState("All")
 
 	const feedListGroupedByYear = feedList
 		.filter((feed) => {
