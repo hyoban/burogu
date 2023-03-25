@@ -91,7 +91,7 @@ export default function RootLayout({ children }: React.PropsWithChildren<{}>) {
 				<ThemeProvider>
 					<div className="flex w-full max-w-[64ch] flex-col justify-between">
 						<main className="flex w-full flex-col items-start">{children}</main>
-						<Footer className="mt-6" />
+						<Footer className="mt-6 print:hidden" />
 					</div>
 				</ThemeProvider>
 				<AnalyticsWrapper />

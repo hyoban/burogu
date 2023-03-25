@@ -6,7 +6,7 @@ import config from "@/site.config.cjs"
 
 export default function Header({}) {
 	return (
-		<header className="flex flex-col sm:flex-row gap-6 w-full items-center sm:justify-between">
+		<header className="flex flex-col sm:flex-row gap-6 w-full items-center sm:justify-between print:hidden">
 			<Nav className="hidden sm:flex sm:order-last">
 				{/* @ts-expect-error Server Component */}
 				<CommandMenuInServer />

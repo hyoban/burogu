@@ -21,6 +21,7 @@ export default function IconLink({
 					: type === "Email"
 					? "i-carbon-email"
 					: "",
+				"print:hidden",
 				className
 			)}
 		></div>
@@ -36,7 +37,7 @@ export default function IconLink({
 			target="_blank"
 			rel="noopener noreferrer"
 			className={cn(
-				"flex items-center justify-center w-8 h-8 rounded-full",
+				"flex items-center justify-center w-8 h-8 rounded-full print:inline print:h-auto print:w-auto",
 				type === "GitHub"
 					? "bg-gray-800 dark:bg-gray-700"
 					: type === "Twitter"
@@ -47,6 +48,7 @@ export default function IconLink({
 			)}
 		>
 			{icon}
+			<span className="hidden print:inline">{href}</span>
 		</a>
 	)
 }
