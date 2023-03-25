@@ -3,10 +3,33 @@ import { cn } from "@/lib/utils"
 export default function IconLink({
 	type,
 	href,
+	className = "",
+	iconOnly = false,
 }: {
 	type: "GitHub" | "Twitter" | "Email"
 	href: string
+	className?: string
+	iconOnly?: boolean
 }) {
+	const icon = (
+		<div
+			className={cn(
+				type === "GitHub"
+					? "i-carbon-logo-github"
+					: type === "Twitter"
+					? "i-carbon-logo-twitter"
+					: type === "Email"
+					? "i-carbon-email"
+					: "",
+				className
+			)}
+		></div>
+	)
+
+	if (iconOnly) {
+		return icon
+	}
+
 	return (
 		<a
 			href={href}
@@ -23,18 +46,7 @@ export default function IconLink({
 					: ""
 			)}
 		>
-			<div
-				className={cn(
-					type === "GitHub"
-						? "i-carbon-logo-github"
-						: type === "Twitter"
-						? "i-carbon-logo-twitter"
-						: type === "Email"
-						? "i-carbon-email"
-						: "",
-					"w-5 h-5 text-white"
-				)}
-			></div>
+			{icon}
 		</a>
 	)
 }

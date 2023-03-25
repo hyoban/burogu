@@ -1,7 +1,5 @@
 "use client"
 
-import * as React from "react"
-
 import {
 	CommandDialog,
 	CommandEmpty,
@@ -10,8 +8,34 @@ import {
 	CommandItem,
 	CommandList,
 } from "@/app/components/Command"
+import IconLink from "@/app/components/IconLink"
+import { useDark } from "@/app/hooks/useDark"
 import type { NotionPost } from "@/lib/notionType"
+import config from "@/site.config.cjs"
 import { useRouter } from "next/navigation"
+import { useEffect, useMemo, useState } from "react"
+
+const links = [
+	...config.links
+		.filter((link) => link.type !== "Email")
+		.map((link) => ({
+			title: link.type,
+			href: link.url,
+			icon: (
+				<IconLink
+					type={link.type as any}
+					href={link.url}
+					className="text-lg mr-2"
+					iconOnly
+				></IconLink>
+			),
+		})),
+	{
+		title: "RSS",
+		href: "/rss.xml",
+		icon: "i-carbon-rss",
+	},
+]
 
 export default function CommandMenu({
 	posts,
@@ -19,9 +43,10 @@ export default function CommandMenu({
 	posts: Array<Pick<NotionPost, "title" | "tags" | "description" | "slug">>
 }) {
 	const router = useRouter()
-	const [open, setOpen] = React.useState(false)
-	const [searchText, setSearchText] = React.useState("")
-	const searchResults = React.useMemo(() => {
+
+	const [open, setOpen] = useState(false)
+	const [searchText, setSearchText] = useState("")
+	const searchPostsResult = useMemo(() => {
 		if (!searchText) return posts
 		return posts.filter((post) => {
 			return (
@@ -34,9 +59,9 @@ export default function CommandMenu({
 		})
 	}, [posts, searchText])
 
-	console.log(searchResults)
+	const [, toggleDark] = useDark()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		const down = (e: KeyboardEvent) => {
 			if (e.key === "k" && e.metaKey) {
 				setOpen((open) => !open)
@@ -54,7 +79,7 @@ export default function CommandMenu({
 					className="text-sm text-neutral-500 dark:text-neutral-400"
 					onClick={() => setOpen((open) => !open)}
 				>
-					搜索{" "}
+					操作{" "}
 					<kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-neutral-100 bg-neutral-100 px-1.5 font-mono text-[10px] font-medium text-neutral-600 opacity-100 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400">
 						<span className="text-xs">⌘</span>K
 					</kbd>
@@ -67,10 +92,38 @@ export default function CommandMenu({
 					onValueChange={setSearchText}
 				/>
 				<CommandList>
-					<CommandEmpty>未找到文章</CommandEmpty>
-					{searchResults.length > 0 && (
+					<CommandEmpty>未找到你所需要的</CommandEmpty>
+					{searchText.length === 0 && (
+						<>
+							<CommandGroup heading="操作">
+								<CommandItem onSelect={toggleDark}>
+									<span className="i-carbon-color-palette text-lg mr-2"></span>
+									切换主题
+								</CommandItem>
+							</CommandGroup>
+
+							<CommandGroup heading="链接">
+								{links.map((link) => (
+									<CommandItem
+										key={link.href}
+										onSelect={() => {
+											window.open(link.href, "_blank")
+										}}
+									>
+										{typeof link.icon === "string" ? (
+											<span className={`${link.icon} text-lg mr-2`}></span>
+										) : (
+											link.icon
+										)}
+										{link.title}
+									</CommandItem>
+								))}
+							</CommandGroup>
+						</>
+					)}
+					{searchPostsResult.length > 0 && (
 						<CommandGroup heading="文章">
-							{searchResults.map((post) => (
+							{searchPostsResult.map((post) => (
 								<CommandItem
 									key={post.slug}
 									onSelect={() => {

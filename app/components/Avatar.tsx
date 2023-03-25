@@ -21,6 +21,7 @@ export default function Avatar({ className = "" }: { className?: string }) {
 					)}
 					src={config.avatarPath}
 					alt={config.authorName}
+					priority={true}
 					width={64}
 					height={64}
 				/>
