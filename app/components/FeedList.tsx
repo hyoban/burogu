@@ -13,6 +13,7 @@ import { timeZone } from "@/site.config.cjs"
 import dayjs from "dayjs"
 import timezone from "dayjs/plugin/timezone"
 import utc from "dayjs/plugin/utc"
+import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 
 dayjs.extend(utc)
@@ -70,31 +71,37 @@ export default function FeedList({ feedList }: { feedList: FeedListType }) {
 						<div key={feedYear} className="my-2">
 							<h2 className="my-3 text-3xl opacity-50">{feedYear}</h2>
 							<div className="flex flex-col gap-3">
-								{feedListByYear.map((feed) => (
-									<div
-										key={feed.link}
-										className="flex w-full flex-row items-center justify-between gap-3"
-									>
-										<span className="flex items-center gap-3">
-											<p className="text-sm opacity-50" title={feed.isoDate}>
-												{dayjs(feed.isoDate).tz(timeZone).format("MM/DD")}
-											</p>
-											<a
-												href={feed.link ?? "/"}
-												target="_blank"
-												rel="noopener noreferrer"
-											>
-												{feed.title}
-											</a>
-										</span>
-										<span
-											title={feed.homeTitle}
-											className="hidden w-[100px] overflow-hidden text-ellipsis whitespace-nowrap text-right opacity-50 sm:inline"
+								<AnimatePresence initial={false}>
+									{feedListByYear.map((feed) => (
+										<motion.div
+											key={feed.link}
+											initial={{ opacity: 0, y: 10 }}
+											animate={{ opacity: 1, y: 0 }}
+											exit={{ opacity: 0, y: 10 }}
+											transition={{ duration: 0.2 }}
+											className="flex w-full flex-row items-center justify-between gap-3"
 										>
-											{feed.homeTitle}
-										</span>
-									</div>
-								))}
+											<span className="flex items-center gap-3">
+												<p className="text-sm opacity-50" title={feed.isoDate}>
+													{dayjs(feed.isoDate).tz(timeZone).format("MM/DD")}
+												</p>
+												<a
+													href={feed.link ?? "/"}
+													target="_blank"
+													rel="noopener noreferrer"
+												>
+													{feed.title}
+												</a>
+											</span>
+											<span
+												title={feed.homeTitle}
+												className="hidden w-[100px] overflow-hidden text-ellipsis whitespace-nowrap text-right opacity-50 sm:inline"
+											>
+												{feed.homeTitle}
+											</span>
+										</motion.div>
+									))}
+								</AnimatePresence>
 							</div>
 						</div>
 					)
