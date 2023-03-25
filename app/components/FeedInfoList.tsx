@@ -1,4 +1,5 @@
 import { ScrollArea } from "@/app/components/ScrollArea"
+import ScrollIn from "@/app/components/ScrollIn"
 import { getFeedInfoList } from "@/lib/notion"
 import Image from "next/image"
 
@@ -13,7 +14,10 @@ export default async function FeedInfoList({}) {
 					// sort by title
 					.sort((a, b) => a.title.localeCompare(b.title))
 					.map((feedInfo) => (
-						<div key={feedInfo.id} className="flex items-center gap-4 my-2">
+						<ScrollIn
+							key={feedInfo.id}
+							className="flex items-center gap-4 my-2"
+						>
 							<Image
 								src={feedInfo.avatar}
 								alt="feed item avatar"
@@ -24,7 +28,7 @@ export default async function FeedInfoList({}) {
 							<a href={feedInfo.url} target="_blank" rel="noopener noreferrer">
 								{feedInfo.title}
 							</a>
-						</div>
+						</ScrollIn>
 					))}
 			</ScrollArea>
 		</div>
