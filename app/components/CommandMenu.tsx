@@ -7,6 +7,7 @@ import {
 	CommandInput,
 	CommandItem,
 	CommandList,
+	CommandShortcut,
 } from "@/app/components/Command"
 import IconLink from "@/app/components/IconLink"
 import { useDark } from "@/app/hooks/useDark"
@@ -63,7 +64,14 @@ export default function CommandMenu({
 
 	useEffect(() => {
 		const down = (e: KeyboardEvent) => {
-			if (e.key === "k" && e.metaKey) {
+			// command + shift + p on mac
+			// ctrl + shift + p on windows
+			if (
+				(e.metaKey || e.ctrlKey) &&
+				e.shiftKey &&
+				e.key.toLowerCase() === "p"
+			) {
+				e.preventDefault()
 				setOpen((open) => !open)
 			}
 		}
@@ -79,10 +87,10 @@ export default function CommandMenu({
 					className="text-sm text-neutral-500 dark:text-neutral-400"
 					onClick={() => setOpen((open) => !open)}
 				>
-					操作{" "}
-					<kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-neutral-100 bg-neutral-100 px-1.5 font-mono text-[10px] font-medium text-neutral-600 opacity-100 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400">
-						<span className="text-xs">⌘</span>K
-					</kbd>
+					命令台{" "}
+					<CommandShortcut className="px-[2px] py-[1px] pointer-events-none inline-flex select-none items-center gap-1 rounded border border-neutral-100 bg-neutral-100 text-neutral-600 opacity-100 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400">
+						⌘⇧P
+					</CommandShortcut>
 				</button>
 			</div>
 			<CommandDialog open={open} onOpenChange={setOpen}>

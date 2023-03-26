@@ -20,7 +20,7 @@ export default function Header({}) {
 				<div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center">
 					<div className="flex flex-col gap-2 items-center">
 						<p className="font-mono text-2xl">{config.authorName}</p>
-						<p className="text-slate-500 dark:text-slate-400">
+						<p className="text-neutral-500 dark:text-neutral-400">
 							{config.shortDescription}
 						</p>
 					</div>

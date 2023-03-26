@@ -37,7 +37,7 @@ export default async function PostList() {
 							{post.tags.map((tag) => (
 								<span
 									key={tag}
-									className="mx-1 rounded bg-slate-100 py-[0.2rem] px-[0.3rem] font-mono text-sm dark:bg-slate-800"
+									className="mx-1 rounded py-[0.2rem] px-[0.3rem] font-mono text-sm bg-neutral-100 dark:bg-neutral-800"
 								>
 									#{tag}
 								</span>
