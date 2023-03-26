@@ -1,17 +1,12 @@
 "use client"
 
+import { NAV_LIST } from "@/lib/static"
 import { cn } from "@/lib/utils"
 import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 import { motion } from "framer-motion"
 import type { Route } from "next"
 import NextLink from "next/link"
 import { usePathname } from "next/navigation"
-
-const navList = [
-	{ name: "主页", href: "/" },
-	{ name: "文章", href: "/post" },
-	{ name: "订阅列表", href: "/feedlist" },
-] as const
 
 function NavItem({
 	href,
@@ -67,7 +62,7 @@ export default function Nav(props: NavProps) {
 		>
 			{children}
 			<NavigationMenu.List className="flex flex-col sm:flex-row gap-5 sm:gap-0 h-full pt-10 sm:py-1 items-center justify-start">
-				{navList.map((tab) => (
+				{NAV_LIST.map((tab) => (
 					<NavItem key={tab.name} onNavIitemClick={onNavIitemClick} {...tab} />
 				))}
 			</NavigationMenu.List>
