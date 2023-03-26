@@ -3,33 +3,61 @@
 import { cn } from "@/lib/utils"
 import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 import { motion } from "framer-motion"
+import type { Route } from "next"
 import NextLink from "next/link"
 import { usePathname } from "next/navigation"
 
-export default function Nav({
-	children,
-	className = "",
+const navList = [
+	{ name: "主页", href: "/" },
+	{ name: "文章", href: "/post" },
+	{ name: "订阅列表", href: "/feedlist" },
+] as const
+
+function NavItem({
+	href,
+	name,
 	onNavIitemClick,
 }: {
-	children?: React.ReactNode
-	className?: string
+	href: Route
+	name: string
 	onNavIitemClick?: () => void
 }) {
 	const pathname = usePathname()
+	const isActive = pathname === href
 
-	const navList = (
-		[
-			{ name: "主页", href: "/", width: 56, x: 0 },
-			{ name: "文章", href: "/post", width: 56, x: 56 },
-			{ name: "订阅列表", href: "/feedlist", width: 88, x: 112 },
-		] as const
-	).map((tab) => ({
-		...tab,
-		active: tab.href === pathname,
-	}))
+	return (
+		// https://www.radix-ui.com/docs/primitives/components/navigation-menu#with-client-side-routing
+		<NavigationMenu.Item>
+			<NextLink href={href} passHref legacyBehavior>
+				<NavigationMenu.Link active={isActive} onClick={onNavIitemClick}>
+					<span className="relative py-[5px] px-[10px]">
+						{name}
+						{isActive && (
+							<motion.div
+								layoutId="nav-active-indicator"
+								className="!hidden sm:!block absolute -z-10 inset-0 rounded-md bg-neutral-100 dark:bg-neutral-800"
+								transition={{
+									type: "spring",
+									stiffness: 350,
+									damping: 30,
+								}}
+							/>
+						)}
+					</span>
+				</NavigationMenu.Link>
+			</NextLink>
+		</NavigationMenu.Item>
+	)
+}
 
-	const activeNav = navList.find((tab) => tab.active)
+export interface NavProps {
+	children?: React.ReactNode
+	className?: string
+	onNavIitemClick?: () => void
+}
 
+export default function Nav(props: NavProps) {
+	const { children, className = "", onNavIitemClick } = props
 	return (
 		<NavigationMenu.Root
 			className={cn(
@@ -40,26 +68,8 @@ export default function Nav({
 			{children}
 			<NavigationMenu.List className="flex flex-col sm:flex-row gap-5 sm:gap-0 h-full pt-10 sm:py-1 items-center justify-start">
 				{navList.map((tab) => (
-					// https://www.radix-ui.com/docs/primitives/components/navigation-menu#with-client-side-routing
-					<NavigationMenu.Item key={tab.name}>
-						<NextLink href={tab.href} passHref legacyBehavior>
-							<NavigationMenu.Link
-								active={tab.active}
-								className="px-3"
-								onClick={onNavIitemClick}
-							>
-								{tab.name}
-							</NavigationMenu.Link>
-						</NextLink>
-					</NavigationMenu.Item>
+					<NavItem key={tab.name} onNavIitemClick={onNavIitemClick} {...tab} />
 				))}
-				<motion.div
-					className="!hidden sm:!block absolute -z-10 h-full rounded-md bg-[#f5f5f5] dark:bg-[#262626]"
-					animate={{
-						width: activeNav?.width,
-						x: activeNav?.x,
-					}}
-				/>
 			</NavigationMenu.List>
 		</NavigationMenu.Root>
 	)
