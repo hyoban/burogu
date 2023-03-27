@@ -1,4 +1,4 @@
-import Resume from "./resume.mdx"
+import Resume from "@/mdx/resume.mdx"
 
 export default function Page() {
 	return (
