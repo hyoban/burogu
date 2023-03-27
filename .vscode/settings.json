@@ -11,5 +11,6 @@
 		"*.env.local": "env"
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"typescript.enablePromptUseWorkspaceTsdk": true
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"mdx.experimentalLanguageServer": true
 }

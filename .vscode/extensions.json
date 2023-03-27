@@ -6,6 +6,7 @@
 		"bradlc.vscode-tailwindcss",
 		"irongeek.vscode-env",
 		"csstools.postcss",
-		"editorconfig.editorconfig"
+		"editorconfig.editorconfig",
+		"unifiedjs.vscode-mdx"
 	]
 }
