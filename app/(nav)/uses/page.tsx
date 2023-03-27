@@ -7,3 +7,7 @@ export default function Page() {
 		</article>
 	)
 }
+
+export const metadata = {
+	title: "在用",
+}
