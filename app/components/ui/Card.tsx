@@ -10,10 +10,10 @@ export default function Card({
 	className?: string
 }) {
 	return (
-		<motion.div
+		<motion.article
 			className={className}
 			whileHover={{ scale: 1.03 }}
 			{...{ children }}
-		></motion.div>
+		></motion.article>
 	)
 }

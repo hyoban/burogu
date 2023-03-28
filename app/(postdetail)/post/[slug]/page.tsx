@@ -1,4 +1,5 @@
 import PostContent from "@/app/components/part/PostContent"
+import TOC from "@/app/components/part/TOC"
 import { Giscus } from "@/app/components/ui/Comment"
 import GoBack from "@/app/components/ui/GoBack"
 import SharedElement from "@/app/components/ui/SharedElement"
@@ -6,6 +7,7 @@ import {
 	getPostList,
 	getSinglePostContent,
 	getSinglePostInfo,
+	getTOCFromBlocks,
 } from "@/lib/notion"
 import { Metadata } from "next"
 import Image from "next/image"
@@ -16,6 +18,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	const fetchBlocks = getSinglePostContent(params.slug, true)
 	const [page, blocks] = await Promise.all([fetchPage, fetchBlocks])
 	if (!page || !blocks) notFound()
+	const toc = getTOCFromBlocks(blocks)
 
 	return (
 		<>
@@ -31,6 +34,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			<h1 className="my-6 self-start text-4xl">{page.title}</h1>
 			{/* @ts-expect-error Server Component */}
 			<PostContent blocks={blocks} />
+			<TOC toc={toc} className="hidden xl:block" />
 			<GoBack className="self-start" />
 			<Giscus />
 		</>

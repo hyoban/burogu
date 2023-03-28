@@ -511,7 +511,7 @@ export default async function PostContent({
 	blocks: PostContentType
 }) {
 	return (
-		<article className="flex w-full flex-col gap-3 prose">
+		<main className="flex w-full flex-col gap-3 prose relative">
 			{blocks
 				.map((block) => {
 					return <RenderBlock block={block} key={block.cur.id} />
@@ -549,7 +549,7 @@ export default async function PostContent({
 					}
 					return null
 				})}
-		</article>
+		</main>
 	)
 }
 

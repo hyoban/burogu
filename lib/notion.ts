@@ -369,3 +369,34 @@ export async function getFeedList(
 }
 
 export type FeedListType = NonNullable<Awaited<ReturnType<typeof getFeedList>>>
+
+export interface TOCItem {
+	title: string
+	children: TOCItem[]
+}
+
+export function getTOCFromBlocks(blocks: Block[]) {
+	const toc: TOCItem[] = []
+
+	for (const block of blocks) {
+		const type = block.cur.type
+		if (type === "heading_1") {
+			toc.push({
+				title: block.cur.heading_1.rich_text.map((t) => t.plain_text).join(""),
+				children: [],
+			})
+		} else if (type === "heading_2") {
+			toc[toc.length - 1].children.push({
+				title: block.cur.heading_2.rich_text.map((t) => t.plain_text).join(""),
+				children: [],
+			})
+		} else if (type === "heading_3") {
+			toc[toc.length - 1].children.push({
+				title: block.cur.heading_3.rich_text.map((t) => t.plain_text).join(""),
+				children: [],
+			})
+		}
+	}
+
+	return toc
+}
