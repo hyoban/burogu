@@ -13,10 +13,13 @@ export default async function PostList() {
 	return (
 		<>
 			{posts.map((post) => (
-				<Card key={post.id}>
+				<Card
+					key={post.id}
+					className="overflow-clip rounded-lg border dark:border-gray-600"
+				>
 					<Link
 						href={`/post/${post.slug}`}
-						className="flex w-full flex-col gap-4 overflow-clip rounded-lg border no-underline hover:opacity-100 dark:border-gray-600"
+						className="flex w-full flex-col gap-4"
 					>
 						<SharedElement layoutId={`post-cover-${post.id}`}>
 							<Image
