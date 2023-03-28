@@ -16,9 +16,9 @@ export default function Loading() {
 							i === 1 ? "delay-500" : i === 2 ? "delay-1000" : ""
 						)}
 					>
-						<div className="h-36 w-full bg-slate-200 dark:bg-gray-700"></div>
-						<p className="mx-4 rounded-md w-10 h-5 bg-slate-200 dark:bg-gray-700"></p>
-						<p className="mx-4 mb-4 rounded-md w-[calc(100%-2rem)] h-5 bg-slate-200 dark:bg-gray-700"></p>
+						<div className="h-36 w-full bg-neutral-200 dark:bg-gray-700"></div>
+						<p className="mx-4 rounded-md w-10 h-5 bg-neutral-200 dark:bg-gray-700"></p>
+						<p className="mx-4 mb-4 rounded-md w-[calc(100%-2rem)] h-5 bg-neutral-200 dark:bg-gray-700"></p>
 					</div>
 				))}
 		</>
