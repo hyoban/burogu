@@ -1,10 +1,8 @@
 "use client"
 
-import { useEffect } from "react"
-
+import { useDark } from "@/app/hooks/useDark"
 import siteMetadata from "@/site.config.cjs"
-
-import { useDark } from "../hooks/useDark"
+import { useEffect } from "react"
 
 export const Giscus = () => {
 	const {

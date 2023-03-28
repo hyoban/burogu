@@ -1,4 +1,4 @@
-import { H1Block, H2Block, PBlock } from "@/app/components/PostContent.tsx"
+import { H1Block, H2Block, PBlock } from "@/app/components/part/PostContent.tsx"
 
 export function useMDXComponents(components) {
 	return {

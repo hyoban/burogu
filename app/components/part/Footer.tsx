@@ -1,4 +1,4 @@
-import ApperanceSwitch from "./AppearanceSwitch"
+import ApperanceSwitch from "../ui/AppearanceSwitch"
 
 export default function Footer({ className }: { className?: string }) {
 	return (

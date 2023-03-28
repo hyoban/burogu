@@ -1,8 +1,8 @@
-import FeedInfoList from "@/app/components/FeedInfoList"
-import FeedInfoLoading from "@/app/components/FeedInfoLoading"
-import FeedList from "@/app/components/FeedList"
-import FeedListLoading from "@/app/components/FeedListLoading"
-import { ScrollArea } from "@/app/components/ScrollArea"
+import FeedInfoList from "@/app/components/part/FeedInfoList"
+import FeedInfoLoading from "@/app/components/part/FeedInfoLoading"
+import FeedList from "@/app/components/part/FeedList"
+import FeedListLoading from "@/app/components/part/FeedListLoading"
+import { ScrollArea } from "@/app/components/ui/ScrollArea"
 import { getFeedInfoList, getFeedList } from "@/lib/notion"
 import { Suspense } from "react"
 

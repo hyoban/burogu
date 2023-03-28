@@ -1,6 +1,6 @@
 "use client"
 
-import { InfiniteLoading } from "@/app/components/Loading"
+import { InfiniteLoading } from "@/app/components/ui/Loading"
 
 export default function Loading() {
 	return (

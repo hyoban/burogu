@@ -8,8 +8,8 @@ import {
 	CommandItem,
 	CommandList,
 	CommandShortcut,
-} from "@/app/components/Command"
-import IconLink from "@/app/components/IconLink"
+} from "@/app/components/part/Command"
+import IconLink from "@/app/components/ui/IconLink"
 import { useDark } from "@/app/hooks/useDark"
 import type { NotionPost } from "@/lib/notionType"
 import config from "@/site.config.cjs"

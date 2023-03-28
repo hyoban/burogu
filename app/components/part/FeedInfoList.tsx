@@ -1,4 +1,4 @@
-import ScrollIn from "@/app/components/ScrollIn"
+import ScrollIn from "@/app/components/ui/ScrollIn"
 import { getFeedInfoList } from "@/lib/notion"
 import Image from "next/image"
 

@@ -1,7 +1,7 @@
 "use client"
 
-import Nav from "@/app/components/Nav"
-import { Sheet, SheetContent, SheetTrigger } from "@/app/components/Sheet"
+import Nav from "@/app/components/part/Nav"
+import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/Sheet"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
 

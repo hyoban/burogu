@@ -6,8 +6,7 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/app/components/Select"
-
+} from "@/app/components/ui/Select"
 import { FeedListType } from "@/lib/notion"
 import { timeZone } from "@/site.config.cjs"
 import dayjs from "dayjs"

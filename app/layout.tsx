@@ -1,6 +1,6 @@
 import "@/app/css/globals.css"
 
-import Footer from "@/app/components/Footer"
+import Footer from "@/app/components/part/Footer"
 import { ThemeProvider } from "@/app/provider"
 import config from "@/site.config.cjs"
 import { Analytics } from "@vercel/analytics/react"

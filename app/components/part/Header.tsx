@@ -1,7 +1,7 @@
-import Avatar from "@/app/components/Avatar"
-import CommandMenuInServer from "@/app/components/CommandMenuInServer"
-import Nav from "@/app/components/Nav"
-import NavTrigger from "@/app/components/NavTrigger"
+import CommandMenuInServer from "@/app/components/part/CommandMenuInServer"
+import Nav from "@/app/components/part/Nav"
+import NavTrigger from "@/app/components/part/NavTrigger"
+import Avatar from "@/app/components/ui/Avatar"
 import config from "@/site.config.cjs"
 
 export default function Header({}) {

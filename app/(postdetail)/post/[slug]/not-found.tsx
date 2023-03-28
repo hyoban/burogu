@@ -1,4 +1,4 @@
-import GoBack from "@/app/components/GoBack"
+import GoBack from "@/app/components/ui/GoBack"
 
 export default function NotFound() {
 	return (
