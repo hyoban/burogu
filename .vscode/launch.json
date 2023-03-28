@@ -9,7 +9,7 @@
 		},
 		{
 			"name": "Next.js: debug client-side",
-			"type": "msedge",
+			"type": "chrome",
 			"request": "launch",
 			"url": "http://localhost:3000"
 		},
@@ -21,7 +21,7 @@
 			"serverReadyAction": {
 				"pattern": "started server on .+, url: (https?://.+)",
 				"uriFormat": "%s",
-				"action": "openExternally"
+				"action": "debugWithChrome"
 			}
 		}
 	]
