@@ -1,3 +1,12 @@
+"use client"
+
+import { InfiniteLoading } from "@/app/components/Loading"
+
 export default function Loading() {
-	return <span className="text-2xl font-mono text-center">loading...</span>
+	return (
+		<>
+			<h2 className="text-2xl font-mono text-center">loading...</h2>
+			<InfiniteLoading className="max-w-[60%]" />
+		</>
+	)
 }

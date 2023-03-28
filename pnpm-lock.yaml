@@ -7,6 +7,7 @@ specifiers:
   '@notionhq/client': ^2.2.3
   '@radix-ui/react-dialog': ^1.0.3
   '@radix-ui/react-navigation-menu': ^1.1.2
+  '@radix-ui/react-progress': ^1.0.2
   '@radix-ui/react-scroll-area': ^1.0.3
   '@radix-ui/react-select': ^1.2.1
   '@types/node': 18.15.10
@@ -44,6 +45,7 @@ dependencies:
   '@next/mdx': 13.2.4
   '@radix-ui/react-dialog': 1.0.3_aen5vu2fkbnw3ssyd5drxdxkh4
   '@radix-ui/react-navigation-menu': 1.1.2_biqbaboplfbrettd7655fr4n2y
+  '@radix-ui/react-progress': 1.0.2_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-scroll-area': 1.0.3_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-select': 1.2.1_aen5vu2fkbnw3ssyd5drxdxkh4
   '@vercel/analytics': 0.1.11_react@18.2.0
@@ -682,6 +684,19 @@ packages:
     dependencies:
       '@babel/runtime': 7.20.7
       '@radix-ui/react-slot': 1.0.1_react@18.2.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@radix-ui/react-progress/1.0.2_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-c16RVM43ct2koRcMmPw4b47JWFNs89qe5p4Um9dwoPs0yi+d7It1MJ35EpsX+93o31Mqdwe4vQyu0SrHrygdCg==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.20.7
+      '@radix-ui/react-context': 1.0.0_react@18.2.0
+      '@radix-ui/react-primitive': 1.0.2_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
