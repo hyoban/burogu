@@ -1,15 +1,22 @@
-import PostDetail from "@/app/components/part/PostDetail"
+import PostContent from "@/app/components/part/PostContent"
 import { Giscus } from "@/app/components/ui/Comment"
 import GoBack from "@/app/components/ui/GoBack"
 import SharedElement from "@/app/components/ui/SharedElement"
-import { getPostList, getSinglePostInfo } from "@/lib/notion"
+import {
+	getPostList,
+	getSinglePostContent,
+	getSinglePostInfo,
+} from "@/lib/notion"
 import { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 
 export default async function Page({ params }: { params: { slug: string } }) {
-	const page = await getSinglePostInfo(params.slug, true)
-	if (!page) notFound()
+	const fetchPage = getSinglePostInfo(params.slug, true)
+	const fetchBlocks = getSinglePostContent(params.slug, true)
+	const [page, blocks] = await Promise.all([fetchPage, fetchBlocks])
+	if (!page || !blocks) notFound()
+
 	return (
 		<>
 			<SharedElement layoutId={`post-cover-${page.id}`}>
@@ -23,7 +30,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			</SharedElement>
 			<h1 className="my-6 self-start text-4xl">{page.title}</h1>
 			{/* @ts-expect-error Server Component */}
-			<PostDetail slug={params.slug} />
+			<PostContent blocks={blocks} />
 			<GoBack className="self-start" />
 			<Giscus />
 		</>
