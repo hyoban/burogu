@@ -1,7 +1,3 @@
 export default function Loading() {
-	return (
-		<div className="my-20 text-center">
-			<span>Loading...</span>
-		</div>
-	)
+	return <span className="text-2xl font-mono text-center">loading...</span>
 }
