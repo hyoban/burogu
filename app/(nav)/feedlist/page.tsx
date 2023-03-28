@@ -1,27 +1,18 @@
 import FeedInfoList from "@/app/components/FeedInfoList"
 import FeedList from "@/app/components/FeedList"
 import { getFeedInfoList, getFeedList } from "@/lib/notion"
-import { Suspense } from "react"
 
 export const revalidate = 100
 
-async function FeedListServer({}) {
+export default async function FeedListPage({}) {
 	const feedInfoList = await getFeedInfoList()
 	if (!feedInfoList) return null
 	const feedList = await getFeedList(feedInfoList)
 	if (!feedList) return null
-	return <FeedList feedList={feedList} />
-}
-
-export default async function FeedListPage({}) {
 	return (
 		<>
-			<Suspense fallback={<p>Loading FeedInfoList...</p>}>
-				{/* @ts-expect-error Server Component */}
-				<FeedListServer />
-			</Suspense>
-			{/* @ts-expect-error Server Component */}
-			<FeedInfoList />
+			<FeedList feedList={feedList} />
+			<FeedInfoList feedInfoList={feedInfoList} />
 		</>
 	)
 }

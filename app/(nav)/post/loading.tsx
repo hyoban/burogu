@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils"
 
+// https://beta.nextjs.org/docs/routing/loading-ui
+// https://beta.nextjs.org/docs/api-reference/file-conventions/loading
 export default function Loading() {
 	const repeat = 3
 	return (
