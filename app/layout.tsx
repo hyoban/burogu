@@ -3,7 +3,6 @@ import "@/app/css/globals.css"
 import Footer from "@/app/components/part/Footer"
 import { ThemeProvider } from "@/app/provider"
 import config from "@/site.config.cjs"
-import { Analytics } from "@vercel/analytics/react"
 import dayjs from "dayjs"
 import timezone from "dayjs/plugin/timezone"
 import utc from "dayjs/plugin/utc"
@@ -99,7 +98,6 @@ export default function RootLayout({
 						<Footer className="mt-6 print:hidden" />
 					</div>
 				</ThemeProvider>
-				<Analytics />
 			</body>
 		</html>
 	)

@@ -16,7 +16,6 @@ specifiers:
   '@types/react-dom': 18.0.11
   '@typescript-eslint/eslint-plugin': ^5.57.0
   '@typescript-eslint/parser': ^5.57.0
-  '@vercel/analytics': ^0.1.11
   autoprefixer: ^10.4.14
   class-variance-authority: ^0.4.0
   clsx: ^1.2.1
@@ -49,7 +48,6 @@ dependencies:
   '@radix-ui/react-progress': 1.0.2_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-scroll-area': 1.0.3_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-select': 1.2.1_6ayuu6vm2uqggsikytom4xssc4
-  '@vercel/analytics': 0.1.11_react@18.2.0
   class-variance-authority: 0.4.0_typescript@5.0.2
   clsx: 1.2.1
   cmdk: 0.2.0_6ayuu6vm2uqggsikytom4xssc4
@@ -1070,14 +1068,6 @@ packages:
       '@typescript-eslint/types': 5.57.0
       eslint-visitor-keys: 3.3.0
     dev: true
-
-  /@vercel/analytics/0.1.11_react@18.2.0:
-    resolution: {integrity: sha512-mj5CPR02y0BRs1tN3oZcBNAX9a8NxsIUl9vElDPcqxnMfP0RbRc9fI9Ud7+QDg/1Izvt5uMumsr+6YsmVHcyuw==}
-    peerDependencies:
-      react: ^16.8||^17||^18
-    dependencies:
-      react: 18.2.0
-    dev: false
 
   /@xobotyi/scrollbar-width/1.9.5:
     resolution: {integrity: sha512-N8tkAACJx2ww8vFMneJmaAgmjAG1tnVBZJRLRcx061tmsLRZHSEZSLuGWnwPtunsSLvSqXQ2wfp7Mgqg1I+2dQ==}
