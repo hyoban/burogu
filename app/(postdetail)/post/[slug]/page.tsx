@@ -1,5 +1,4 @@
-import { SignInButton } from "@/app/components/part/AuthButton"
-import CommentForm from "@/app/components/part/CommentForm"
+import Comment from "@/app/(postdetail)/post/[slug]/comment"
 import PostContent from "@/app/components/part/PostContent"
 import TOC from "@/app/components/part/TOC"
 import SharedElement from "@/app/components/ui/SharedElement"
@@ -9,33 +8,18 @@ import {
 	getSinglePostInfo,
 	getTOCFromBlocks,
 } from "@/lib/notion"
-import { authOptions } from "@/pages/api/auth/[...nextauth]"
-import { PrismaClient } from "@prisma/client"
 import { Metadata } from "next"
-import { getServerSession } from "next-auth/next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
+import { Suspense } from "react"
 
-const prisma = new PrismaClient()
+export const revalidate = 3600
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const fetchPage = getSinglePostInfo(params.slug, true)
 	const fetchBlocks = getSinglePostContent(params.slug, true)
-	const fetchSession = getServerSession(authOptions)
-	const fetchComments = prisma.comment.findMany({
-		where: {
-			slug: params.slug,
-		},
-		orderBy: {
-			createdAt: "desc",
-		},
-	})
-	const [page, blocks, session, comments] = await Promise.all([
-		fetchPage,
-		fetchBlocks,
-		fetchSession,
-		fetchComments,
-	])
+
+	const [page, blocks] = await Promise.all([fetchPage, fetchBlocks])
 	if (!page || !blocks) notFound()
 	const toc = getTOCFromBlocks(blocks)
 
@@ -54,36 +38,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			{/* @ts-expect-error Server Component */}
 			<PostContent blocks={blocks} />
 			<TOC toc={toc} className="hidden xl:block" />
-			<h2 className="my-2 self-start text-3xl">评论</h2>
-			<div className="self-start">
-				{comments.map((comment) => (
-					<div key={comment.id} className=" my-2">
-						<span className="text-neutral-600 dark:text-neutral-400 mr-1">
-							{comment.name + ":"}
-						</span>
-						<span>{comment.comment}</span>
-					</div>
-				))}
-			</div>
-			{session?.user && (
-				<>
-					<CommentForm className="self-start" />
-					{/* <div className="flex gap-2 items-center self-start">
-						{session.user.image && (
-							<Image
-								src={session.user.image}
-								width={40}
-								height={40}
-								className="rounded-full"
-								alt="avatar of user"
-							/>
-						)}
-						<span>{session.user.name}</span>
-						<SignOutButton />
-					</div> */}
-				</>
-			)}
-			{!session?.user && <SignInButton className="self-start" />}
+			<Suspense fallback={<div>加载评论中</div>}>
+				{/* @ts-expect-error Server Component */}
+				<Comment slug={params.slug} />
+			</Suspense>
 		</>
 	)
 }
