@@ -1,4 +1,3 @@
-import Comment from "@/app/(postdetail)/post/[slug]/comment"
 import PostContent from "@/app/components/part/PostContent"
 import TOC from "@/app/components/part/TOC"
 import SharedElement from "@/app/components/ui/SharedElement"
@@ -11,9 +10,6 @@ import {
 import { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { Suspense } from "react"
-
-export const revalidate = 3600
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const fetchPage = getSinglePostInfo(params.slug, true)
@@ -38,10 +34,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			{/* @ts-expect-error Server Component */}
 			<PostContent blocks={blocks} />
 			<TOC toc={toc} className="hidden xl:block" />
-			<Suspense fallback={<div>加载评论中</div>}>
-				{/* @ts-expect-error Server Component */}
-				<Comment slug={params.slug} />
-			</Suspense>
 		</>
 	)
 }
