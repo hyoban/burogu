@@ -24,7 +24,7 @@ export default function Comment({ slug }: { slug: string }) {
 	return (
 		<>
 			<h2 className="my-2 self-start text-3xl">评论</h2>
-			{comments && (
+			{comments && comments?.length > 0 ? (
 				<div className="self-start">
 					{comments.map((comment) => (
 						<div key={comment.id} className=" my-2">
@@ -35,6 +35,8 @@ export default function Comment({ slug }: { slug: string }) {
 						</div>
 					))}
 				</div>
+			) : (
+				<div className="self-start">还没有评论呢</div>
 			)}
 			{sessionStatus?.data?.user && (
 				<>
