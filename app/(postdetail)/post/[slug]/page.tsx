@@ -1,3 +1,4 @@
+import Comment from "@/app/components/part/Comment"
 import PostContent from "@/app/components/part/PostContent"
 import TOC from "@/app/components/part/TOC"
 import SharedElement from "@/app/components/ui/SharedElement"
@@ -33,6 +34,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			<h1 className="my-6 self-start text-4xl">{page.title}</h1>
 			{/* @ts-expect-error Server Component */}
 			<PostContent blocks={blocks} />
+			<Comment slug={params.slug} />
 			<TOC toc={toc} className="hidden xl:block" />
 		</>
 	)

@@ -1,15 +1,17 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { usePathname, useRouter } from "next/navigation"
-import { useState, useTransition } from "react"
+import { usePathname } from "next/navigation"
+import { useState } from "react"
+import { useSWRConfig } from "swr"
 
 export default function CommentForm({ className }: { className?: string }) {
-	const router = useRouter()
+	const { mutate } = useSWRConfig()
+
 	const pathname = usePathname()
-	const [isPending, startTransition] = useTransition()
+	const slug = pathname?.split("/").pop() ?? ""
+
 	const [isFetching, setIsFetching] = useState(false)
-	const isMutating = isFetching || isPending
 
 	async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
@@ -18,10 +20,10 @@ export default function CommentForm({ className }: { className?: string }) {
 		const form = e.currentTarget
 		const input = form.elements.namedItem("entry") as HTMLInputElement
 
-		const res = await fetch("/api/comment", {
+		await fetch("/api/comment", {
 			body: JSON.stringify({
 				comment: input.value,
-				slug: pathname?.split("/").pop() ?? "",
+				slug,
 			}),
 			headers: {
 				"Content-Type": "application/json",
@@ -32,23 +34,19 @@ export default function CommentForm({ className }: { className?: string }) {
 		input.value = ""
 
 		setIsFetching(false)
-		startTransition(() => {
-			// Refresh the current route and fetch new data from the server without
-			// losing client-side browser or React state.
-			router.refresh()
-		})
+		mutate(`/api/comment/${slug}`)
 	}
 
 	return (
 		<form
-			style={{ opacity: !isMutating ? 1 : 0.7 }}
+			style={{ opacity: !isFetching ? 1 : 0.7 }}
 			className={cn("relative max-w-[500px] text-sm", className)}
 			onSubmit={onSubmit}
 		>
 			<input
 				aria-label="你的评论"
 				placeholder="你的评论"
-				disabled={isPending}
+				disabled={isFetching}
 				name="entry"
 				type="text"
 				required
@@ -56,7 +54,7 @@ export default function CommentForm({ className }: { className?: string }) {
 			/>
 			<button
 				className="flex items-center justify-center absolute right-1 top-2 px-2 py-1 font-medium h-7 bg-neutral-200 dark:bg-neutral-700 text-neutral-900 dark:text-neutral-100 rounded w-16"
-				disabled={isMutating}
+				disabled={isFetching}
 				type="submit"
 			>
 				提交
