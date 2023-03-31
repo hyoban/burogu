@@ -6,7 +6,7 @@ import { ScrollArea } from "@/app/components/ui/ScrollArea"
 import { getFeedInfoList, getFeedList } from "@/lib/notion"
 import { Suspense } from "react"
 
-export const revalidate = 3600
+export const revalidate = 7200
 
 export async function FeedListInServer() {
 	const feedInfoList = await getFeedInfoList()

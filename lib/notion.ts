@@ -29,7 +29,7 @@ const headers = {
 	Authorization: `Bearer ${notionToken}`,
 }
 
-const revalidate = 3600
+const revalidate = 7200
 
 async function probeImageSize(
 	url: string

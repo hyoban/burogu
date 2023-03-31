@@ -27,20 +27,5 @@ module.exports = {
 	authorName: "Hyoban",
 	authorLink: "https://hyoban.cc",
 	authorEmail: "hi@hyoban.cc",
-	comment: {
-		giscusConfig: {
-			repo: "hyoban/blog-next-notion",
-			repositoryId: "R_kgDOIxobTQ",
-			category: "Announcements",
-			categoryId: "DIC_kwDOIxobTc4CTwZ4",
-			mapping: "pathname",
-			reactions: "1",
-			metadata: "0",
-			theme: "light",
-			inputPosition: "bottom",
-			lang: "en",
-			darkTheme: "dark",
-		},
-	},
 	timeZone: "Asia/Shanghai",
 }
