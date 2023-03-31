@@ -4,7 +4,8 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
+		"copy": "copyfiles --verbose --flat --follow --all node_modules/shiki/themes/*.json lib/shiki/themes && copyfiles --verbose --flat --follow --all node_modules/shiki/languages/*.json lib/shiki/languages",
+		"build": "pnpm run copy && next build",
 		"start": "next start",
 		"lint": "next lint",
 		"format": "prettier --write ."
@@ -48,6 +49,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.57.0",
 		"@typescript-eslint/parser": "^5.57.0",
 		"autoprefixer": "^10.4.14",
+		"copyfiles": "^2.4.1",
 		"eslint": "8.37.0",
 		"eslint-config-next": "13.2.5-canary.18",
 		"postcss": "^8.4.21",
