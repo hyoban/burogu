@@ -2,13 +2,15 @@
 	"name": "blog-next-notion",
 	"version": "0.1.0",
 	"private": true,
+	"packageManager": "pnpm@7.29.3",
 	"scripts": {
 		"dev": "next dev",
 		"copy": "copyfiles --verbose --flat --follow --all node_modules/shiki/themes/*.json lib/shiki/themes && copyfiles --verbose --flat --follow --all node_modules/shiki/languages/*.json lib/shiki/languages",
-		"build": "pnpm run copy && next build",
+		"build": "npm run copy && next build",
 		"start": "next start",
 		"lint": "next lint",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"postinstall": "prisma generate"
 	},
 	"dependencies": {
 		"@next/mdx": "^13.2.4",
