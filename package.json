@@ -9,12 +9,10 @@
 		"build": "npm run copy && next build",
 		"start": "next start",
 		"lint": "next lint",
-		"format": "prettier --write .",
-		"postinstall": "prisma generate"
+		"format": "prettier --write ."
 	},
 	"dependencies": {
 		"@next/mdx": "^13.3.0",
-		"@prisma/client": "^4.12.0",
 		"@radix-ui/react-dialog": "^1.0.3",
 		"@radix-ui/react-navigation-menu": "^1.1.2",
 		"@radix-ui/react-progress": "^1.0.2",
@@ -28,7 +26,6 @@
 		"framer-motion": "^10.11.2",
 		"jotai": "^2.0.3",
 		"next": "13.3.0",
-		"next-auth": "^4.21.1",
 		"probe-image-size": "^7.2.3",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
