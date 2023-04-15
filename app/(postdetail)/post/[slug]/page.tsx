@@ -1,6 +1,5 @@
 import PostContent from "@/app/components/part/PostContent"
 import TOC from "@/app/components/part/TOC"
-import SharedElement from "@/app/components/ui/SharedElement"
 import {
 	getPostList,
 	getSinglePostContent,
@@ -21,15 +20,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
 	return (
 		<>
-			<SharedElement layoutId={`post-cover-${page.id}`}>
-				<Image
-					className="h-auto w-full rounded-lg"
-					src={page.cover.url}
-					alt="post cover"
-					width={page.cover.width}
-					height={page.cover.height}
-				/>
-			</SharedElement>
+			<Image
+				className="h-auto w-full rounded-lg"
+				src={page.cover.url}
+				alt="post cover"
+				width={page.cover.width}
+				height={page.cover.height}
+			/>
 			<h1 className="my-6 self-start text-4xl">{page.title}</h1>
 			{/* @ts-expect-error Server Component */}
 			<PostContent blocks={blocks} />

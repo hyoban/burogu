@@ -395,14 +395,14 @@ export function getTOCFromBlocks(blocks: Block[]) {
 			const title = block.cur.heading_2.rich_text
 				.map((t) => t.plain_text)
 				.join("")
-			if (toc.length === 0 || (toc.at(-1)?.level ?? 0 < 2)) {
-				toc.push({
+			if (toc.length !== 0 && toc.at(-1)?.level === 1) {
+				toc.at(-1)?.children.push({
 					title,
 					children: [],
 					level: 2,
 				})
 			} else {
-				toc.at(-1)?.children.push({
+				toc.push({
 					title,
 					children: [],
 					level: 2,
@@ -412,23 +412,18 @@ export function getTOCFromBlocks(blocks: Block[]) {
 			const title = block.cur.heading_3.rich_text
 				.map((t) => t.plain_text)
 				.join("")
-			if (toc.length === 0 || (toc.at(-1)?.level ?? 0 < 2)) {
-				toc.push({
-					title,
-					children: [],
-					level: 3,
-				})
-			} else if (
-				toc.at(-1)?.children.length === 0 ||
-				(toc.at(-1)?.children.at(-1)?.level ?? 0 < 2)
+			if (
+				toc.length !== 0 &&
+				toc.at(-1)?.children.length !== 0 &&
+				toc.at(-1)?.level === 2
 			) {
-				toc.at(-1)?.children.push({
+				toc.at(-1)?.children.at(-1)?.children.push({
 					title,
 					children: [],
 					level: 3,
 				})
 			} else {
-				toc.at(-1)?.children.at(-1)?.children.push({
+				toc.push({
 					title,
 					children: [],
 					level: 3,
