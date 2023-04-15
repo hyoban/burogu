@@ -207,20 +207,20 @@ export const H1Block = ({
 	block,
 	children,
 }: { block?: Heading1BlockObjectResponse } & ReactChildren) => {
-	if (!block) return <h2 className="relative my-3 text-3xl">{children}</h2>
+	if (!block) return <h1 className="relative my-3 text-3xl">{children}</h1>
 
 	const anchor = encodeURIComponent(
 		block?.heading_1.rich_text.map((i) => i.plain_text).join("")
 	)
 	return (
-		<h2 className="relative my-3 text-3xl group" id={anchor}>
-			<HeaderAnchor anchor={anchor} level={2} />
+		<h1 className="relative my-3 text-3xl group" id={anchor}>
+			<HeaderAnchor anchor={anchor} level={1} />
 			{children ? (
 				children
 			) : (
 				<RichTextGroup richTexts={block.heading_1.rich_text} />
 			)}
-		</h2>
+		</h1>
 	)
 }
 
@@ -228,37 +228,41 @@ export const H2Block = ({
 	block,
 	children,
 }: { block?: Heading2BlockObjectResponse } & ReactChildren) => {
-	if (!block) return <h3 className="relative my-2 text-2xl">{children}</h3>
+	if (!block) return <h2 className="relative my-2 text-2xl">{children}</h2>
 
 	const anchor = encodeURIComponent(
 		block.heading_2.rich_text.map((i) => i.plain_text).join("")
 	)
 	return (
-		<h3 className="relative my-2 text-2xl group" id={anchor}>
-			<HeaderAnchor anchor={anchor} level={3} />
+		<h2 className="relative my-2 text-2xl group" id={anchor}>
+			<HeaderAnchor anchor={anchor} level={2} />
 			{children ? (
 				children
 			) : (
 				<RichTextGroup richTexts={block.heading_2.rich_text} />
 			)}
-		</h3>
+		</h2>
 	)
 }
 
-const H3Block = ({
+export const H3Block = ({
 	block,
 	children,
 }: { block?: Heading3BlockObjectResponse } & ReactChildren) => {
-	if (!block) return <h4 className="relative my-1 text-xl">{children}</h4>
+	if (!block) return <h3 className="relative my-1 text-1xl">{children}</h3>
 
 	const anchor = encodeURIComponent(
 		block.heading_3.rich_text.map((i) => i.plain_text).join("")
 	)
 	return (
-		<h4 className="relative my-1 text-xl group" id={anchor}>
-			<HeaderAnchor anchor={anchor} level={4} />
-			<RichTextGroup richTexts={block.heading_3.rich_text} />
-		</h4>
+		<h3 className="relative my-1 text-xl group" id={anchor}>
+			<HeaderAnchor anchor={anchor} level={3} />
+			{children ? (
+				children
+			) : (
+				<RichTextGroup richTexts={block.heading_3.rich_text} />
+			)}
+		</h3>
 	)
 }
 

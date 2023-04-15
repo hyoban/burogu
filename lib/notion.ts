@@ -372,6 +372,7 @@ export type FeedListType = NonNullable<Awaited<ReturnType<typeof getFeedList>>>
 
 export interface TOCItem {
 	title: string
+	level: number
 	children: TOCItem[]
 }
 
@@ -381,20 +382,58 @@ export function getTOCFromBlocks(blocks: Block[]) {
 	for (const block of blocks) {
 		const type = block.cur.type
 		if (type === "heading_1") {
+			const title = block.cur.heading_1.rich_text
+				.map((t) => t.plain_text)
+				.join("")
+
 			toc.push({
-				title: block.cur.heading_1.rich_text.map((t) => t.plain_text).join(""),
+				title,
 				children: [],
+				level: 1,
 			})
 		} else if (type === "heading_2") {
-			toc[toc.length - 1].children.push({
-				title: block.cur.heading_2.rich_text.map((t) => t.plain_text).join(""),
-				children: [],
-			})
+			const title = block.cur.heading_2.rich_text
+				.map((t) => t.plain_text)
+				.join("")
+			if (toc.length === 0 || (toc.at(-1)?.level ?? 0 < 2)) {
+				toc.push({
+					title,
+					children: [],
+					level: 2,
+				})
+			} else {
+				toc.at(-1)?.children.push({
+					title,
+					children: [],
+					level: 2,
+				})
+			}
 		} else if (type === "heading_3") {
-			toc[toc.length - 1].children.push({
-				title: block.cur.heading_3.rich_text.map((t) => t.plain_text).join(""),
-				children: [],
-			})
+			const title = block.cur.heading_3.rich_text
+				.map((t) => t.plain_text)
+				.join("")
+			if (toc.length === 0 || (toc.at(-1)?.level ?? 0 < 2)) {
+				toc.push({
+					title,
+					children: [],
+					level: 3,
+				})
+			} else if (
+				toc.at(-1)?.children.length === 0 ||
+				(toc.at(-1)?.children.at(-1)?.level ?? 0 < 2)
+			) {
+				toc.at(-1)?.children.push({
+					title,
+					children: [],
+					level: 3,
+				})
+			} else {
+				toc.at(-1)?.children.at(-1)?.children.push({
+					title,
+					children: [],
+					level: 3,
+				})
+			}
 		}
 	}
 

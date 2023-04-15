@@ -1,9 +1,9 @@
-import { H1Block, H2Block, PBlock } from "@/app/components/part/PostContent.tsx"
+import { H2Block, H3Block, PBlock } from "@/app/components/part/PostContent.tsx"
 
 export function useMDXComponents(components) {
 	return {
-		h2: H1Block,
-		h3: H2Block,
+		h2: H2Block,
+		h3: H3Block,
 		p: PBlock,
 		li: ({ children }) => <li className="my-2">{children}</li>,
 		a: ({ children, href }) => (
