@@ -206,7 +206,8 @@ const HeaderAnchor = ({
 export const H1Block = ({
 	block,
 	children,
-}: { block?: Heading1BlockObjectResponse } & ReactChildren) => {
+	removeAnchor,
+}: { block?: Heading1BlockObjectResponse } & ReactChildren & TitleConfig) => {
 	if (!block) return <h1 className="relative my-3 text-3xl">{children}</h1>
 
 	const anchor = encodeURIComponent(
@@ -214,7 +215,7 @@ export const H1Block = ({
 	)
 	return (
 		<h1 className="relative my-3 text-3xl group" id={anchor}>
-			<HeaderAnchor anchor={anchor} level={1} />
+			{!removeAnchor && <HeaderAnchor anchor={anchor} level={1} />}
 			{children ? (
 				children
 			) : (
@@ -227,7 +228,8 @@ export const H1Block = ({
 export const H2Block = ({
 	block,
 	children,
-}: { block?: Heading2BlockObjectResponse } & ReactChildren) => {
+	removeAnchor,
+}: { block?: Heading2BlockObjectResponse } & ReactChildren & TitleConfig) => {
 	if (!block) return <h2 className="relative my-2 text-2xl">{children}</h2>
 
 	const anchor = encodeURIComponent(
@@ -235,7 +237,7 @@ export const H2Block = ({
 	)
 	return (
 		<h2 className="relative my-2 text-2xl group" id={anchor}>
-			<HeaderAnchor anchor={anchor} level={2} />
+			{!removeAnchor && <HeaderAnchor anchor={anchor} level={2} />}
 			{children ? (
 				children
 			) : (
@@ -248,7 +250,8 @@ export const H2Block = ({
 export const H3Block = ({
 	block,
 	children,
-}: { block?: Heading3BlockObjectResponse } & ReactChildren) => {
+	removeAnchor,
+}: { block?: Heading3BlockObjectResponse } & ReactChildren & TitleConfig) => {
 	if (!block) return <h3 className="relative my-1 text-1xl">{children}</h3>
 
 	const anchor = encodeURIComponent(
@@ -256,7 +259,7 @@ export const H3Block = ({
 	)
 	return (
 		<h3 className="relative my-1 text-xl group" id={anchor}>
-			<HeaderAnchor anchor={anchor} level={3} />
+			{!removeAnchor && <HeaderAnchor anchor={anchor} level={3} />}
 			{children ? (
 				children
 			) : (
@@ -449,16 +452,25 @@ const BookmarkBlock = ({
 	)
 }
 
-const RenderBlock = ({ block }: { block: PostContentType[number] }) => {
+type TitleConfig = {
+	removeAnchor: boolean
+}
+
+const RenderBlock = ({
+	block,
+	removeAnchor = false,
+}: {
+	block: PostContentType[number]
+} & TitleConfig) => {
 	switch (block.cur.type) {
 		case "paragraph":
 			return <PBlock block={block.cur} />
 		case "heading_1":
-			return <H1Block block={block.cur} />
+			return <H1Block block={block.cur} removeAnchor={removeAnchor} />
 		case "heading_2":
-			return <H2Block block={block.cur} />
+			return <H2Block block={block.cur} removeAnchor={removeAnchor} />
 		case "heading_3":
-			return <H3Block block={block.cur} />
+			return <H3Block block={block.cur} removeAnchor={removeAnchor} />
 		case "callout":
 			return <CalloutBlock block={block.cur} />
 		case "bulleted_list_item":
@@ -469,12 +481,20 @@ const RenderBlock = ({ block }: { block: PostContentType[number] }) => {
 					) ? (
 						<ul>
 							{block.children?.map((child) => (
-								<RenderBlock block={child} key={child.cur.id} />
+								<RenderBlock
+									block={child}
+									key={child.cur.id}
+									removeAnchor={removeAnchor}
+								/>
 							))}
 						</ul>
 					) : (
 						block.children?.map((child) => (
-							<RenderBlock block={child} key={child.cur.id} />
+							<RenderBlock
+								block={child}
+								key={child.cur.id}
+								removeAnchor={removeAnchor}
+							/>
 						))
 					)}
 				</BulletedListBlock>
@@ -487,12 +507,20 @@ const RenderBlock = ({ block }: { block: PostContentType[number] }) => {
 					) ? (
 						<ol>
 							{block.children?.map((child) => (
-								<RenderBlock block={child} key={child.cur.id} />
+								<RenderBlock
+									block={child}
+									key={child.cur.id}
+									removeAnchor={removeAnchor}
+								/>
 							))}
 						</ol>
 					) : (
 						block.children?.map((child) => (
-							<RenderBlock block={child} key={child.cur.id} />
+							<RenderBlock
+								block={child}
+								key={child.cur.id}
+								removeAnchor={removeAnchor}
+							/>
 						))
 					)}
 				</NumberedListBlock>
@@ -511,14 +539,21 @@ const RenderBlock = ({ block }: { block: PostContentType[number] }) => {
 
 export default async function PostContent({
 	blocks,
+	removeAnchor = false,
 }: {
 	blocks: PostContentType
-}) {
+} & TitleConfig) {
 	return (
 		<main className="flex w-full flex-col gap-3 prose relative">
 			{blocks
 				.map((block) => {
-					return <RenderBlock block={block} key={block.cur.id} />
+					return (
+						<RenderBlock
+							removeAnchor={removeAnchor}
+							block={block}
+							key={block.cur.id}
+						/>
+					)
 				})
 				.reduce((prev, curr) => {
 					if (curr === null) {
