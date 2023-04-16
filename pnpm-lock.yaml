@@ -43,6 +43,9 @@ dependencies:
   framer-motion:
     specifier: ^10.12.2
     version: 10.12.2(react-dom@18.2.0)(react@18.2.0)
+  google-translate-api-x:
+    specifier: ^10.6.4
+    version: 10.6.4
   jotai:
     specifier: ^2.0.4
     version: 2.0.4(react@18.2.0)
@@ -2427,6 +2430,11 @@ packages:
   /globrex@0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
     dev: true
+
+  /google-translate-api-x@10.6.4:
+    resolution: {integrity: sha512-Nv80M5OtuqN+hXgr5TdMms9Smlagu3jTK1GIcn25QWmDx/hyHSnGhIUsc55c4S/e28VUBzccdBUVL1vaQlryBg==}
+    engines: {node: '>=14.0.0'}
+    dev: false
 
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}

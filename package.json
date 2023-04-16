@@ -27,6 +27,7 @@
 		"dayjs": "^1.11.7",
 		"feed": "^4.2.2",
 		"framer-motion": "^10.12.2",
+		"google-translate-api-x": "^10.6.4",
 		"jotai": "^2.0.4",
 		"next": "13.3.0",
 		"next-auth": "^4.22.0",
