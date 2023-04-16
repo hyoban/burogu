@@ -27,22 +27,6 @@ export const metadata = {
 		template: `%s | ${config.siteName}`,
 	},
 	description: config.description,
-	icons: {
-		icon: config.faviconPath,
-	},
-	openGraph: {
-		title: config.authorName,
-		description: config.description,
-		url: config.siteUrl,
-		siteName: config.siteName,
-		locale: config.siteLanguage,
-		type: "website",
-		images: [
-			{
-				url: config.siteUrl + config.avatarPath,
-			},
-		],
-	},
 	robots: {
 		index: true,
 		follow: true,
@@ -64,10 +48,6 @@ export const metadata = {
 			color: "#1f1f1f",
 		},
 	],
-	twitter: {
-		title: config.authorName,
-		card: "summary_large_image",
-	},
 	alternates: {
 		types: {
 			"application/rss+xml": "/rss.xml",
