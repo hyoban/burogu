@@ -16,6 +16,8 @@ async function translateChineseToEnglish(input: string) {
 	return res.text
 }
 
+export const revalidate = 7200
+
 export default async function og({ params }: { params: { slug: string } }) {
 	const fetchPage = getSinglePostInfo(params.slug, true)
 	const fetchBlocks = getSinglePostContent(params.slug, true)
@@ -82,7 +84,7 @@ export default async function og({ params }: { params: { slug: string } }) {
 						justifyContent: "space-between",
 					}}
 				>
-					{translatedHeadings.map((heading, index) => (
+					{translatedHeadings.map((heading) => (
 						<li key={heading}> {`- ${heading}`}</li>
 					))}
 				</ul>
