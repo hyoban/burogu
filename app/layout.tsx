@@ -22,6 +22,8 @@ const font = DM_Mono({
 
 // https://beta.nextjs.org/docs/api-reference/metadata
 export const metadata = {
+	// https://beta.nextjs.org/docs/api-reference/metadata#metadatabase
+	metadataBase: new URL(config.siteUrl),
 	title: {
 		default: config.siteName,
 		template: `%s | ${config.siteName}`,
