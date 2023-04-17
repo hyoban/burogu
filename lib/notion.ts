@@ -5,7 +5,7 @@ import probe from "probe-image-size"
 import Parser from "rss-parser"
 
 import { isFeedItemValid, joinFeedItemUrl } from "@/lib/utils"
-import { timeZone } from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 import {
 	BlockObjectResponse,
 	ListBlockChildrenResponse,
@@ -13,6 +13,8 @@ import {
 	QueryDatabaseResponse,
 } from "@notionhq/client/build/src/api-endpoints"
 import { NotionPost } from "./notionType"
+
+const { timeZone } = SITE_CONFIG
 
 dayjs.extend(utc)
 dayjs.extend(timezone)

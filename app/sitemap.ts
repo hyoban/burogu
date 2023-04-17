@@ -1,16 +1,16 @@
 import { getPostList } from "@/lib/notion"
 import { NAV_LIST } from "@/lib/static"
-import config from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 
 export default async function sitemap() {
 	const allBlogs = await getPostList()
 	const blogs = allBlogs?.map((post) => ({
-		url: `${config.siteUrl}/post/${post.slug}`,
+		url: `${SITE_CONFIG.siteUrl}/post/${post.slug}`,
 		lastModified: post.publishedTime.split("T")[0],
 	}))
 
 	const routes = NAV_LIST.map((route) => ({
-		url: `${config.siteUrl}${route.href}`,
+		url: `${SITE_CONFIG.siteUrl}${route.href}`,
 		lastModified: new Date().toISOString().split("T")[0],
 	}))
 

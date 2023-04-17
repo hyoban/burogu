@@ -1,7 +1,7 @@
-import config from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 import { ImageResponse } from "next/server"
 
-export const alt = config.siteName
+export const alt = SITE_CONFIG.siteName
 export const size = {
 	width: 1024,
 	height: 512,
@@ -71,7 +71,7 @@ export default function og() {
 						</linearGradient>
 					</defs>
 				</svg>
-				<h1>{config.siteName}</h1>
+				<h1>{SITE_CONFIG.siteName}</h1>
 			</div>
 		),
 		size

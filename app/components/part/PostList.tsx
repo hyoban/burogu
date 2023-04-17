@@ -1,8 +1,10 @@
 import { getPostList } from "@/lib/notion"
-import { timeZone } from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 import dayjs from "dayjs"
 import Image from "next/image"
 import Link from "next/link"
+
+const { timeZone } = SITE_CONFIG
 
 export default async function PostList() {
 	const posts = await getPostList()

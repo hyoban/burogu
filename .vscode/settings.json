@@ -15,5 +15,6 @@
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true,
-	"mdx.experimentalLanguageServer": true
+	"mdx.experimentalLanguageServer": true,
+	"references.preferredLocation": "peek"
 }

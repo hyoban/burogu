@@ -2,7 +2,7 @@ import CommandMenuInServer from "@/app/components/part/CommandMenuInServer"
 import Nav from "@/app/components/part/Nav"
 import NavTrigger from "@/app/components/part/NavTrigger"
 import Avatar from "@/app/components/ui/Avatar"
-import config from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 
 export default function Header({}) {
 	return (
@@ -19,9 +19,9 @@ export default function Header({}) {
 				<Avatar className="w-24 h-24 sm:w-16 sm:h-16" />
 				<div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-center">
 					<div className="flex flex-col gap-2 items-center">
-						<p className="font-mono text-2xl">{config.authorName}</p>
+						<p className="font-mono text-2xl">{SITE_CONFIG.authorName}</p>
 						<p className="text-neutral-500 dark:text-neutral-400">
-							{config.shortDescription}
+							{SITE_CONFIG.shortDescription}
 						</p>
 					</div>
 				</div>

@@ -7,17 +7,16 @@ import {
 	CommandInput,
 	CommandItem,
 	CommandList,
-	CommandShortcut,
 } from "@/app/components/part/Command"
 import IconLink from "@/app/components/ui/IconLink"
 import { useDark } from "@/app/hooks/useDark"
 import type { NotionPost } from "@/lib/notionType"
-import config from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 import { useRouter } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
 
 const links = [
-	...config.links
+	...SITE_CONFIG.links
 		.filter((link) => link.type !== "Email")
 		.map((link) => ({
 			title: link.type,
@@ -64,13 +63,8 @@ export default function CommandMenu({
 
 	useEffect(() => {
 		const down = (e: KeyboardEvent) => {
-			// command + shift + p on mac
-			// ctrl + shift + p on windows
-			if (
-				(e.metaKey || e.ctrlKey) &&
-				e.shiftKey &&
-				e.key.toLowerCase() === "p"
-			) {
+			// command + k
+			if (e.metaKey && e.key === "k") {
 				e.preventDefault()
 				setOpen((open) => !open)
 			}
@@ -84,13 +78,10 @@ export default function CommandMenu({
 		<>
 			<div className="flex items-center">
 				<button
-					className="text-sm text-neutral-500 dark:text-neutral-400"
+					className="text-lg text-neutral-500 dark:text-neutral-400"
 					onClick={() => setOpen((open) => !open)}
 				>
-					命令台{" "}
-					<CommandShortcut className="px-[2px] py-[1px] pointer-events-none inline-flex select-none items-center gap-1 rounded border border-neutral-100 bg-neutral-100 text-neutral-600 opacity-100 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400">
-						⌘⇧P
-					</CommandShortcut>
+					⌘
 				</button>
 			</div>
 			<CommandDialog open={open} onOpenChange={setOpen}>

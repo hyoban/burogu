@@ -19,7 +19,7 @@ import { join as pathJoin } from "path"
 import { IThemedToken, getHighlighter, renderToHtml } from "shiki"
 
 import { PostContentType } from "@/lib/notion"
-import config from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 
 type ReactChildren = {
 	children?: React.ReactNode
@@ -322,8 +322,8 @@ const touchShikiPath = (): void => {
 const CodeBlock = async ({
 	block,
 }: { block: CodeBlockObjectResponse } & ReactChildren) => {
-	const lightCodeTheme = config.codeTheme.light
-	const darkCodeTheme = config.codeTheme.dark
+	const lightCodeTheme = SITE_CONFIG.codeTheme.light
+	const darkCodeTheme = SITE_CONFIG.codeTheme.dark
 
 	touchShikiPath()
 

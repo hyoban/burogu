@@ -30,8 +30,7 @@
 		"**/*.tsx",
 		"types/**/*.d.ts",
 		"mdx-components.jsx",
-		".next/types/**/*.ts",
-		"site.config.cjs"
+		".next/types/**/*.ts"
 	],
 	"exclude": ["node_modules"]
 }

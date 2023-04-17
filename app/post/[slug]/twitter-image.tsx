@@ -1,10 +1,10 @@
 import { getSinglePostContent, getSinglePostInfo } from "@/lib/notion"
-import config from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 import translate from "google-translate-api-x"
 import { notFound } from "next/navigation"
 import { ImageResponse } from "next/server"
 
-export const alt = config.siteName
+export const alt = SITE_CONFIG.siteName
 export const size = {
 	width: 1024,
 	height: 512,
@@ -74,7 +74,7 @@ export default async function og({ params }: { params: { slug: string } }) {
 					padding: "32px",
 				}}
 			>
-				<h1>{config.siteUrl.slice(8) + "/post/" + page.slug}</h1>
+				<h1>{SITE_CONFIG.siteUrl.slice(8) + "/post/" + page.slug}</h1>
 				<ul
 					style={{
 						fontSize: "32",

@@ -8,12 +8,14 @@ import {
 	SelectValue,
 } from "@/app/components/ui/Select"
 import { FeedListType } from "@/lib/notion"
-import { timeZone } from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 import dayjs from "dayjs"
 import timezone from "dayjs/plugin/timezone"
 import utc from "dayjs/plugin/utc"
 import { AnimatePresence, motion } from "framer-motion"
 import { atom, useAtom } from "jotai"
+
+const { timeZone } = SITE_CONFIG
 
 dayjs.extend(utc)
 dayjs.extend(timezone)

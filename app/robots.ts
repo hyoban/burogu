@@ -1,4 +1,4 @@
-import config from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 
 export default function robots() {
 	return {
@@ -7,7 +7,7 @@ export default function robots() {
 				userAgent: "*",
 			},
 		],
-		sitemap: `${config.siteUrl}/sitemap.xml`,
-		host: config.siteUrl,
+		sitemap: `${SITE_CONFIG.siteUrl}/sitemap.xml`,
+		host: SITE_CONFIG.siteUrl,
 	}
 }

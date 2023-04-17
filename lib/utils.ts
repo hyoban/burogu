@@ -1,8 +1,10 @@
-import { timeZone } from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 import clsx, { ClassValue } from "clsx"
 import dayjs from "dayjs"
 import Parser from "rss-parser"
 import { twMerge } from "tailwind-merge"
+
+const { timeZone } = SITE_CONFIG
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))

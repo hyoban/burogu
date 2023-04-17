@@ -2,7 +2,7 @@ import "@/app/css/globals.css"
 
 import Footer from "@/app/components/part/Footer"
 import { ThemeProvider } from "@/app/provider"
-import config from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 import { Analytics } from "@vercel/analytics/react"
 import dayjs from "dayjs"
 import timezone from "dayjs/plugin/timezone"
@@ -11,7 +11,7 @@ import { DM_Mono } from "next/font/google"
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
-dayjs.tz.setDefault(config.timeZone)
+dayjs.tz.setDefault(SITE_CONFIG.timeZone)
 
 // https://beta.nextjs.org/docs/optimizing/fonts#with-tailwind-css
 const font = DM_Mono({
@@ -23,12 +23,12 @@ const font = DM_Mono({
 // https://beta.nextjs.org/docs/api-reference/metadata
 export const metadata = {
 	// https://beta.nextjs.org/docs/api-reference/metadata#metadatabase
-	metadataBase: new URL(config.siteUrl),
+	metadataBase: new URL(SITE_CONFIG.siteUrl),
 	title: {
-		default: config.siteName,
-		template: `%s | ${config.siteName}`,
+		default: SITE_CONFIG.siteName,
+		template: `%s | ${SITE_CONFIG.siteName}`,
 	},
-	description: config.description,
+	description: SITE_CONFIG.description,
 	robots: {
 		index: true,
 		follow: true,
@@ -64,7 +64,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html
-			lang={config.siteLanguage}
+			lang={SITE_CONFIG.siteLanguage}
 			suppressHydrationWarning
 			className={`h-full ${font.variable}`}
 		>

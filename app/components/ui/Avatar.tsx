@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import config from "@/site.config.cjs"
+import SITE_CONFIG from "@/site.config"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -19,8 +19,8 @@ export default function Avatar({ className = "" }: { className?: string }) {
 						"rounded-full ring-2 ring-gray-300 dark:ring-gray-700 p-1",
 						className
 					)}
-					src={config.avatarPath}
-					alt={config.authorName}
+					src={SITE_CONFIG.avatarPath}
+					alt={SITE_CONFIG.authorName}
 					priority={true}
 					width={64}
 					height={64}

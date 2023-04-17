@@ -1,4 +1,4 @@
-module.exports = {
+const SITE_CONFIG = {
 	siteName: "Hyoban's Blog",
 	siteLanguage: "zh-Hans",
 	description: "Hyoban 的个人博客，胡乱写些东西",
@@ -28,4 +28,6 @@ module.exports = {
 	authorLink: "https://hyoban.cc",
 	authorEmail: "hi@hyoban.cc",
 	timeZone: "Asia/Shanghai",
-}
+} as const
+
+export default SITE_CONFIG
