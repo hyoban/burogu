@@ -78,7 +78,7 @@ export default function CommandMenu({
 		<>
 			<div className="flex items-center">
 				<button
-					className="text-lg text-neutral-500 dark:text-neutral-400"
+					className="text-xl text-neutral-500 dark:text-neutral-400"
 					onClick={() => setOpen((open) => !open)}
 				>
 					⌘
