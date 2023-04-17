@@ -7,6 +7,7 @@ export default function Link({ href, ...rest }: React.ComponentProps<"a">) {
 	if (useLink)
 		return (
 			<NextLink
+				// @ts-expect-error temporary allow using this component without route type checking
 				href={href}
 				{...rest}
 				ref={undefined} // change this if you need, with React.forwardRef

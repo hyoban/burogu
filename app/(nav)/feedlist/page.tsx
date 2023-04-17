@@ -8,7 +8,7 @@ import { Suspense } from "react"
 
 export const revalidate = 7200
 
-export async function FeedListInServer() {
+async function FeedListInServer() {
 	const feedInfoList = await getFeedInfoList()
 	if (!feedInfoList) return null
 	const feedList = await getFeedList(feedInfoList)

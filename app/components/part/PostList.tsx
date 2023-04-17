@@ -1,8 +1,8 @@
-import Link from "@/app/components/ui/Link"
 import { getPostList } from "@/lib/notion"
 import { timeZone } from "@/site.config.cjs"
 import dayjs from "dayjs"
 import Image from "next/image"
+import Link from "next/link"
 
 export default async function PostList() {
 	const posts = await getPostList()
