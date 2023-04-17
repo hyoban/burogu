@@ -1,22 +1,8 @@
-import IconLink from "@/app/components/ui/IconLink"
-import config from "@/site.config.ts"
+import SocialLinkGroup from "@/app/components/part/SocialLinkGroup"
 
 ## 找到我
 
-{
-
-<div className="flex flex-row print:flex-col gap-2">
-	{config.links.map((link) => (
-		<IconLink
-			className="w-5 h-5 text-white"
-			key={link.url}
-			type={link.type}
-			href={link.url}
-		></IconLink>
-	))}
-</div>
-
-}
+<SocialLinkGroup />
 
 ## 关于我
 

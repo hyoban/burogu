@@ -46,6 +46,7 @@
 		"@egoist/tailwindcss-icons": "^1.0.7",
 		"@iconify/json": "^2.2.50",
 		"@notionhq/client": "^2.2.4",
+		"@tailwindcss/typography": "^0.5.9",
 		"@types/node": "18.15.11",
 		"@types/probe-image-size": "^7.2.0",
 		"@types/react": "18.0.35",

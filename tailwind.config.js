@@ -21,6 +21,9 @@ module.exports = {
 			collections: getIconCollections(["mdi", "carbon"]),
 		}),
 		require("tailwindcss-animate"),
+		require("@tailwindcss/typography")({
+			className: "markdown",
+		}),
 	],
 	darkMode: "class",
 }
