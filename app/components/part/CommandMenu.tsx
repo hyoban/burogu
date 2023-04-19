@@ -11,7 +11,9 @@ import {
 import IconLink from "@/app/components/ui/IconLink"
 import { useDark } from "@/app/hooks/useDark"
 import type { NotionPost } from "@/lib/notionType"
+import { cn } from "@/lib/utils"
 import SITE_CONFIG from "@/site.config"
+import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { CSSProperties, useEffect, useMemo, useRef, useState } from "react"
 
@@ -59,7 +61,12 @@ export default function CommandMenu({
 		})
 	}, [posts, searchText])
 
-	const [, toggleDark] = useDark()
+	const [mounted, setMounted] = useState(false)
+	const [isDark, toggleDark] = useDark()
+
+	useEffect(() => {
+		setMounted(true)
+	}, [])
 
 	const [tabBoundingBox, setTabBoundingBox] = useState<DOMRect | null>(null)
 	const [wrapperBoundingBox, setWrapperBoundingBox] = useState<DOMRect | null>(
@@ -184,7 +191,22 @@ export default function CommandMenu({
 									onSelect={toggleDark}
 									onPointerEnter={highlightByEvent}
 								>
-									<span className="i-carbon-color-palette text-lg mr-2"></span>
+									<motion.div
+										className={cn(
+											"text-lg mr-2",
+											!mounted
+												? "i-carbon-contrast"
+												: isDark
+												? "i-carbon-moon"
+												: "i-carbon-sun"
+										)}
+										animate={{
+											rotate: isDark ? 0 : 360,
+										}}
+										transition={{
+											duration: 0.5,
+										}}
+									/>
 									切换主题
 								</CommandItem>
 							</CommandGroup>
