@@ -13,7 +13,7 @@ import { useDark } from "@/app/hooks/useDark"
 import type { NotionPost } from "@/lib/notionType"
 import SITE_CONFIG from "@/site.config"
 import { useRouter } from "next/navigation"
-import { useEffect, useMemo, useState } from "react"
+import { CSSProperties, useEffect, useMemo, useRef, useState } from "react"
 
 const links = [
 	...SITE_CONFIG.links
@@ -61,6 +61,28 @@ export default function CommandMenu({
 
 	const [, toggleDark] = useDark()
 
+	const [tabBoundingBox, setTabBoundingBox] = useState<DOMRect | null>(null)
+	const [wrapperBoundingBox, setWrapperBoundingBox] = useState<DOMRect | null>(
+		null
+	)
+	const [highlightedTab, setHighlightedTab] = useState<string>("切换主题")
+
+	const highlightRef = useRef<HTMLDivElement>(null)
+	const wrapperRef = useRef<HTMLDivElement>(null)
+
+	const repositionHighlight = (element: Element, tab: string) => {
+		setTabBoundingBox(element.getBoundingClientRect())
+		setWrapperBoundingBox(wrapperRef.current?.getBoundingClientRect() ?? null)
+		setHighlightedTab(tab)
+	}
+
+	const highlightByEvent = (
+		e: React.MouseEvent<HTMLDivElement, MouseEvent>
+	) => {
+		const element = e.target as Element
+		repositionHighlight(element, element.textContent ?? "")
+	}
+
 	useEffect(() => {
 		const down = (e: KeyboardEvent) => {
 			// command + k
@@ -71,8 +93,43 @@ export default function CommandMenu({
 		}
 
 		document.addEventListener("keydown", down)
-		return () => document.removeEventListener("keydown", down)
+		return () => {
+			document.removeEventListener("keydown", down)
+		}
 	}, [])
+
+	function getSelectedItem(direction: "next" | "prev") {
+		const items = wrapperRef.current?.querySelectorAll(`[cmdk-item=""]`)
+
+		if (!items) return null
+
+		let selectedItemIndex = -1
+
+		items.forEach((item, index) => {
+			if (item.getAttribute("aria-selected") === "true") {
+				selectedItemIndex = index
+			}
+		})
+
+		return items[
+			direction === "next" ? selectedItemIndex + 1 : selectedItemIndex - 1
+		]
+	}
+
+	const highlightStyles: CSSProperties = {}
+	highlightStyles.transitionDuration = "150ms"
+	highlightStyles.opacity = highlightedTab ? 1 : 0
+	highlightStyles.height = tabBoundingBox?.height
+		? `${tabBoundingBox.height}px`
+		: "44px"
+	if (tabBoundingBox && wrapperBoundingBox) {
+		highlightStyles.transform = `translate(0, ${
+			tabBoundingBox.bottom - wrapperBoundingBox.top
+		}px)`
+	} else {
+		// 26 + 12 + 49
+		highlightStyles.transform = "translate(0, 83px)"
+	}
 
 	return (
 		<>
@@ -84,18 +141,49 @@ export default function CommandMenu({
 					⌘
 				</button>
 			</div>
-			<CommandDialog open={open} onOpenChange={setOpen}>
+			<CommandDialog
+				open={open}
+				onOpenChange={setOpen}
+				onKeyDown={(e) => {
+					if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+						const selectedItem = getSelectedItem(
+							e.key === "ArrowDown" ? "next" : "prev"
+						)
+						if (selectedItem) {
+							repositionHighlight(
+								selectedItem,
+								selectedItem.getAttribute("data-value") ?? ""
+							)
+						}
+					}
+				}}
+			>
 				<CommandInput
 					placeholder="输入文章信息以搜索"
 					value={searchText}
 					onValueChange={setSearchText}
 				/>
-				<CommandList>
+				<CommandList ref={wrapperRef}>
+					<div
+						ref={highlightRef}
+						style={{
+							top: "4px",
+							left: "8px",
+							borderRadius: "4px",
+							transition: "0.15s ease",
+							transitionProperty: "height, transform, opacity",
+							...highlightStyles,
+						}}
+						className="bg-neutral-100 dark:bg-neutral-700 absolute w-[calc(100%-16px)]"
+					></div>
 					<CommandEmpty>未找到你所需要的</CommandEmpty>
 					{searchText.length === 0 && (
 						<>
 							<CommandGroup heading="操作">
-								<CommandItem onSelect={toggleDark}>
+								<CommandItem
+									onSelect={toggleDark}
+									onPointerEnter={highlightByEvent}
+								>
 									<span className="i-carbon-color-palette text-lg mr-2"></span>
 									切换主题
 								</CommandItem>
@@ -108,6 +196,7 @@ export default function CommandMenu({
 										onSelect={() => {
 											window.open(link.href, "_blank")
 										}}
+										onPointerEnter={highlightByEvent}
 									>
 										{typeof link.icon === "string" ? (
 											<span className={`${link.icon} text-lg mr-2`}></span>
@@ -128,6 +217,7 @@ export default function CommandMenu({
 									onSelect={() => {
 										router.push(`/post/${post.slug}`)
 									}}
+									onPointerEnter={highlightByEvent}
 								>
 									{post.title}
 								</CommandItem>

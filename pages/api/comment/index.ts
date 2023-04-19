@@ -17,7 +17,6 @@ export default async function handler(
 ) {
 	if (req.method === "POST") {
 		const data = await req.body
-		console.log(data)
 		const session = await getServerSession(req, res, authOptions)
 
 		if (!session) {
