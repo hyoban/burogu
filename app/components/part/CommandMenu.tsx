@@ -106,18 +106,12 @@ export default function CommandMenu({
 	}, [])
 
 	const highlightStyles: CSSProperties = {}
-	highlightStyles.transitionDuration = "150ms"
-	highlightStyles.opacity = highlightedTab ? 1 : 0
-	highlightStyles.height = tabBoundingBox?.height
-		? `${tabBoundingBox.height}px`
-		: "44px"
 	if (tabBoundingBox && wrapperBoundingBox) {
 		highlightStyles.transform = `translate(0, ${
-			tabBoundingBox.bottom - wrapperBoundingBox.top
+			tabBoundingBox.top - wrapperBoundingBox.y
 		}px)`
 	} else {
-		// 26 + 12 + 49
-		highlightStyles.transform = "translate(0, 83px)"
+		highlightStyles.transform = `translate(0, 38px)`
 	}
 
 	return (
@@ -156,14 +150,9 @@ export default function CommandMenu({
 					<div
 						ref={highlightRef}
 						style={{
-							top: "4px",
-							left: "8px",
-							borderRadius: "4px",
-							transition: "0.15s ease",
-							transitionProperty: "height, transform, opacity",
 							...highlightStyles,
 						}}
-						className="bg-neutral-100 dark:bg-neutral-700 absolute w-[calc(100%-16px)]"
+						className="bg-neutral-100 dark:bg-neutral-700 absolute w-[calc(100%-16px)] transition-transform duration-150 ease-in-out left-2 rounded-md h-11"
 					></div>
 					<CommandEmpty>未找到你所需要的</CommandEmpty>
 					{searchText.length === 0 && (
