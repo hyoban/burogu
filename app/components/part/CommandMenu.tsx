@@ -105,24 +105,6 @@ export default function CommandMenu({
 		}
 	}, [])
 
-	function getSelectedItem(direction: "next" | "prev") {
-		const items = wrapperRef.current?.querySelectorAll(`[cmdk-item=""]`)
-
-		if (!items) return null
-
-		let selectedItemIndex = -1
-
-		items.forEach((item, index) => {
-			if (item.getAttribute("aria-selected") === "true") {
-				selectedItemIndex = index
-			}
-		})
-
-		return items[
-			direction === "next" ? selectedItemIndex + 1 : selectedItemIndex - 1
-		]
-	}
-
 	const highlightStyles: CSSProperties = {}
 	highlightStyles.transitionDuration = "150ms"
 	highlightStyles.opacity = highlightedTab ? 1 : 0
@@ -151,10 +133,10 @@ export default function CommandMenu({
 			<CommandDialog
 				open={open}
 				onOpenChange={setOpen}
-				onKeyDown={(e) => {
+				onKeyUp={(e) => {
 					if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-						const selectedItem = getSelectedItem(
-							e.key === "ArrowDown" ? "next" : "prev"
+						const selectedItem = wrapperRef.current?.querySelector(
+							`[cmdk-item=""][aria-selected="true"]`
 						)
 						if (selectedItem) {
 							repositionHighlight(
