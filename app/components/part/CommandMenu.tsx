@@ -13,7 +13,6 @@ import { useDark } from "@/app/hooks/useDark"
 import type { NotionPost } from "@/lib/notionType"
 import { cn } from "@/lib/utils"
 import SITE_CONFIG from "@/site.config"
-import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { CSSProperties, useEffect, useMemo, useRef, useState } from "react"
 
@@ -25,7 +24,7 @@ const links = [
 			href: link.url,
 			icon: (
 				<IconLink
-					type={link.type as any}
+					type={link.type}
 					href={link.url}
 					className="text-lg mr-2"
 					iconOnly
@@ -72,22 +71,20 @@ export default function CommandMenu({
 	const [wrapperBoundingBox, setWrapperBoundingBox] = useState<DOMRect | null>(
 		null
 	)
-	const [highlightedTab, setHighlightedTab] = useState<string>("切换主题")
 
 	const highlightRef = useRef<HTMLDivElement>(null)
 	const wrapperRef = useRef<HTMLDivElement>(null)
 
-	const repositionHighlight = (element: Element, tab: string) => {
+	const repositionHighlight = (element: Element) => {
 		setTabBoundingBox(element.getBoundingClientRect())
 		setWrapperBoundingBox(wrapperRef.current?.getBoundingClientRect() ?? null)
-		setHighlightedTab(tab)
 	}
 
 	const highlightByEvent = (
 		e: React.MouseEvent<HTMLDivElement, MouseEvent>
 	) => {
 		const element = e.target as Element
-		repositionHighlight(element, element.textContent ?? "")
+		repositionHighlight(element)
 	}
 
 	useEffect(() => {
@@ -133,10 +130,7 @@ export default function CommandMenu({
 							`[cmdk-item=""][aria-selected="true"]`
 						)
 						if (selectedItem) {
-							repositionHighlight(
-								selectedItem,
-								selectedItem.getAttribute("data-value") ?? ""
-							)
+							repositionHighlight(selectedItem)
 						}
 					}
 				}}
@@ -159,10 +153,13 @@ export default function CommandMenu({
 						<>
 							<CommandGroup heading="操作">
 								<CommandItem
-									onSelect={toggleDark}
+									onSelect={() => {
+										toggleDark()
+										setOpen(false)
+									}}
 									onPointerEnter={highlightByEvent}
 								>
-									<motion.div
+									<div
 										className={cn(
 											"text-lg mr-2",
 											!mounted
@@ -171,12 +168,6 @@ export default function CommandMenu({
 												? "i-carbon-moon"
 												: "i-carbon-sun"
 										)}
-										animate={{
-											rotate: isDark ? 0 : 360,
-										}}
-										transition={{
-											duration: 0.5,
-										}}
 									/>
 									切换主题
 								</CommandItem>
@@ -188,6 +179,7 @@ export default function CommandMenu({
 										key={link.href}
 										onSelect={() => {
 											window.open(link.href, "_blank")
+											setOpen(false)
 										}}
 										onPointerEnter={highlightByEvent}
 									>
@@ -209,6 +201,7 @@ export default function CommandMenu({
 									key={post.slug}
 									onSelect={() => {
 										router.push(`/post/${post.slug}`)
+										setOpen(false)
 									}}
 									onPointerEnter={highlightByEvent}
 								>
