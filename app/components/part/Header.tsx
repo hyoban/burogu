@@ -8,11 +8,9 @@ export default function Header({}) {
 	return (
 		<header className="flex flex-col sm:flex-row gap-6 w-full items-center sm:justify-between print:hidden">
 			<Nav className="hidden sm:flex sm:order-last">
-				{/* @ts-expect-error Server Component */}
 				<CommandMenuInServer />
 			</Nav>
 			<NavTrigger className="sm:hidden">
-				{/* @ts-expect-error Server Component */}
 				<CommandMenuInServer />
 			</NavTrigger>
 			<div className="flex items-center gap-4">

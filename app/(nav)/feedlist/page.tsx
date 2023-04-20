@@ -21,13 +21,11 @@ export default async function FeedListPage({}) {
 	return (
 		<>
 			<Suspense fallback={<FeedListLoading />}>
-				{/* @ts-expect-error Server Component */}
 				<FeedListInServer />
 			</Suspense>
 			<div className="fixed top-0 right-10 translate-y-1/3">
 				<ScrollArea className="h-[400px] rounded-md border border-neutral-200 dark:border-neutral-700 p-4 w-56 hidden xl:block">
 					<Suspense fallback={<FeedInfoLoading />}>
-						{/* @ts-expect-error Server Component */}
 						<FeedInfoList />
 					</Suspense>
 				</ScrollArea>

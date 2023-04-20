@@ -29,7 +29,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 				height={page.cover.height}
 			/>
 			<h1 className="my-6 self-start text-4xl">{page.title}</h1>
-			{/* @ts-expect-error Server Component */}
 			<PostContent blocks={blocks} />
 			<Comment slug={params.slug} />
 			<TOC toc={toc} className="hidden xl:block" />

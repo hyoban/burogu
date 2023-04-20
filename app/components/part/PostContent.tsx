@@ -453,7 +453,7 @@ const BookmarkBlock = ({
 }
 
 type TitleConfig = {
-	removeAnchor: boolean
+	removeAnchor?: boolean
 }
 
 const RenderBlock = ({
@@ -526,7 +526,6 @@ const RenderBlock = ({
 				</NumberedListBlock>
 			)
 		case "code":
-			// @ts-expect-error Server Component
 			return <CodeBlock block={block.cur} />
 		case "image":
 			return <ImageBlock block={block.cur} />
