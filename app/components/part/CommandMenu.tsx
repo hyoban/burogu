@@ -9,6 +9,7 @@ import {
 	CommandList,
 } from "@/app/components/part/Command"
 import IconLink from "@/app/components/ui/IconLink"
+import { NAV_LIST } from "@/app/data/static"
 import { useDark } from "@/app/hooks/useDark"
 import type { NotionPost } from "@/lib/notionType"
 import { cn } from "@/lib/utils"
@@ -115,7 +116,7 @@ export default function CommandMenu({
 		<>
 			<div className="flex items-center">
 				<button
-					className="text-xl text-neutral-500 dark:text-neutral-400"
+					className="text-3xl text-neutral-500 dark:text-neutral-400"
 					onClick={() => setOpen((open) => !open)}
 				>
 					⌘
@@ -151,6 +152,22 @@ export default function CommandMenu({
 					<CommandEmpty>未找到你所需要的</CommandEmpty>
 					{searchText.length === 0 && (
 						<>
+							<CommandGroup heading="页面">
+								{NAV_LIST.map((nav) => (
+									<CommandItem
+										key={nav.href}
+										onPointerEnter={highlightByEvent}
+										onSelect={() => {
+											router.push(nav.href)
+											setOpen(false)
+										}}
+									>
+										{nav.icon}
+										{nav.name}
+									</CommandItem>
+								))}
+							</CommandGroup>
+
 							<CommandGroup heading="操作">
 								<CommandItem
 									onSelect={() => {
@@ -194,7 +211,7 @@ export default function CommandMenu({
 							</CommandGroup>
 						</>
 					)}
-					{searchPostsResult.length > 0 && (
+					{searchPostsResult.length > 0 && searchText && (
 						<CommandGroup heading="文章">
 							{searchPostsResult.map((post) => (
 								<CommandItem

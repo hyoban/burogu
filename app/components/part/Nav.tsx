@@ -1,6 +1,6 @@
 "use client"
 
-import { NAV_LIST } from "@/lib/static"
+import { NAV_LIST } from "@/app/data/static"
 import { cn } from "@/lib/utils"
 import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 import { motion } from "framer-motion"

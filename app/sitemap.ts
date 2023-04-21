@@ -1,5 +1,5 @@
+import { NAV_LIST } from "@/app/data/static"
 import { getPostList } from "@/lib/notion"
-import { NAV_LIST } from "@/lib/static"
 import SITE_CONFIG from "@/site.config"
 
 export default async function sitemap() {
