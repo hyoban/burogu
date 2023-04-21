@@ -120,7 +120,7 @@ export default function CommandMenu({
 			<TooltipProvider>
 				<Tooltip>
 					<TooltipTrigger
-						className="text-3xl opacity-70 i-carbon-mac-command"
+						className="text-3xl opacity-50 hover:opacity-70 i-carbon-mac-command"
 						onClick={() => setOpen((open) => !open)}
 					></TooltipTrigger>
 					<TooltipContent>
