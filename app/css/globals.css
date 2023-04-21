@@ -1,24 +1,7 @@
 @tailwind base;
-
 @tailwind components;
-
 @tailwind utilities;
 
 html.dark {
 	color-scheme: dark;
-}
-
-.prose a,
-a.prose {
-	@apply underline decoration-dashed decoration-1 underline-offset-4 hover:opacity-50;
-}
-
-.prose ul,
-ul.prose {
-	@apply ml-5 list-outside list-disc;
-}
-
-.prose ol,
-ol.prose {
-	@apply ml-5 list-outside list-decimal;
 }

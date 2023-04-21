@@ -3,7 +3,9 @@
 import { CommentList } from "@/app/api/comment/[slug]/route"
 import { SignInButton } from "@/app/components/part/AuthButton"
 import CommentForm from "@/app/components/part/CommentForm"
+import MarkdownWrapper from "@/app/components/ui/MarkdownWrapper"
 import { useSession } from "next-auth/react"
+import { Fragment } from "react"
 import useSWR from "swr"
 
 async function fetcher<JSON = any>(
@@ -22,41 +24,23 @@ export default function Comment({ slug }: { slug: string }) {
 	)
 
 	return (
-		<>
-			<h2 className="my-2 self-start text-3xl">评论</h2>
+		<MarkdownWrapper>
+			<h2>评论</h2>
 			{comments && comments?.length > 0 ? (
-				<div className="self-start">
+				<p>
 					{comments.map((comment) => (
-						<div key={comment.id} className=" my-2">
-							<span className="text-neutral-600 dark:text-neutral-400 mr-1">
+						<Fragment key={comment.id}>
+							<span className="text-neutral-500 dark:text-neutral-400 mr-3">
 								{comment.name + ":"}
 							</span>
 							<span>{comment.comment}</span>
-						</div>
+						</Fragment>
 					))}
-				</div>
+				</p>
 			) : (
-				<div className="self-start">还没有评论呢</div>
+				<p>还没有评论呢</p>
 			)}
-			{sessionStatus?.data?.user && (
-				<>
-					<CommentForm className="self-start" />
-					{/* <div className="flex gap-2 items-center self-start">
-						{session.user.image && (
-							<Image
-								src={session.user.image}
-								width={40}
-								height={40}
-								className="rounded-full"
-								alt="avatar of user"
-							/>
-						)}
-						<span>{session.user.name}</span>
-						<SignOutButton />
-					</div> */}
-				</>
-			)}
-			{!sessionStatus?.data?.user && <SignInButton className="self-start" />}
-		</>
+			{sessionStatus?.data?.user ? <CommentForm /> : <SignInButton />}
+		</MarkdownWrapper>
 	)
 }

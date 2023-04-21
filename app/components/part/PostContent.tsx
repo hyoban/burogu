@@ -1,8 +1,13 @@
+import MarkdownWrapper from "@/app/components/ui/MarkdownWrapper"
+import { components } from "@/app/components/ui/TweetComponents"
+import { PostContentType } from "@/lib/notion"
+import SITE_CONFIG from "@/site.config"
 import {
 	BookmarkBlockObjectResponse,
 	BulletedListItemBlockObjectResponse,
 	CalloutBlockObjectResponse,
 	CodeBlockObjectResponse,
+	EmbedBlockObjectResponse,
 	Heading1BlockObjectResponse,
 	Heading2BlockObjectResponse,
 	Heading3BlockObjectResponse,
@@ -16,10 +21,8 @@ import {
 import * as fs from "fs/promises"
 import Image from "next/image"
 import { join as pathJoin } from "path"
+import { Tweet } from "react-tweet"
 import { IThemedToken, getHighlighter, renderToHtml } from "shiki"
-
-import { PostContentType } from "@/lib/notion"
-import SITE_CONFIG from "@/site.config"
 
 type ReactChildren = {
 	children?: React.ReactNode
@@ -106,7 +109,7 @@ const RichText = ({
 		}
 		if (richText.annotations.code) {
 			return (
-				<code className="rounded-md bg-gray-100 px-2 dark:bg-gray-800">
+				<code>
 					<RichText
 						richText={{
 							...richText,
@@ -125,12 +128,7 @@ const RichText = ({
 	if (richText.type === "mention") {
 		if (richText.href !== null) {
 			return (
-				<a
-					href={richText.href}
-					target="_blank"
-					rel="noreferrer"
-					className="align-text-bottom"
-				>
+				<a href={richText.href} target="_blank" rel="noreferrer">
 					{richText.href.startsWith("https://github.com/") ? (
 						<>
 							<span className="i-carbon-logo-github mx-0 align-text-bottom"></span>
@@ -176,7 +174,7 @@ export const PBlock = ({
 	children,
 }: { block: ParagraphBlockObjectResponse } & ReactChildren) => {
 	return (
-		<p className="leading-7">
+		<p>
 			{children ? (
 				children
 			) : (
@@ -208,13 +206,13 @@ export const H1Block = ({
 	children,
 	removeAnchor,
 }: { block?: Heading1BlockObjectResponse } & ReactChildren & TitleConfig) => {
-	if (!block) return <h1 className="relative my-3 text-3xl">{children}</h1>
+	if (!block) return <h1>{children}</h1>
 
 	const anchor = encodeURIComponent(
 		block?.heading_1.rich_text.map((i) => i.plain_text).join("")
 	)
 	return (
-		<h1 className="relative my-3 text-3xl group" id={anchor}>
+		<h1 className="group" id={anchor}>
 			{!removeAnchor && <HeaderAnchor anchor={anchor} level={1} />}
 			{children ? (
 				children
@@ -230,13 +228,13 @@ export const H2Block = ({
 	children,
 	removeAnchor,
 }: { block?: Heading2BlockObjectResponse } & ReactChildren & TitleConfig) => {
-	if (!block) return <h2 className="relative my-2 text-2xl">{children}</h2>
+	if (!block) return <h2>{children}</h2>
 
 	const anchor = encodeURIComponent(
 		block.heading_2.rich_text.map((i) => i.plain_text).join("")
 	)
 	return (
-		<h2 className="relative my-2 text-2xl group" id={anchor}>
+		<h2 className="group" id={anchor}>
 			{!removeAnchor && <HeaderAnchor anchor={anchor} level={2} />}
 			{children ? (
 				children
@@ -252,13 +250,13 @@ export const H3Block = ({
 	children,
 	removeAnchor,
 }: { block?: Heading3BlockObjectResponse } & ReactChildren & TitleConfig) => {
-	if (!block) return <h3 className="relative my-1 text-1xl">{children}</h3>
+	if (!block) return <h3>{children}</h3>
 
 	const anchor = encodeURIComponent(
 		block.heading_3.rich_text.map((i) => i.plain_text).join("")
 	)
 	return (
-		<h3 className="relative my-1 text-xl group" id={anchor}>
+		<h3 className="group" id={anchor}>
 			{!removeAnchor && <HeaderAnchor anchor={anchor} level={3} />}
 			{children ? (
 				children
@@ -273,7 +271,7 @@ const CalloutBlock = ({
 	block,
 }: { block: CalloutBlockObjectResponse } & ReactChildren) => {
 	return (
-		<blockquote className="border-l-4 border-gray-300 pl-4">
+		<blockquote>
 			<RichTextGroup richTexts={block.callout.rich_text} />
 		</blockquote>
 	)
@@ -286,7 +284,7 @@ const BulletedListBlock = ({
 	block: BulletedListItemBlockObjectResponse
 } & ReactChildren) => {
 	return (
-		<li className="my-2">
+		<li>
 			<RichTextGroup richTexts={block.bulleted_list_item.rich_text} />
 			{children}
 		</li>
@@ -300,7 +298,7 @@ const NumberedListBlock = ({
 	block: NumberedListItemBlockObjectResponse
 } & ReactChildren) => {
 	return (
-		<li className="my-2">
+		<li>
 			<RichTextGroup richTexts={block.numbered_list_item.rich_text} />
 			{children}
 		</li>
@@ -413,7 +411,6 @@ const ImageBlock = ({
 }: { block: ImageBlockObjectResponse } & ReactChildren) => {
 	return (
 		<Image
-			className="h-auto w-full rounded-[3px] sm:rounded-[6px]"
 			src={
 				block.image.type === "external"
 					? block.image.external.url
@@ -449,6 +446,17 @@ const BookmarkBlock = ({
 				)}
 			</a>
 		</p>
+	)
+}
+
+const EmbedBlock = ({ block }: { block: EmbedBlockObjectResponse }) => {
+	const isTwitter = block.embed.url.includes("twitter.com")
+	if (!isTwitter) return null
+	const tweetId = block.embed.url.split("/").pop() as string
+	return (
+		<div className="not-markdown">
+			<Tweet id={tweetId} components={components} />
+		</div>
 	)
 }
 
@@ -531,6 +539,8 @@ const RenderBlock = ({
 			return <ImageBlock block={block.cur} />
 		case "bookmark":
 			return <BookmarkBlock block={block.cur} />
+		case "embed":
+			return <EmbedBlock block={block.cur} />
 		default:
 			return null
 	}
@@ -543,7 +553,7 @@ export default async function PostContent({
 	blocks: PostContentType
 } & TitleConfig) {
 	return (
-		<main className="flex w-full flex-col gap-3 prose relative">
+		<MarkdownWrapper>
 			{blocks
 				.map((block) => {
 					return (
@@ -587,7 +597,7 @@ export default async function PostContent({
 					}
 					return null
 				})}
-		</main>
+		</MarkdownWrapper>
 	)
 }
 

@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 				width={page.cover.width}
 				height={page.cover.height}
 			/>
-			<h1 className="my-6 self-start text-4xl">{page.title}</h1>
+			<h1 className="my-6 text-4xl">{page.title}</h1>
 			<PostContent blocks={blocks} />
 			<Comment slug={params.slug} />
 			<TOC toc={toc} className="hidden xl:block" />

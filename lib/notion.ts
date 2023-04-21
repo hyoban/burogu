@@ -383,43 +383,21 @@ export function getTOCFromBlocks(blocks: Block[]) {
 
 	for (const block of blocks) {
 		const type = block.cur.type
-		if (type === "heading_1") {
-			const title = block.cur.heading_1.rich_text
-				.map((t) => t.plain_text)
-				.join("")
-
-			toc.push({
-				title,
-				children: [],
-				level: 1,
-			})
-		} else if (type === "heading_2") {
+		if (type === "heading_2") {
 			const title = block.cur.heading_2.rich_text
 				.map((t) => t.plain_text)
 				.join("")
-			if (toc.length !== 0 && toc.at(-1)?.level === 1) {
-				toc.at(-1)?.children.push({
-					title,
-					children: [],
-					level: 2,
-				})
-			} else {
-				toc.push({
-					title,
-					children: [],
-					level: 2,
-				})
-			}
+			toc.push({
+				title,
+				children: [],
+				level: 2,
+			})
 		} else if (type === "heading_3") {
 			const title = block.cur.heading_3.rich_text
 				.map((t) => t.plain_text)
 				.join("")
-			if (
-				toc.length !== 0 &&
-				toc.at(-1)?.children.length !== 0 &&
-				toc.at(-1)?.level === 2
-			) {
-				toc.at(-1)?.children.at(-1)?.children.push({
+			if (toc.length !== 0 && toc.at(-1)?.level === 2) {
+				toc.at(-1)?.children.push({
 					title,
 					children: [],
 					level: 3,
