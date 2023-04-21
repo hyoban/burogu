@@ -90,8 +90,9 @@ export default function CommandMenu({
 
 	useEffect(() => {
 		const down = (e: KeyboardEvent) => {
-			// command + k
-			if (e.metaKey && e.key === "k") {
+			// command + k on macOS
+			// alt + k on Windows
+			if ((e.metaKey || e.altKey) && e.key === "k") {
 				e.preventDefault()
 				setOpen((open) => !open)
 			}
