@@ -12,7 +12,7 @@ export default function Loading() {
 					<div
 						key={i}
 						className={cn(
-							"overflow-clip rounded-lg border dark:border-gray-600 animate-pulse flex w-full flex-col gap-4",
+							"overflow-clip rounded-lg border dark:border-gray-600 animate-pulse flex w-full flex-col gap-4 my-4",
 							i === 1 ? "delay-500" : i === 2 ? "delay-1000" : ""
 						)}
 					>
