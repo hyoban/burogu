@@ -101,6 +101,7 @@ export default function CommandMenu({
 			if ((e.metaKey || e.altKey) && e.key === "k") {
 				e.preventDefault()
 				setOpen((open) => !open)
+				setTabBoundingBox(null)
 			}
 		}
 
