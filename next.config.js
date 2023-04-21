@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	output: "standalone",
+	output: "export",
 	experimental: {
 		appDir: true,
 		mdxRs: true,
@@ -14,12 +14,7 @@ const nextConfig = {
 		],
 	},
 	images: {
-		remotePatterns: [
-			{
-				protocol: "https",
-				hostname: "**",
-			},
-		],
+		unoptimized: true,
 	},
 }
 

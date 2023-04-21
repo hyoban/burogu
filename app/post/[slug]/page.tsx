@@ -1,4 +1,3 @@
-import Comment from "@/app/components/part/Comment"
 import PostContent from "@/app/components/part/PostContent"
 import { getPostList, getSinglePostInfo } from "@/lib/notion"
 import { Metadata } from "next"
@@ -31,7 +30,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			>
 				<PostContent slug={params.slug} />
 			</Suspense>
-			<Comment slug={params.slug} />
+			{/* <Comment slug={params.slug} /> */}
 		</>
 	)
 }
