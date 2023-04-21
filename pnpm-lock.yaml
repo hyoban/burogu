@@ -55,6 +55,9 @@ dependencies:
   next-auth:
     specifier: ^4.22.1
     version: 4.22.1(next@13.3.0)(react-dom@18.2.0)(react@18.2.0)
+  next-tweet:
+    specifier: ^0.8.1
+    version: 0.8.1(next@13.3.0)(react-dom@18.2.0)(react@18.2.0)
   probe-image-size:
     specifier: ^7.2.3
     version: 7.2.3
@@ -64,9 +67,6 @@ dependencies:
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
-  react-tweet:
-    specifier: ^2.0.0
-    version: 2.0.0(react-dom@18.2.0)(react@18.2.0)
   react-use:
     specifier: ^17.4.0
     version: 17.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -3074,6 +3074,21 @@ packages:
       uuid: 8.3.2
     dev: false
 
+  /next-tweet@0.8.1(next@13.3.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ciApYVGy6/VS0MALcRHDxpnZ3SeGxm6RKM2BsX4/5/OL7g68X0Oew3s6/neGHZF9JfbwIvxpMQoi3FPJ2gL4hA==}
+    peerDependencies:
+      next: '>= 13.2.1'
+      react: '>= 18.0.0'
+      react-dom: '>= 18.0.0'
+    dependencies:
+      '@swc/helpers': 0.4.14
+      clsx: 1.2.1
+      date-fns: 2.29.3
+      next: 13.3.0(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /next@13.3.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-OVTw8MpIPa12+DCUkPqRGPS3thlJPcwae2ZL4xti3iBff27goH024xy4q2lhlsdoYiKOi8Kz6uJoLW/GXwgfOA==}
     engines: {node: '>=14.6.0'}
@@ -3641,20 +3656,6 @@ packages:
       invariant: 2.2.4
       react: 18.2.0
       tslib: 2.4.1
-    dev: false
-
-  /react-tweet@2.0.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-1FGUVyirla+a+IwPYmDkrpsCiRHpsfUpaUcOaugAN6owdYyjCo6VttpF4gWio2XPZzY8VsFYbIrXXOWuAPUNsw==}
-    peerDependencies:
-      react: '>= 18.0.0'
-      react-dom: '>= 18.0.0'
-    dependencies:
-      '@swc/helpers': 0.4.14
-      clsx: 1.2.1
-      date-fns: 2.29.3
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      swr: 2.1.3(react@18.2.0)
     dev: false
 
   /react-universal-interface@0.6.2(react@18.2.0)(tslib@2.4.1):

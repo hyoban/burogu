@@ -1,5 +1,4 @@
 import MarkdownWrapper from "@/app/components/ui/MarkdownWrapper"
-import { components } from "@/app/components/ui/TweetComponents"
 import { PostContentType } from "@/lib/notion"
 import SITE_CONFIG from "@/site.config"
 import {
@@ -19,9 +18,9 @@ import {
 	TextRichTextItemResponse,
 } from "@notionhq/client/build/src/api-endpoints"
 import * as fs from "fs/promises"
+import { NextTweet } from "next-tweet"
 import Image from "next/image"
 import { join as pathJoin } from "path"
-import { Tweet } from "react-tweet"
 import { IThemedToken, getHighlighter, renderToHtml } from "shiki"
 
 type ReactChildren = {
@@ -455,7 +454,7 @@ const EmbedBlock = ({ block }: { block: EmbedBlockObjectResponse }) => {
 	const tweetId = block.embed.url.split("/").pop() as string
 	return (
 		<div className="not-markdown">
-			<Tweet id={tweetId} components={components} />
+			<NextTweet id={tweetId} />
 		</div>
 	)
 }

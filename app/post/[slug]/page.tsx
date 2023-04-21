@@ -11,8 +11,6 @@ import { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 
-export const revalidate = 7200
-
 export default async function Page({ params }: { params: { slug: string } }) {
 	const fetchPage = getSinglePostInfo(params.slug, true)
 	const fetchBlocks = getSinglePostContent(params.slug, true)
