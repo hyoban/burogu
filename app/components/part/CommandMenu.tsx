@@ -139,7 +139,10 @@ export default function CommandMenu({
 				<CommandInput
 					placeholder="输入文章信息以搜索"
 					value={searchText}
-					onValueChange={setSearchText}
+					onValueChange={(value) => {
+						setSearchText(value)
+						setTabBoundingBox(null)
+					}}
 				/>
 				<CommandList ref={wrapperRef}>
 					<div
