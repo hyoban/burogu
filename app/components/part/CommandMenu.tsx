@@ -14,7 +14,7 @@ import {
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from "@/app/components/ui/tooltip"
+} from "@/app/components/ui/Tooltip"
 import { NAV_LIST } from "@/app/data/static"
 import { useDark } from "@/app/hooks/useDark"
 import type { NotionPost } from "@/lib/notionType"
