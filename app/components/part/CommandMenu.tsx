@@ -67,12 +67,7 @@ export default function CommandMenu({
 		})
 	}, [posts, searchText])
 
-	const [mounted, setMounted] = useState(false)
 	const [isDark, toggleDark] = useDark()
-
-	useEffect(() => {
-		setMounted(true)
-	}, [])
 
 	const [tabBoundingBox, setTabBoundingBox] = useState<DOMRect | null>(null)
 	const [wrapperBoundingBox, setWrapperBoundingBox] = useState<DOMRect | null>(
@@ -125,11 +120,9 @@ export default function CommandMenu({
 			<TooltipProvider>
 				<Tooltip>
 					<TooltipTrigger
-						className="text-3xl text-neutral-500 dark:text-neutral-400"
+						className="text-4xl text-neutral-500 dark:text-neutral-400 i-carbon-mac-command"
 						onClick={() => setOpen((open) => !open)}
-					>
-						⌘
-					</TooltipTrigger>
+					></TooltipTrigger>
 					<TooltipContent>
 						<p>
 							按 <kbd>⌘</kbd> + <kbd>K</kbd> 打开搜索（win 按 <kbd>Alt</kbd> +
@@ -198,11 +191,7 @@ export default function CommandMenu({
 									<div
 										className={cn(
 											"text-lg mr-2",
-											!mounted
-												? "i-carbon-contrast"
-												: isDark
-												? "i-carbon-moon"
-												: "i-carbon-sun"
+											isDark ? "i-carbon-moon" : "i-carbon-sun"
 										)}
 									/>
 									切换主题
