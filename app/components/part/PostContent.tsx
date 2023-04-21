@@ -1,5 +1,10 @@
+import TOC from "@/app/components/part/TOC"
 import MarkdownWrapper from "@/app/components/ui/MarkdownWrapper"
-import { PostContentType } from "@/lib/notion"
+import {
+	PostContentType,
+	getSinglePostContent,
+	getTOCFromBlocks,
+} from "@/lib/notion"
 import SITE_CONFIG from "@/site.config"
 import {
 	BookmarkBlockObjectResponse,
@@ -545,58 +550,57 @@ const RenderBlock = ({
 	}
 }
 
-export default async function PostContent({
-	blocks,
-	removeAnchor = false,
-}: {
-	blocks: PostContentType
-} & TitleConfig) {
-	return (
-		<MarkdownWrapper>
-			{blocks
-				.map((block) => {
-					return (
-						<RenderBlock
-							removeAnchor={removeAnchor}
-							block={block}
-							key={block.cur.id}
-						/>
-					)
-				})
-				.reduce((prev, curr) => {
-					if (curr === null) {
-						return prev
-					}
+export default async function PostContent({ slug }: { slug: string }) {
+	const blocks = await getSinglePostContent(slug, true)
 
-					if (prev.length === 0) {
-						return [[curr]]
-					}
-					const last = prev[prev.length - 1]
-					const lastBlock = last[last.length - 1]
-					if (
-						(isJsxElementABulletedList(lastBlock) &&
-							isJsxElementABulletedList(curr)) ||
-						(isJsxElementANumberedList(lastBlock) &&
-							isJsxElementANumberedList(curr))
-					) {
-						return [...prev.slice(0, prev.length - 1), [...last, curr]]
-					}
-					return [...prev, [curr]]
-				}, [] as JSX.Element[][])
-				.map((blocks, i) => {
-					if (blocks.length === 1) {
-						return blocks[0]
-					}
-					const block = blocks[0]
-					if (isJsxElementABulletedList(block)) {
-						return <ul key={i}>{blocks}</ul>
-					}
-					if (isJsxElementANumberedList(block)) {
-						return <ol key={i}>{blocks}</ol>
-					}
-					return null
-				})}
-		</MarkdownWrapper>
+	if (!blocks) return null
+
+	const toc = getTOCFromBlocks(blocks)
+
+	return (
+		<>
+			<MarkdownWrapper>
+				{blocks
+					.map((block) => {
+						return <RenderBlock block={block} key={block.cur.id} />
+					})
+					.reduce((prev, curr) => {
+						if (curr === null) {
+							return prev
+						}
+
+						if (prev.length === 0) {
+							return [[curr]]
+						}
+						const last = prev[prev.length - 1]
+						const lastBlock = last[last.length - 1]
+						if (
+							(isJsxElementABulletedList(lastBlock) &&
+								isJsxElementABulletedList(curr)) ||
+							(isJsxElementANumberedList(lastBlock) &&
+								isJsxElementANumberedList(curr))
+						) {
+							return [...prev.slice(0, prev.length - 1), [...last, curr]]
+						}
+						return [...prev, [curr]]
+					}, [] as JSX.Element[][])
+					.map((blocks, i) => {
+						if (blocks.length === 1) {
+							return blocks[0]
+						}
+						const block = blocks[0]
+						if (isJsxElementABulletedList(block)) {
+							return <ul key={i}>{blocks}</ul>
+						}
+						if (isJsxElementANumberedList(block)) {
+							return <ol key={i}>{blocks}</ol>
+						}
+						return null
+					})}
+			</MarkdownWrapper>
+
+			<TOC toc={toc} className="hidden xl:block" />
+		</>
 	)
 }
 

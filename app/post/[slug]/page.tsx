@@ -1,23 +1,15 @@
 import Comment from "@/app/components/part/Comment"
 import PostContent from "@/app/components/part/PostContent"
-import TOC from "@/app/components/part/TOC"
-import {
-	getPostList,
-	getSinglePostContent,
-	getSinglePostInfo,
-	getTOCFromBlocks,
-} from "@/lib/notion"
+import { getPostList, getSinglePostInfo } from "@/lib/notion"
 import { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
+import { Suspense } from "react"
 
 export default async function Page({ params }: { params: { slug: string } }) {
-	const fetchPage = getSinglePostInfo(params.slug, true)
-	const fetchBlocks = getSinglePostContent(params.slug, true)
+	const page = await getSinglePostInfo(params.slug, true)
 
-	const [page, blocks] = await Promise.all([fetchPage, fetchBlocks])
-	if (!page || !blocks) notFound()
-	const toc = getTOCFromBlocks(blocks)
+	if (!page) notFound()
 
 	return (
 		<>
@@ -29,9 +21,17 @@ export default async function Page({ params }: { params: { slug: string } }) {
 				height={page.cover.height}
 			/>
 			<h1 className="my-6 text-4xl">{page.title}</h1>
-			<PostContent blocks={blocks} />
+			<Suspense
+				fallback={
+					<div className="flex flex-col gap-4 my-4 animate-pulse">
+						<p className="rounded-md w-96 h-8 bg-neutral-200 dark:bg-neutral-700"></p>
+						<p className="rounded-md w-full h-12 bg-neutral-200 dark:bg-neutral-700"></p>
+					</div>
+				}
+			>
+				<PostContent slug={params.slug} />
+			</Suspense>
 			<Comment slug={params.slug} />
-			<TOC toc={toc} className="hidden xl:block" />
 		</>
 	)
 }
