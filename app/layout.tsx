@@ -74,14 +74,12 @@ export default function RootLayout({
       */}
 			<head />
 
-			<body className="flex h-auto min-h-full justify-center p-6 font-sans dark:bg-[#1f1f1f] dark:text-white sm:px-14 transition-colors duration-500">
+			<body className="p-6 font-sans dark:bg-[#1f1f1f] dark:text-white transition-colors duration-500">
 				<ThemeProvider>
-					<div className="flex w-full max-w-[64ch] flex-col gap-6">
-						<Header />
-						<main className="relative flex w-full flex-col items-start">
-							{children}
-						</main>
-					</div>
+					<Header />
+					<main className="relative container max-w-[64ch] mx-auto py-6 flex flex-col">
+						{children}
+					</main>
 				</ThemeProvider>
 				<Analytics />
 			</body>
