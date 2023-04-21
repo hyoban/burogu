@@ -124,13 +124,11 @@ export default function CommandMenu({
 		<>
 			<TooltipProvider>
 				<Tooltip>
-					<TooltipTrigger>
-						<button
-							className="text-3xl text-neutral-500 dark:text-neutral-400"
-							onClick={() => setOpen((open) => !open)}
-						>
-							⌘
-						</button>
+					<TooltipTrigger
+						className="text-3xl text-neutral-500 dark:text-neutral-400"
+						onClick={() => setOpen((open) => !open)}
+					>
+						⌘
 					</TooltipTrigger>
 					<TooltipContent>
 						<p>
