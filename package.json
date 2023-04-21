@@ -49,7 +49,7 @@
 		"@iconify/json": "^2.2.52",
 		"@notionhq/client": "^2.2.4",
 		"@tailwindcss/typography": "^0.5.9",
-		"@types/node": "18.15.12",
+		"@types/node": "18.15.13",
 		"@types/probe-image-size": "^7.2.0",
 		"@types/react": "18.0.37",
 		"@types/react-dom": "18.0.11",
