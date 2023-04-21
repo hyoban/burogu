@@ -9,6 +9,12 @@ import {
 	CommandList,
 } from "@/app/components/part/Command"
 import IconLink from "@/app/components/ui/IconLink"
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/app/components/ui/tooltip"
 import { NAV_LIST } from "@/app/data/static"
 import { useDark } from "@/app/hooks/useDark"
 import type { NotionPost } from "@/lib/notionType"
@@ -115,14 +121,24 @@ export default function CommandMenu({
 
 	return (
 		<>
-			<div className="flex items-center">
-				<button
-					className="text-3xl text-neutral-500 dark:text-neutral-400"
-					onClick={() => setOpen((open) => !open)}
-				>
-					⌘
-				</button>
-			</div>
+			<TooltipProvider>
+				<Tooltip>
+					<TooltipTrigger>
+						<button
+							className="text-3xl text-neutral-500 dark:text-neutral-400"
+							onClick={() => setOpen((open) => !open)}
+						>
+							⌘
+						</button>
+					</TooltipTrigger>
+					<TooltipContent>
+						<p>
+							按 <kbd>⌘</kbd> + <kbd>K</kbd> 打开搜索（win 按 <kbd>Alt</kbd> +
+							<kbd>K</kbd>）
+						</p>
+					</TooltipContent>
+				</Tooltip>
+			</TooltipProvider>
 			<CommandDialog
 				open={open}
 				onOpenChange={setOpen}
