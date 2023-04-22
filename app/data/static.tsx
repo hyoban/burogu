@@ -9,9 +9,4 @@ export const NAV_LIST = [
 		href: "/post",
 		icon: <div className="i-carbon-book text-lg mr-2" />,
 	},
-	{
-		name: "订阅列表",
-		href: "/feedlist",
-		icon: <div className="i-carbon-friendship text-lg mr-2" />,
-	},
 ] as const
