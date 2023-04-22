@@ -66,14 +66,8 @@ export default function RootLayout({
 		<html
 			lang={SITE_CONFIG.siteLanguage}
 			suppressHydrationWarning
-			className={`h-full ${font.variable}`}
+			className={`${font.variable}`}
 		>
-			{/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-			<head />
-
 			<body className="p-6 font-sans dark:bg-[#1f1f1f] dark:text-white transition-colors duration-500">
 				<ThemeProvider>
 					<Header />
