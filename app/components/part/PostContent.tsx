@@ -22,10 +22,8 @@ import {
 	RichTextItemResponse,
 	TextRichTextItemResponse,
 } from "@notionhq/client/build/src/api-endpoints"
-import * as fs from "fs/promises"
 import { NextTweet } from "next-tweet"
 import Image from "next/image"
-import { join as pathJoin } from "path"
 import { IThemedToken, getHighlighter, renderToHtml } from "shiki"
 
 type ReactChildren = {
@@ -309,32 +307,14 @@ const NumberedListBlock = ({
 	)
 }
 
-const touched = { current: false }
-
-const getShikiPath = (): string => {
-	return pathJoin(process.cwd(), "lib/shiki")
-}
-
-const touchShikiPath = (): void => {
-	if (touched.current) return // only need to do once
-	fs.readdir(getShikiPath()) // fire and forget
-	touched.current = true
-}
-
 const CodeBlock = async ({
 	block,
 }: { block: CodeBlockObjectResponse } & ReactChildren) => {
 	const lightCodeTheme = SITE_CONFIG.codeTheme.light
 	const darkCodeTheme = SITE_CONFIG.codeTheme.dark
 
-	touchShikiPath()
-
 	const highlighter = await getHighlighter({
 		themes: [lightCodeTheme, darkCodeTheme],
-		paths: {
-			languages: `${getShikiPath()}/languages/`,
-			themes: `${getShikiPath()}/themes/`,
-		},
 	})
 	const code = (block.code.rich_text as TextRichTextItemResponse[])
 		.map((i) => i.plain_text)
