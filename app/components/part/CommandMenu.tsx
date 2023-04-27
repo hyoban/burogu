@@ -15,7 +15,6 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/app/components/ui/Tooltip"
-import { NAV_LIST } from "@/app/data/static"
 import { useDark } from "@/app/hooks/useDark"
 import type { NotionPost } from "@/lib/notionType"
 import { cn } from "@/lib/utils"
@@ -164,22 +163,6 @@ export default function CommandMenu({
 					<CommandEmpty>未找到你所需要的</CommandEmpty>
 					{searchText.length === 0 && (
 						<>
-							<CommandGroup heading="页面">
-								{NAV_LIST.map((nav) => (
-									<CommandItem
-										key={nav.href}
-										onPointerEnter={highlightByEvent}
-										onSelect={() => {
-											router.push(nav.href)
-											setOpen(false)
-										}}
-									>
-										{nav.icon}
-										{nav.name}
-									</CommandItem>
-								))}
-							</CommandGroup>
-
 							<CommandGroup heading="操作">
 								<CommandItem
 									onSelect={() => {

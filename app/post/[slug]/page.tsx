@@ -30,7 +30,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 			>
 				<PostContent slug={params.slug} />
 			</Suspense>
-			{/* <Comment slug={params.slug} /> */}
 		</>
 	)
 }
