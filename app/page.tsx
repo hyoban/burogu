@@ -12,7 +12,7 @@ export default async function Page() {
 	if (!posts) return <div>Nothing found.</div>
 
 	return (
-		<ul className="space-y-4 mt-10">
+		<ul className="space-y-6">
 			{posts.map((post) => (
 				<li key={post.id} className="flex gap-6">
 					<time dateTime={post.publishedTime} className="font-mono">

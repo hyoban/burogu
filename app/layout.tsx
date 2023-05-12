@@ -64,7 +64,7 @@ export default function RootLayout({
 			<body className="min-h-full max-w-[100vw] overflow-x-hidden p-6 font-sans dark:bg-[#1f1f1f] dark:text-white transition-colors duration-500">
 				<ThemeProvider>
 					<Header />
-					<main className="relative container max-w-[64ch] mx-auto py-6 flex flex-col">
+					<main className="relative container max-w-[64ch] mx-auto py-10 flex flex-col">
 						{children}
 					</main>
 				</ThemeProvider>
