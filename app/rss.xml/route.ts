@@ -33,10 +33,6 @@ export async function GET() {
 			title: post.title,
 			link: SITE_CONFIG.siteUrl + "/post/" + post.slug,
 			date: dayjs(post.publishedTime).tz(SITE_CONFIG.timeZone).toDate(),
-			description: post.description,
-			category: post.tags.map((tag) => ({
-				name: tag,
-			})),
 		})
 	})
 
