@@ -1,4 +1,4 @@
-import CommandMenuInServer from "@/app/components/part/CommandMenuInServer"
+import CommandMenu from "@/app/components/part/CommandMenu"
 import SITE_CONFIG from "@/site.config"
 import Link from "next/link"
 
@@ -10,7 +10,7 @@ export default function Header({}) {
 					{SITE_CONFIG.authorName}
 				</h1>
 			</Link>
-			<CommandMenuInServer />
+			<CommandMenu />
 		</header>
 	)
 }
