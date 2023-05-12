@@ -42,5 +42,5 @@ export async function generateMetadata({
 }): Promise<Metadata> {
 	const page = await getSinglePostInfo(params.slug, true)
 
-	return { title: page?.title, description: page?.description }
+	return { title: page?.title }
 }

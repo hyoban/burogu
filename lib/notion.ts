@@ -1,7 +1,6 @@
 import dayjs from "dayjs"
 import timezone from "dayjs/plugin/timezone"
 import utc from "dayjs/plugin/utc"
-import probe from "probe-image-size"
 
 import SITE_CONFIG from "@/site.config"
 import {
@@ -10,7 +9,13 @@ import {
 	PageObjectResponse,
 	QueryDatabaseResponse,
 } from "@notionhq/client/build/src/api-endpoints"
-import { NotionPost } from "./notionType"
+
+export interface NotionPost {
+	id: string
+	title: string
+	slug: string
+	publishedTime: string
+}
 
 const { timeZone } = SITE_CONFIG
 
@@ -28,45 +33,14 @@ const headers = {
 	Authorization: `Bearer ${notionToken}`,
 }
 
-const revalidate = 7200
-
-async function probeImageSize(
-	url: string
-): Promise<{ width?: number; height?: number }> {
-	try {
-		const dim = await probe(url)
-		return { width: dim.width, height: dim.height }
-	} catch (e) {
-		console.error("probeImageSize", e)
-		return {
-			width: undefined,
-			height: undefined,
-		}
-	}
-}
-
 async function getPostInfo(page: PageObjectResponse): Promise<NotionPost> {
 	const title = (page as any).properties.Name.title[0].plain_text as string
-
-	const tags = (page as any).properties.Tags.multi_select.map(
-		(i: any) => i.name
-	) as string[]
-
-	const coverUrl = (page.cover as any).external.url as string
-	const { width, height } = await probeImageSize(coverUrl)
 
 	return {
 		id: page.id,
 		title,
-		tags,
 		publishedTime: (page.properties["Published Time"] as any).date?.start,
 		slug: (page.properties.Slug as any).rich_text[0].plain_text,
-		cover: {
-			url: coverUrl,
-			width,
-			height,
-		},
-		description: (page.properties.Description as any).rich_text[0].plain_text,
 	}
 }
 
@@ -77,9 +51,6 @@ export async function getPostList(): Promise<NotionPost[] | undefined> {
 			{
 				method: "POST",
 				headers,
-				next: {
-					revalidate,
-				},
 			}
 		).then((i) => i.json())) as QueryDatabaseResponse
 
@@ -115,9 +86,6 @@ export async function getSinglePostInfo(pageId: string, isSlug = false) {
 		const page = (await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
 			method: "GET",
 			headers,
-			next: {
-				revalidate,
-			},
 		}).then((i) => i.json())) as PageObjectResponse
 
 		return await getPostInfo(page)
@@ -155,9 +123,6 @@ export async function getSinglePostContent(
 				{
 					method: "GET",
 					headers,
-					next: {
-						revalidate,
-					},
 				}
 			).then((i) => i.json())) as ListBlockChildrenResponse
 			const results = response.results as BlockObjectResponse[]

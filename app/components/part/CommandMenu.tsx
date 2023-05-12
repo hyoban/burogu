@@ -16,7 +16,7 @@ import {
 	TooltipTrigger,
 } from "@/app/components/ui/Tooltip"
 import { useDark } from "@/app/hooks/useDark"
-import type { NotionPost } from "@/lib/notionType"
+import type { NotionPost } from "@/lib/notion"
 import { cn } from "@/lib/utils"
 import SITE_CONFIG from "@/site.config"
 import { useRouter } from "next/navigation"
@@ -47,7 +47,7 @@ const links = [
 export default function CommandMenu({
 	posts,
 }: {
-	posts: Array<Pick<NotionPost, "title" | "tags" | "description" | "slug">>
+	posts: Array<Pick<NotionPost, "title" | "slug">>
 }) {
 	const router = useRouter()
 
@@ -58,10 +58,7 @@ export default function CommandMenu({
 		return posts.filter((post) => {
 			return (
 				post.title.toLowerCase().includes(searchText.toLowerCase()) ||
-				post.slug.toLowerCase().includes(searchText.toLowerCase()) ||
-				post.tags.some((tag) =>
-					tag.toLowerCase().includes(searchText.toLowerCase())
-				)
+				post.slug.toLowerCase().includes(searchText.toLowerCase())
 			)
 		})
 	}, [posts, searchText])

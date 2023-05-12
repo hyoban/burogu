@@ -9,9 +9,7 @@ export default async function CommandMenuInServer() {
 			posts={
 				posts?.map((post) => ({
 					title: post.title,
-					description: post.description,
 					slug: post.slug,
-					tags: post.tags,
 				})) ?? []
 			}
 		/>
