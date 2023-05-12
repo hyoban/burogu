@@ -44,11 +44,7 @@ const links = [
 	},
 ]
 
-export default function CommandMenu({
-	posts,
-}: {
-	posts: Array<Pick<NotionPost, "title" | "slug">>
-}) {
+export default function CommandMenu({ posts }: { posts: Array<NotionPost> }) {
 	const router = useRouter()
 
 	const [open, setOpen] = useState(false)
@@ -56,10 +52,7 @@ export default function CommandMenu({
 	const searchPostsResult = useMemo(() => {
 		if (!searchText) return posts
 		return posts.filter((post) => {
-			return (
-				post.title.toLowerCase().includes(searchText.toLowerCase()) ||
-				post.slug.toLowerCase().includes(searchText.toLowerCase())
-			)
+			return post.title.toLowerCase().includes(searchText.toLowerCase())
 		})
 	}, [posts, searchText])
 
@@ -203,9 +196,9 @@ export default function CommandMenu({
 						<CommandGroup heading="文章">
 							{searchPostsResult.map((post) => (
 								<CommandItem
-									key={post.slug}
+									key={post.id}
 									onSelect={() => {
-										router.push(`/post/${post.slug}`)
+										router.push(`/post/${post.id}`)
 										setOpen(false)
 									}}
 									onPointerEnter={highlightByEvent}

@@ -530,8 +530,8 @@ const RenderBlock = ({
 	}
 }
 
-export default async function PostContent({ slug }: { slug: string }) {
-	const blocks = await getSinglePostContent(slug, true)
+export default async function PostContent({ id }: { id: string }) {
+	const blocks = await getSinglePostContent(id)
 
 	if (!blocks) return null
 

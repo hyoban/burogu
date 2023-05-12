@@ -5,7 +5,7 @@ import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
 export default async function Page({ params }: { params: { slug: string } }) {
-	const page = await getSinglePostInfo(params.slug, true)
+	const page = await getSinglePostInfo(params.slug)
 
 	if (!page) notFound()
 
@@ -20,7 +20,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 					</div>
 				}
 			>
-				<PostContent slug={params.slug} />
+				<PostContent id={params.slug} />
 			</Suspense>
 		</>
 	)
@@ -31,7 +31,7 @@ export async function generateStaticParams() {
 	if (!posts) return []
 
 	return posts.map((post) => ({
-		slug: post.slug,
+		slug: post.id,
 	}))
 }
 
@@ -40,7 +40,7 @@ export async function generateMetadata({
 }: {
 	params: { slug: string }
 }): Promise<Metadata> {
-	const page = await getSinglePostInfo(params.slug, true)
+	const page = await getSinglePostInfo(params.slug)
 
 	return { title: page?.title }
 }

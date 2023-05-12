@@ -19,7 +19,7 @@ export default async function Page() {
 						{dayjs(post.publishedTime).tz(timeZone).format("YYYY/MM/DD")}
 					</time>
 					<Link
-						href={`/post/${post.slug}`}
+						href={`/post/${post.id}`}
 						className="underline underline-offset-[6px] decoration-dashed hover:decoration-solid"
 					>
 						{post.title}

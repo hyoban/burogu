@@ -13,7 +13,6 @@ import {
 export interface NotionPost {
 	id: string
 	title: string
-	slug: string
 	publishedTime: string
 }
 
@@ -36,9 +35,8 @@ const headers = {
 async function getPostInfo(page: PageObjectResponse): Promise<NotionPost> {
 	return {
 		id: page.id,
-		title: (page as any).properties.Name.title[0].plain_text as string,
 		publishedTime: page.created_time,
-		slug: (page.properties.Slug as any).rich_text[0].plain_text,
+		title: (page as any).properties.Name.title[0].plain_text as string,
 	}
 }
 
@@ -55,26 +53,15 @@ export async function getPostList(): Promise<NotionPost[] | undefined> {
 		if (!response.results) return
 
 		return Promise.all(
-			(response.results as PageObjectResponse[])
-				.filter((i) => (i as any).properties.Slug.rich_text.length > 0)
-				.map(getPostInfo)
+			(response.results as PageObjectResponse[]).map(getPostInfo)
 		)
 	} catch (e) {
 		console.error("getPostList", e)
 	}
 }
 
-export async function getSinglePostInfo(pageId: string, isSlug = false) {
+export async function getSinglePostInfo(pageId: string) {
 	if (pageId === "sw.js") return null
-
-	if (isSlug) {
-		const postList = await getPostList()
-		const post = postList?.find((i) => i.slug === pageId)
-		if (post) {
-			return post
-		}
-		return null
-	}
 
 	try {
 		const page = (await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
@@ -95,18 +82,8 @@ export type Block = {
 }
 
 export async function getSinglePostContent(
-	blockId: string,
-	isSlug = false
+	blockId: string
 ): Promise<Block[] | null> {
-	if (isSlug) {
-		const postList = await getPostList()
-		const post = postList?.find((i) => i.slug === blockId)
-		if (post) {
-			return getSinglePostContent(post.id)
-		}
-		return null
-	}
-
 	try {
 		const blocks: Block[] = []
 		let cursor
