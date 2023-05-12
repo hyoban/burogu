@@ -1,15 +1,9 @@
+import "@/lib/dayjs"
+
 import { getPostList } from "@/lib/notion"
 import SITE_CONFIG from "@/site.config"
 import dayjs from "dayjs"
-import timezone from "dayjs/plugin/timezone"
-import utc from "dayjs/plugin/utc"
 import { Feed } from "feed"
-
-const { timeZone } = SITE_CONFIG
-
-dayjs.extend(utc)
-dayjs.extend(timezone)
-dayjs.tz.setDefault(timeZone)
 
 // https://beta.nextjs.org/docs/routing/route-handlers
 // https://beta.nextjs.org/docs/routing/route-handlers#robotstxt-rssxml-and-sitemapxml
@@ -38,7 +32,7 @@ export async function GET() {
 		feed.addItem({
 			title: post.title,
 			link: SITE_CONFIG.siteUrl + "/post/" + post.slug,
-			date: dayjs(post.publishedTime).tz(timeZone).toDate(),
+			date: dayjs(post.publishedTime).tz(SITE_CONFIG.timeZone).toDate(),
 			description: post.description,
 			category: post.tags.map((tag) => ({
 				name: tag,

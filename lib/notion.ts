@@ -20,7 +20,6 @@ dayjs.tz.setDefault(timeZone)
 
 const notionToken = process.env.NOTION_TOKEN!
 const databaseId = process.env.NOTION_DATABASE_ID!
-const feedId = process.env.NOTION_FEED_ID!
 
 const headers = {
 	Accept: "application/json",

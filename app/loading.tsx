@@ -1,26 +1,21 @@
-import { cn } from "@/lib/utils"
-
 // https://beta.nextjs.org/docs/routing/loading-ui
 // https://beta.nextjs.org/docs/api-reference/file-conventions/loading
+
+const repeat = 4
+
 export default function Loading() {
-	const repeat = 3
 	return (
-		<>
+		<ul className="space-y-4 mt-10">
 			{Array(repeat)
 				.fill(0)
 				.map((_, i) => (
-					<div
-						key={i}
-						className={cn(
-							"overflow-clip rounded-lg border dark:border-gray-600 animate-pulse flex w-full flex-col gap-4 my-4",
-							i === 1 ? "delay-500" : i === 2 ? "delay-1000" : ""
-						)}
-					>
-						<div className="h-36 w-full bg-neutral-200 dark:bg-gray-700"></div>
-						<p className="mx-4 rounded-md w-10 h-5 bg-neutral-200 dark:bg-gray-700"></p>
-						<p className="mx-4 mb-4 rounded-md w-[calc(100%-2rem)] h-5 bg-neutral-200 dark:bg-gray-700"></p>
-					</div>
+					<li key={i} className="flex gap-6">
+						<time className="font-mono">{"1970/01/01"}</time>
+						<p className="underline underline-offset-[6px] decoration-dashed hover:decoration-solid">
+							Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						</p>
+					</li>
 				))}
-		</>
+		</ul>
 	)
 }

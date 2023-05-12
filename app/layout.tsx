@@ -4,14 +4,7 @@ import Header from "@/app/components/part/Header"
 import { ThemeProvider } from "@/app/provider"
 import SITE_CONFIG from "@/site.config"
 import { Analytics } from "@vercel/analytics/react"
-import dayjs from "dayjs"
-import timezone from "dayjs/plugin/timezone"
-import utc from "dayjs/plugin/utc"
 import { DM_Mono } from "next/font/google"
-
-dayjs.extend(utc)
-dayjs.extend(timezone)
-dayjs.tz.setDefault(SITE_CONFIG.timeZone)
 
 // https://beta.nextjs.org/docs/optimizing/fonts#with-tailwind-css
 const font = DM_Mono({
