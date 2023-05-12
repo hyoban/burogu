@@ -34,12 +34,10 @@ const headers = {
 }
 
 async function getPostInfo(page: PageObjectResponse): Promise<NotionPost> {
-	const title = (page as any).properties.Name.title[0].plain_text as string
-
 	return {
 		id: page.id,
-		title,
-		publishedTime: (page.properties["Published Time"] as any).date?.start,
+		title: (page as any).properties.Name.title[0].plain_text as string,
+		publishedTime: page.created_time,
 		slug: (page.properties.Slug as any).rich_text[0].plain_text,
 	}
 }
@@ -58,11 +56,7 @@ export async function getPostList(): Promise<NotionPost[] | undefined> {
 
 		return Promise.all(
 			(response.results as PageObjectResponse[])
-				.filter(
-					(i) =>
-						(i as any).properties["Published Time"].date &&
-						(i as any).properties.Slug.rich_text.length > 0
-				)
+				.filter((i) => (i as any).properties.Slug.rich_text.length > 0)
 				.map(getPostInfo)
 		)
 	} catch (e) {
