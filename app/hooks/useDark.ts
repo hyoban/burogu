@@ -16,8 +16,10 @@ export function useDark() {
 		const isDarkMode = setting === "dark" || (isDark && setting !== "light")
 		if (isDarkMode) {
 			document.documentElement.classList.toggle("dark", true)
+			document.documentElement.classList.toggle("light", false)
 		} else {
 			document.documentElement.classList.toggle("dark", false)
+			document.documentElement.classList.toggle("light", true)
 		}
 		if ((setting === "dark" && isDark) || (setting === "light" && !isDark)) {
 			setSetting("auto")

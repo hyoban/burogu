@@ -1,7 +1,6 @@
 import PostContent from "@/app/components/part/PostContent"
 import { getPostList, getSinglePostInfo } from "@/lib/notion"
 import { Metadata } from "next"
-import Image from "next/image"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
@@ -12,13 +11,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
 	return (
 		<>
-			<Image
-				className="h-auto w-full rounded-lg"
-				src={page.cover.url}
-				alt="post cover"
-				width={page.cover.width}
-				height={page.cover.height}
-			/>
 			<h1 className="my-6 text-4xl">{page.title}</h1>
 			<Suspense
 				fallback={
