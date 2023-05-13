@@ -10,15 +10,11 @@ module.exports = {
 				// https://tailwindcss.com/docs/font-family#customizing-the-default-font
 				mono: ["var(--font-dm-mono)", ...defaultTheme.fontFamily.mono],
 			},
-			screens: {
-				sm: "645px",
-			},
 		},
 	},
 	plugins: [
 		iconsPlugin({
-			// Select the icon collections you want to use
-			collections: getIconCollections(["mdi", "carbon"]),
+			collections: getIconCollections(["carbon"]),
 		}),
 		require("tailwindcss-animate"),
 		require("@tailwindcss/typography")({
