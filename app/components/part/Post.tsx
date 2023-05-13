@@ -1,10 +1,5 @@
-import TOC from "@/app/components/part/TOC"
 import Prose from "@/app/components/ui/Prose"
-import {
-	PostContentType,
-	getSinglePostContent,
-	getTOCFromBlocks,
-} from "@/lib/notion"
+import { PostContentType, getSinglePostContent } from "@/lib/notion"
 import SITE_CONFIG from "@/site.config"
 import {
 	BookmarkBlockObjectResponse,
@@ -565,8 +560,6 @@ export default async function PostContent({ id }: { id: string }) {
 
 	if (!blocks) return null
 
-	const toc = getTOCFromBlocks(blocks)
-
 	return (
 		<>
 			<Prose>
@@ -608,8 +601,6 @@ export default async function PostContent({ id }: { id: string }) {
 						return null
 					})}
 			</Prose>
-
-			<TOC toc={toc} className="hidden xl:block" />
 		</>
 	)
 }
