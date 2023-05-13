@@ -3,14 +3,21 @@ import "@/app/css/globals.css"
 import Footer from "@/app/components/part/Footer"
 import Header from "@/app/components/part/Header"
 import { ThemeProvider } from "@/app/provider"
+import { cn } from "@/lib/utils"
 import SITE_CONFIG from "@/site.config"
 import { Analytics } from "@vercel/analytics/react"
-import { DM_Mono } from "next/font/google"
+import { DM_Mono, Syne_Mono } from "next/font/google"
 
 // https://beta.nextjs.org/docs/optimizing/fonts#with-tailwind-css
-const font = DM_Mono({
+const dm_mono = DM_Mono({
 	variable: "--font-dm-mono",
 	weight: ["300", "400", "500"],
+	subsets: ["latin"],
+})
+
+const syne_mono = Syne_Mono({
+	variable: "--font-syne-mono",
+	weight: ["400"],
 	subsets: ["latin"],
 })
 
@@ -60,7 +67,7 @@ export default function RootLayout({
 		<html
 			lang={SITE_CONFIG.siteLanguage}
 			suppressHydrationWarning
-			className={`${font.variable}`}
+			className={cn(dm_mono.variable, syne_mono.variable)}
 		>
 			<body className="p-6 font-sans dark:bg-[#1f1f1f] dark:text-white transition-colors duration-500">
 				<ThemeProvider>

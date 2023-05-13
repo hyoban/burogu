@@ -9,6 +9,7 @@ module.exports = {
 			fontFamily: {
 				// https://tailwindcss.com/docs/font-family#customizing-the-default-font
 				mono: ["var(--font-dm-mono)", ...defaultTheme.fontFamily.mono],
+				syne: ["var(--font-syne-mono)", ...defaultTheme.fontFamily.sans],
 			},
 		},
 	},

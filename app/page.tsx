@@ -1,11 +1,8 @@
 import "@/lib/dayjs"
 
 import { getPostList } from "@/lib/notion"
-import SITE_CONFIG from "@/site.config"
 import dayjs from "dayjs"
 import Link from "next/link"
-
-const { timeZone } = SITE_CONFIG
 
 export const revalidate = 60
 
@@ -14,15 +11,26 @@ export default async function Page() {
 	if (!posts) return <div>Nothing found.</div>
 
 	return (
-		<ul className="space-y-5">
+		<ul className="space-y-2 sm:space-y-0">
 			{posts.map((post) => (
-				<li key={post.id} className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-					<time dateTime={post.publishedTime} className="font-mono">
-						{dayjs(post.publishedTime).tz(timeZone).format("YYYY-MM-DD")}
+				<li
+					key={post.id}
+					className="flex flex-col sm:flex-row sm:items-center gap-2"
+				>
+					<time
+						dateTime={post.publishedTime}
+						title={post.publishedTime}
+						className="font-mono text-sm text-neutral-500 dark:text-neutral-400"
+					>
+						{dayjs(post.publishedTime).format(
+							dayjs(post.publishedTime).isSame(dayjs(), "year")
+								? "MMM D"
+								: "MMM D, YYYY"
+						)}
 					</time>
 					<Link
 						href={`/post/${post.id}`}
-						className="underline underline-offset-[6px] decoration-dashed hover:decoration-solid"
+						className="w-fit rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 px-2 py-1 -translate-x-2 sm:px-4 sm:py-2 sm:translate-x-0"
 					>
 						{post.title}
 					</Link>

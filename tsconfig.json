@@ -29,7 +29,6 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"types/**/*.d.ts",
-		"mdx-components.jsx",
 		".next/types/**/*.ts"
 	],
 	"exclude": ["node_modules"]
