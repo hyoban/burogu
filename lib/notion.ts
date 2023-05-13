@@ -22,8 +22,8 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault(timeZone)
 
-const notionToken = process.env.NOTION_TOKEN!
-const databaseId = process.env.NOTION_DATABASE_ID!
+const notionToken = process.env.NOTION_TOKEN as string
+const databaseId = process.env.NOTION_DATABASE_ID as string
 
 const headers = {
 	Accept: "application/json",
@@ -36,7 +36,10 @@ async function getPostInfo(page: PageObjectResponse): Promise<NotionPost> {
 	return {
 		id: page.id,
 		publishedTime: page.created_time,
-		title: (page as any).properties.Name.title[0].plain_text as string,
+		title:
+			page.properties.Name.type === "title"
+				? page.properties.Name.title[0].plain_text
+				: "",
 	}
 }
 
