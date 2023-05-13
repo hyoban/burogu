@@ -8,7 +8,7 @@ const Footer = () => {
 			<AppearanceSwitch />
 			<a
 				href="/rss.xml"
-				className="text-2xl flex"
+				className="flex text-2xl"
 				target="_blank"
 				rel="noopener noreferrer"
 			>

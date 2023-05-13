@@ -15,7 +15,7 @@ export default async function Page() {
 			{posts.map((post) => (
 				<li
 					key={post.id}
-					className="flex flex-col sm:flex-row sm:items-center gap-2"
+					className="flex flex-col gap-2 sm:flex-row sm:items-center"
 				>
 					<time
 						dateTime={post.publishedTime}
@@ -30,7 +30,7 @@ export default async function Page() {
 					</time>
 					<Link
 						href={`/post/${post.id}`}
-						className="w-fit rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 px-2 py-1 -translate-x-2 sm:px-4 sm:py-2 sm:translate-x-0"
+						className="w-fit -translate-x-2 rounded-md px-2 py-1 hover:bg-neutral-100 dark:hover:bg-neutral-800 sm:translate-x-0 sm:px-4 sm:py-2"
 					>
 						{post.title}
 					</Link>
