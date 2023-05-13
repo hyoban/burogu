@@ -44,11 +44,11 @@ export const metadata = {
 	themeColor: [
 		{
 			media: "(prefers-color-scheme: light)",
-			color: "#ffffff",
+			color: "#fff",
 		},
 		{
 			media: "(prefers-color-scheme: dark)",
-			color: "#1f1f1f",
+			color: "#171717",
 		},
 	],
 	alternates: {
