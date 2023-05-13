@@ -69,7 +69,7 @@ export default function RootLayout({
 			suppressHydrationWarning
 			className={cn(dm_mono.variable, syne_mono.variable)}
 		>
-			<body className="p-6 font-sans dark:bg-[#1f1f1f] dark:text-white transition-colors duration-500">
+			<body className="p-6 font-sans dark:bg-neutral-900 dark:text-white transition-colors duration-500">
 				<ThemeProvider>
 					<div className="max-w-[60ch] mx-auto">
 						<Header />

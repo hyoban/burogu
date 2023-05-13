@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 
-export default function Prose(props: ReactProps) {
+const Prose = (props: BasicProps) => {
 	const { children, className } = props
 
 	return (
@@ -18,3 +18,5 @@ export default function Prose(props: ReactProps) {
 		</article>
 	)
 }
+
+export default Prose
