@@ -5,7 +5,7 @@ const repeat = 4
 
 export default function Loading() {
 	return (
-		<ul className="space-y-4">
+		<ul className="space-y-5">
 			{Array(repeat)
 				.fill(0)
 				.map((_, i) => (
