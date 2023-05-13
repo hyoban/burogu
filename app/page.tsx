@@ -7,6 +7,8 @@ import Link from "next/link"
 
 const { timeZone } = SITE_CONFIG
 
+export const revalidate = 14400
+
 export default async function Page() {
 	const posts = await getPostList()
 	if (!posts) return <div>Nothing found.</div>

@@ -4,6 +4,8 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 
+export const revalidate = 14400
+
 export default async function Page({ params }: { params: { slug: string } }) {
 	const page = await getSinglePostInfo(params.slug)
 
