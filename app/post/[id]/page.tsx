@@ -5,11 +5,11 @@ import { notFound } from "next/navigation"
 
 export const revalidate = 60
 
-export default async function Page({ params }: { params: { slug: string } }) {
-	const page = await getSinglePostInfo(params.slug)
+export default async function Page({ params }: { params: { id: string } }) {
+	const page = await getSinglePostInfo(params.id)
 	if (!page) notFound()
 
-	return <Post id={params.slug} title={page.title} />
+	return <Post id={params.id} title={page.title} />
 }
 
 export async function generateStaticParams() {
@@ -17,16 +17,16 @@ export async function generateStaticParams() {
 	if (!posts) return []
 
 	return posts.map((post) => ({
-		slug: post.id,
+		id: post.id,
 	}))
 }
 
 export async function generateMetadata({
 	params,
 }: {
-	params: { slug: string }
+	params: { id: string }
 }): Promise<Metadata> {
-	const page = await getSinglePostInfo(params.slug)
+	const page = await getSinglePostInfo(params.id)
 
 	return { title: page?.title }
 }
