@@ -23,15 +23,11 @@ import Image from "next/image"
 import { join as pathJoin } from "path"
 import { IThemedToken, getHighlighter, renderToHtml } from "shiki"
 
-type ReactChildren = {
-	children?: React.ReactNode
-}
-
 const RichText = ({
 	richText,
 }: {
 	richText: TextRichTextItemResponse | MentionRichTextItemResponse
-} & ReactChildren) => {
+} & BasicProps) => {
 	if (richText.type === "text") {
 		if (richText.href !== null) {
 			return (
@@ -153,7 +149,7 @@ const RichTextGroup = ({
 	richTexts,
 }: {
 	richTexts: RichTextItemResponse[]
-} & ReactChildren) => {
+} & BasicProps) => {
 	return (
 		<>
 			{richTexts
@@ -171,7 +167,7 @@ const RichTextGroup = ({
 export const PBlock = ({
 	block,
 	children,
-}: { block: ParagraphBlockObjectResponse } & ReactChildren) => {
+}: { block: ParagraphBlockObjectResponse } & BasicProps) => {
 	return (
 		<p>
 			{children ? (
@@ -204,7 +200,7 @@ export const H1Block = ({
 	block,
 	children,
 	removeAnchor,
-}: { block?: Heading1BlockObjectResponse } & ReactChildren & TitleConfig) => {
+}: { block?: Heading1BlockObjectResponse } & BasicProps & TitleConfig) => {
 	if (!block) return <h1>{children}</h1>
 
 	const anchor = encodeURIComponent(
@@ -226,7 +222,7 @@ export const H2Block = ({
 	block,
 	children,
 	removeAnchor,
-}: { block?: Heading2BlockObjectResponse } & ReactChildren & TitleConfig) => {
+}: { block?: Heading2BlockObjectResponse } & BasicProps & TitleConfig) => {
 	if (!block) return <h2>{children}</h2>
 
 	const anchor = encodeURIComponent(
@@ -248,7 +244,7 @@ export const H3Block = ({
 	block,
 	children,
 	removeAnchor,
-}: { block?: Heading3BlockObjectResponse } & ReactChildren & TitleConfig) => {
+}: { block?: Heading3BlockObjectResponse } & BasicProps & TitleConfig) => {
 	if (!block) return <h3>{children}</h3>
 
 	const anchor = encodeURIComponent(
@@ -268,7 +264,7 @@ export const H3Block = ({
 
 const CalloutBlock = ({
 	block,
-}: { block: CalloutBlockObjectResponse } & ReactChildren) => {
+}: { block: CalloutBlockObjectResponse } & BasicProps) => {
 	return (
 		<blockquote>
 			<RichTextGroup richTexts={block.callout.rich_text} />
@@ -281,7 +277,7 @@ const BulletedListBlock = ({
 	children,
 }: {
 	block: BulletedListItemBlockObjectResponse
-} & ReactChildren) => {
+} & BasicProps) => {
 	return (
 		<li>
 			<RichTextGroup richTexts={block.bulleted_list_item.rich_text} />
@@ -295,7 +291,7 @@ const NumberedListBlock = ({
 	children,
 }: {
 	block: NumberedListItemBlockObjectResponse
-} & ReactChildren) => {
+} & BasicProps) => {
 	return (
 		<li>
 			<RichTextGroup richTexts={block.numbered_list_item.rich_text} />
@@ -327,7 +323,7 @@ const touchShikiPath = (): void => {
 
 const CodeBlock = async ({
 	block,
-}: { block: CodeBlockObjectResponse } & ReactChildren) => {
+}: { block: CodeBlockObjectResponse } & BasicProps) => {
 	const lightCodeTheme = SITE_CONFIG.codeTheme.light
 	const darkCodeTheme = SITE_CONFIG.codeTheme.dark
 
@@ -417,7 +413,7 @@ const CodeBlock = async ({
 
 const ImageBlock = ({
 	block,
-}: { block: ImageBlockObjectResponse } & ReactChildren) => {
+}: { block: ImageBlockObjectResponse } & BasicProps) => {
 	return (
 		<Image
 			src={
@@ -439,7 +435,7 @@ const ImageBlock = ({
 
 const BookmarkBlock = ({
 	block,
-}: { block: BookmarkBlockObjectResponse } & ReactChildren) => {
+}: { block: BookmarkBlockObjectResponse } & BasicProps) => {
 	return (
 		<p>
 			<a
@@ -555,60 +551,65 @@ const RenderBlock = ({
 	}
 }
 
-export default async function PostContent({ id }: { id: string }) {
-	const blocks = await getSinglePostContent(id)
-
-	if (!blocks) return null
-
-	return (
-		<>
-			<Prose>
-				{blocks
-					.map((block) => {
-						return <RenderBlock block={block} key={block.cur.id} />
-					})
-					.reduce((prev, curr) => {
-						if (curr === null) {
-							return prev
-						}
-
-						if (prev.length === 0) {
-							return [[curr]]
-						}
-						const last = prev[prev.length - 1]
-						const lastBlock = last[last.length - 1]
-						if (
-							(isJsxElementABulletedList(lastBlock) &&
-								isJsxElementABulletedList(curr)) ||
-							(isJsxElementANumberedList(lastBlock) &&
-								isJsxElementANumberedList(curr))
-						) {
-							return [...prev.slice(0, prev.length - 1), [...last, curr]]
-						}
-						return [...prev, [curr]]
-					}, [] as JSX.Element[][])
-					.map((blocks, i) => {
-						if (blocks.length === 1) {
-							return blocks[0]
-						}
-						const block = blocks[0]
-						if (isJsxElementABulletedList(block)) {
-							return <ul key={i}>{blocks}</ul>
-						}
-						if (isJsxElementANumberedList(block)) {
-							return <ol key={i}>{blocks}</ol>
-						}
-						return null
-					})}
-			</Prose>
-		</>
-	)
-}
-
 function isJsxElementABulletedList(element: JSX.Element) {
 	return element.props.block.cur.type === "bulleted_list_item"
 }
 
 function isJsxElementANumberedList(element: JSX.Element) {
 	return element.props.block.cur.type === "numbered_list_item"
+}
+
+export default async function PostContent({
+	id,
+	title,
+}: {
+	id: string
+	title: string
+}) {
+	const blocks = await getSinglePostContent(id)
+
+	if (!blocks) return null
+
+	return (
+		<Prose>
+			<h1>{title}</h1>
+			{blocks
+				.map((block) => {
+					return <RenderBlock block={block} key={block.cur.id} />
+				})
+				.reduce((prev, curr) => {
+					if (curr === null) {
+						return prev
+					}
+
+					if (prev.length === 0) {
+						return [[curr]]
+					}
+					const last = prev[prev.length - 1]
+					const lastBlock = last[last.length - 1]
+					if (
+						(isJsxElementABulletedList(lastBlock) &&
+							isJsxElementABulletedList(curr)) ||
+						(isJsxElementANumberedList(lastBlock) &&
+							isJsxElementANumberedList(curr))
+					) {
+						return [...prev.slice(0, prev.length - 1), [...last, curr]]
+					}
+					return [...prev, [curr]]
+				}, [] as JSX.Element[][])
+				.map((blocks, i) => {
+					if (blocks.length === 1) {
+						return blocks[0]
+					}
+					const block = blocks[0]
+					if (isJsxElementABulletedList(block)) {
+						return <ul key={i}>{blocks}</ul>
+					}
+					if (isJsxElementANumberedList(block)) {
+						return <ol key={i}>{blocks}</ol>
+					}
+					return null
+				})}
+		</Prose>
+	)
 }

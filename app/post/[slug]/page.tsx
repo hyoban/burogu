@@ -1,31 +1,15 @@
-import PostContent from "@/app/components/part/Post"
+import Post from "@/app/components/part/Post"
 import { getPostList, getSinglePostInfo } from "@/lib/notion"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { Suspense } from "react"
 
 export const revalidate = 60
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const page = await getSinglePostInfo(params.slug)
-
 	if (!page) notFound()
 
-	return (
-		<>
-			<h1 className="mb-8 text-4xl">{page.title}</h1>
-			<Suspense
-				fallback={
-					<div className="flex flex-col gap-4 my-4 animate-pulse">
-						<p className="rounded-md w-96 h-8 bg-neutral-200 dark:bg-neutral-700"></p>
-						<p className="rounded-md w-full h-12 bg-neutral-200 dark:bg-neutral-700"></p>
-					</div>
-				}
-			>
-				<PostContent id={params.slug} />
-			</Suspense>
-		</>
-	)
+	return <Post id={params.slug} title={page.title} />
 }
 
 export async function generateStaticParams() {
