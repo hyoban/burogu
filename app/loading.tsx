@@ -10,7 +10,7 @@ export default function Loading() {
 				.fill(0)
 				.map((_, i) => (
 					<li key={i} className="flex gap-6">
-						<time className="font-mono">{"1970/01/01"}</time>
+						<time className="font-mono">{"1970-01-01"}</time>
 						<p className="underline underline-offset-[6px] decoration-dashed hover:decoration-solid">
 							Lorem ipsum dolor sit amet consectetur adipisicing elit.
 						</p>
