@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
 	return (
 		<>
-			<h1 className="my-8 text-4xl">{page.title}</h1>
+			<h1 className="mb-8 text-4xl">{page.title}</h1>
 			<Suspense
 				fallback={
 					<div className="flex flex-col gap-4 my-4 animate-pulse">
