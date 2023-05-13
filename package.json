@@ -27,7 +27,6 @@
 	"devDependencies": {
 		"@egoist/tailwindcss-icons": "^1.0.7",
 		"@iconify-json/carbon": "^1.1.16",
-		"@iconify-json/mdi": "^1.1.51",
 		"@notionhq/client": "^2.2.5",
 		"@tailwindcss/typography": "^0.5.9",
 		"@types/node": "20.1.3",

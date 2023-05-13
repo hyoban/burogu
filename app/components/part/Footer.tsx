@@ -4,7 +4,7 @@ import SITE_CONFIG from "@/site.config"
 
 const Footer = () => {
 	return (
-		<footer className="mx-auto w-fit flex gap-4">
+		<footer className="flex gap-4">
 			<AppearanceSwitch />
 			<a
 				href="/rss.xml"

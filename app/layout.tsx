@@ -64,7 +64,7 @@ export default function RootLayout({
 		>
 			<body className="p-6 font-sans dark:bg-[#1f1f1f] dark:text-white transition-colors duration-500">
 				<ThemeProvider>
-					<div className="max-w-[65ch] w-fit mx-auto">
+					<div className="max-w-[60ch] mx-auto">
 						<Header />
 						<main className="py-10 flex flex-col">{children}</main>
 						<Footer />
