@@ -1,5 +1,3 @@
-# Burogu
-
 ## 为什么选择 Notion 和 Next.js
 
 ### 与其它方案对比
@@ -32,6 +30,10 @@
 2. 按照你的信息修改 `site.config.ts` 中的内容
 3. 在 Vercel 中以此仓库创建新的项目
 4. 在环境变量中填入 `NOTION_TOKEN` ，`NOTION_DATABASE_ID`
+
+## 推荐的写作模式
+
+在任意其它的页面进行写作，等到完成后，复制或者移动到创建的数据库。
 
 ## 使用 static export
 
