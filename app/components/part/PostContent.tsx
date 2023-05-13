@@ -468,7 +468,7 @@ const EmbedBlock = ({ block }: { block: EmbedBlockObjectResponse }) => {
 	if (!isTwitter) return null
 	const tweetId = block.embed.url.split("/").pop() as string
 	return (
-		<div className="not-markdown">
+		<div className="not-prose">
 			<NextTweet id={tweetId} />
 		</div>
 	)

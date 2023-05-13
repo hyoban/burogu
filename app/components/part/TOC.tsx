@@ -27,7 +27,7 @@ export default function TOC(props: TOCProps) {
 	return (
 		<div
 			className={cn(
-				"text-sm w-[250px] markdown markdown-neutral dark:markdown-invert markdown-a:no-underline fixed top-1/2 -translate-y-1/2 right-4 opacity-0 hover:opacity-70 transition-opacity duration-200",
+				"text-sm w-[250px] prose prose-neutral dark:prose-invert prose-a:no-underline fixed top-1/2 -translate-y-1/2 right-4 opacity-0 hover:opacity-70 transition-opacity duration-200",
 				className
 			)}
 		>

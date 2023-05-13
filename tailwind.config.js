@@ -3,7 +3,7 @@ const defaultTheme = require("tailwindcss/defaultTheme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: ["./app/**/*.{js,ts,jsx,tsx}", "./mdx/**/*.mdx"],
+	content: ["./app/**/*.tsx"],
 	theme: {
 		extend: {
 			fontFamily: {
@@ -18,7 +18,7 @@ module.exports = {
 			collections: getIconCollections(["carbon"]),
 		}),
 		require("tailwindcss-animate"),
-		require("@tailwindcss/typography")(),
+		require("@tailwindcss/typography"),
 	],
 	darkMode: "class",
 }
