@@ -1,5 +1,5 @@
 import TOC from "@/app/components/part/TOC"
-import MarkdownWrapper from "@/app/components/ui/MarkdownWrapper"
+import Prose from "@/app/components/ui/Prose"
 import {
 	PostContentType,
 	getSinglePostContent,
@@ -569,7 +569,7 @@ export default async function PostContent({ id }: { id: string }) {
 
 	return (
 		<>
-			<MarkdownWrapper>
+			<Prose>
 				{blocks
 					.map((block) => {
 						return <RenderBlock block={block} key={block.cur.id} />
@@ -607,7 +607,7 @@ export default async function PostContent({ id }: { id: string }) {
 						}
 						return null
 					})}
-			</MarkdownWrapper>
+			</Prose>
 
 			<TOC toc={toc} className="hidden xl:block" />
 		</>

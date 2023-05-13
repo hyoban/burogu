@@ -1,4 +1,4 @@
-import PostContent from "@/app/components/part/PostContent"
+import PostContent from "@/app/components/part/Post"
 import { getPostList, getSinglePostInfo } from "@/lib/notion"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
