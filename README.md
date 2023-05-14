@@ -1,5 +1,7 @@
 # burogu
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhyoban%2Fburogu&env=NOTION_DATABASE_ID,NOTION_TOKEN)
+
 ## How to use this project
 
 ### Prepare Notion database
