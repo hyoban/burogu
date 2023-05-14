@@ -5,7 +5,7 @@ export default async function sitemap() {
 	const allBlogs = await getPostList()
 	const blogs = allBlogs?.map((post) => ({
 		url: `${SITE_CONFIG.siteUrl}/post/${post.id}`,
-		lastModified: post.publishedTime.split("T")[0],
+		lastModified: new Date().toISOString().split("T")[0],
 	}))
 
 	return [...(blogs ?? [])]
