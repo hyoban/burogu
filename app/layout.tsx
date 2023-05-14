@@ -32,10 +32,7 @@ const image = `${microLinkAPI}${encodeURIComponent(
 export const metadata = {
 	// https://beta.nextjs.org/docs/api-reference/metadata#metadatabase
 	metadataBase: new URL(SITE_CONFIG.siteUrl),
-	title: {
-		default: SITE_CONFIG.siteName,
-		template: `%s | ${SITE_CONFIG.siteName}`,
-	},
+	title: SITE_CONFIG.siteName,
 	description: SITE_CONFIG.description,
 	robots: {
 		index: true,
