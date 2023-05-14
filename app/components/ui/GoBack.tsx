@@ -3,10 +3,10 @@
 import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
 
-export default function GoBack({ className }: { className?: string }) {
+export default function GoBack({ className }: BasicProps) {
 	const router = useRouter()
+
 	const goBack = () => {
-		// check if there is a previous page
 		if (window.history.length > 2) {
 			router.back()
 		} else {
@@ -16,11 +16,14 @@ export default function GoBack({ className }: { className?: string }) {
 
 	return (
 		<div
-			className={cn("flex items-center gap-2 opacity-70 font-mono", className)}
+			className={cn(
+				"flex items-center gap-2 font-mono text-neutral-500 dark:text-neutral-400",
+				className
+			)}
 		>
 			<span>{">"}</span>
 			<button
-				className="underline decoration-dashed decoration-1 underline-offset-4 hover:opacity-50"
+				className="underline decoration-dashed decoration-1 underline-offset-4 hover:decoration-solid"
 				onClick={goBack}
 			>
 				{"cd .."}

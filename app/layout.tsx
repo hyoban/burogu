@@ -69,11 +69,11 @@ export default function RootLayout({
 			suppressHydrationWarning
 			className={cn(dm_mono.variable, syne_mono.variable)}
 		>
-			<body className="p-6 font-sans transition-colors duration-500 dark:bg-neutral-900 dark:text-white">
+			<body className="p-8 font-sans transition-colors duration-500 dark:bg-neutral-900 dark:text-white">
 				<ThemeProvider>
 					<div className="mx-auto max-w-[60ch]">
 						<Header />
-						<main className="flex flex-col py-10">{children}</main>
+						<main className="flex flex-col py-8">{children}</main>
 						<Footer />
 					</div>
 				</ThemeProvider>

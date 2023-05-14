@@ -1,4 +1,5 @@
 import Post from "@/app/components/part/Post"
+import GoBack from "@/app/components/ui/GoBack"
 import { getPostList, getSinglePostInfo } from "@/lib/notion"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -9,7 +10,12 @@ export default async function Page({ params }: { params: { id: string } }) {
 	const page = await getSinglePostInfo(params.id)
 	if (!page) notFound()
 
-	return <Post id={params.id} title={page.title} />
+	return (
+		<>
+			<Post id={params.id} title={page.title} />
+			<GoBack className="mt-4" />
+		</>
+	)
 }
 
 export async function generateStaticParams() {

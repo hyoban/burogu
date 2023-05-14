@@ -367,7 +367,7 @@ const CodeBlock = async ({
 			bg:
 				themeBg === "#ffffff" || themeBg === "#fff"
 					? "#fafafa"
-					: themeBg === "#121212"
+					: themeBg === "#171717"
 					? "#24292e"
 					: themeBg,
 			elements: {

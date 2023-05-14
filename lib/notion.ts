@@ -64,8 +64,6 @@ export async function getPostList(): Promise<NotionPost[] | undefined> {
 }
 
 export async function getSinglePostInfo(pageId: string) {
-	if (pageId === "sw.js") return null
-
 	try {
 		const page = (await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
 			method: "GET",
@@ -74,7 +72,7 @@ export async function getSinglePostInfo(pageId: string) {
 
 		return await getPostInfo(page)
 	} catch (e) {
-		console.log("getSinglePostInfo", e)
+		console.warn(`[getSinglePostInfo]: post ${pageId} not found`)
 		return null
 	}
 }
