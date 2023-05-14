@@ -42,15 +42,6 @@ export async function generateMetadata({
 
 	return {
 		title: page?.title,
-		twitter: {
-			...sharedMetadata.twitter,
-			images: [
-				{
-					...size,
-					url: image,
-				},
-			],
-		},
 		openGraph: {
 			...sharedMetadata.openGraph,
 			images: [

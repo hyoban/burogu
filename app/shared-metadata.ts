@@ -23,17 +23,7 @@ const image = getOGImage(
 export const sharedMetadata: Metadata = {
 	twitter: {
 		card: "summary_large_image",
-		site: SITE_CONFIG.siteUrl,
-		creator: SITE_CONFIG.authorName,
 		title: SITE_CONFIG.siteName,
-		description: SITE_CONFIG.description,
-		images: [
-			{
-				url: image,
-				width: size.width,
-				height: size.height,
-			},
-		],
 	},
 	openGraph: {
 		type: "website",
