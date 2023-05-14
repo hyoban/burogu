@@ -14,6 +14,7 @@ export interface NotionPost {
 	id: string
 	title: string
 	publishedTime: string
+	updatedTime: string
 }
 
 const { timeZone } = SITE_CONFIG
@@ -36,6 +37,7 @@ async function getPostInfo(page: PageObjectResponse): Promise<NotionPost> {
 	return {
 		id: page.id,
 		publishedTime: page.created_time,
+		updatedTime: page.last_edited_time,
 		title:
 			page.properties.Name.type === "title"
 				? page.properties.Name.title[0].plain_text
