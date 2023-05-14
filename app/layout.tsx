@@ -3,6 +3,7 @@ import "@/app/css/globals.css"
 import Footer from "@/app/components/part/Footer"
 import Header from "@/app/components/part/Header"
 import { ThemeProvider } from "@/app/provider"
+import { sharedMetadata } from "@/app/shared-metadata"
 import { cn } from "@/lib/utils"
 import SITE_CONFIG from "@/site.config"
 import { Analytics } from "@vercel/analytics/react"
@@ -20,13 +21,6 @@ const syne_mono = Syne_Mono({
 	weight: ["400"],
 	subsets: ["latin"],
 })
-
-const microLinkAPI = "https://i.microlink.io/"
-const cardUrl = "https://cards.microlink.io/?preset=contentz"
-const image = `${microLinkAPI}${encodeURIComponent(
-	cardUrl +
-		`&title=${SITE_CONFIG.siteName}&description=${SITE_CONFIG.description}`
-)}`
 
 // https://beta.nextjs.org/docs/api-reference/metadata
 export const metadata = {
@@ -60,30 +54,7 @@ export const metadata = {
 			"application/rss+xml": "/rss.xml",
 		},
 	},
-	twitter: {
-		card: "summary_large_image",
-		site: SITE_CONFIG.siteUrl,
-		creator: SITE_CONFIG.authorName,
-		title: SITE_CONFIG.siteName,
-		description: SITE_CONFIG.description,
-		images: [
-			{
-				url: image,
-			},
-		],
-	},
-	openGraph: {
-		type: "website",
-		url: SITE_CONFIG.siteUrl,
-		title: SITE_CONFIG.siteName,
-		description: SITE_CONFIG.description,
-		siteName: SITE_CONFIG.siteName,
-		images: [
-			{
-				url: image,
-			},
-		],
-	},
+	...sharedMetadata,
 }
 
 export default function RootLayout({
