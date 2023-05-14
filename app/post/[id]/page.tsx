@@ -35,7 +35,10 @@ export async function generateMetadata({
 	params: { id: string }
 }): Promise<Metadata> {
 	const page = await getSinglePostInfo(params.id)
-	const image = getOGImage(SITE_CONFIG.siteName, page?.title || "")
+	const image = getOGImage(
+		SITE_CONFIG.siteUrl.replace("https://", ""),
+		page?.title || ""
+	)
 
 	return {
 		title: page?.title,

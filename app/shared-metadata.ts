@@ -10,7 +10,10 @@ export const getOGImage = (title: string, description: string) => {
 	)}`
 }
 
-const image = getOGImage(SITE_CONFIG.siteName, SITE_CONFIG.description)
+const image = getOGImage(
+	SITE_CONFIG.siteUrl.replace("https://", ""),
+	SITE_CONFIG.description
+)
 
 export const sharedMetadata: Metadata = {
 	twitter: {
