@@ -1,6 +1,6 @@
 import Post from "@/app/components/part/Post"
 import GoBack from "@/app/components/ui/GoBack"
-import { getOGImage, sharedMetadata } from "@/app/shared-metadata"
+import { getOGImage, sharedMetadata, size } from "@/app/shared-metadata"
 import { getPostList, getSinglePostInfo } from "@/lib/notion"
 import SITE_CONFIG from "@/site.config"
 import { Metadata } from "next"
@@ -46,6 +46,7 @@ export async function generateMetadata({
 			...sharedMetadata.twitter,
 			images: [
 				{
+					...size,
 					url: image,
 				},
 			],
@@ -54,6 +55,7 @@ export async function generateMetadata({
 			...sharedMetadata.openGraph,
 			images: [
 				{
+					...size,
 					url: image,
 				},
 			],

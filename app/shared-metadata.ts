@@ -4,6 +4,11 @@ import { Metadata } from "next"
 export const microLinkAPI = "https://i.microlink.io/"
 export const cardUrl = "https://cards.microlink.io/?preset=contentz"
 
+export const size = {
+	width: 1200,
+	height: 630,
+}
+
 export const getOGImage = (title: string, description: string) => {
 	return `${microLinkAPI}${encodeURIComponent(
 		cardUrl + `&title=${title}&description=${description}`
@@ -25,6 +30,8 @@ export const sharedMetadata: Metadata = {
 		images: [
 			{
 				url: image,
+				width: size.width,
+				height: size.height,
 			},
 		],
 	},
@@ -37,6 +44,8 @@ export const sharedMetadata: Metadata = {
 		images: [
 			{
 				url: image,
+				width: size.width,
+				height: size.height,
 			},
 		],
 	},
