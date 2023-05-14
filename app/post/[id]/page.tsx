@@ -1,6 +1,7 @@
 import Post from "@/app/components/part/Post"
 import GoBack from "@/app/components/ui/GoBack"
 import { getPostList, getSinglePostInfo } from "@/lib/notion"
+import SITE_CONFIG from "@/site.config"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
@@ -27,12 +28,33 @@ export async function generateStaticParams() {
 	}))
 }
 
+const microLinkAPI = "https://i.microlink.io/"
+const cardUrl = "https://cards.microlink.io/?preset=contentz"
+
 export async function generateMetadata({
 	params,
 }: {
 	params: { id: string }
 }): Promise<Metadata> {
 	const page = await getSinglePostInfo(params.id)
-
-	return { title: page?.title }
+	const image = `${microLinkAPI}${encodeURIComponent(
+		cardUrl + `&title=${SITE_CONFIG.siteName}&description=${page?.title}`
+	)}`
+	return {
+		title: page?.title,
+		twitter: {
+			images: [
+				{
+					url: image,
+				},
+			],
+		},
+		openGraph: {
+			images: [
+				{
+					url: image,
+				},
+			],
+		},
+	}
 }
