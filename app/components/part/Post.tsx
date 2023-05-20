@@ -539,6 +539,7 @@ const RenderBlock = ({
 				</NumberedListBlock>
 			)
 		case "code":
+			// @ts-expect-error Async Server Component
 			return <CodeBlock block={block.cur} />
 		case "image":
 			return <ImageBlock block={block.cur} />

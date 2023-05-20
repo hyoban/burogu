@@ -14,6 +14,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
 	return (
 		<>
+			{/* @ts-expect-error Async Server Component */}
 			<Post id={params.id} title={page.title} />
 			<GoBack className="mt-4" />
 		</>
