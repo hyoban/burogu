@@ -1,10 +1,11 @@
 import AppearanceSwitch from "@/app/components/ui/AppearanceSwitch"
+import Clock from "@/app/components/ui/Clock"
 import IconLink from "@/app/components/ui/IconLink"
 import SITE_CONFIG from "@/site.config"
 
 const Footer = () => {
 	return (
-		<footer className="flex gap-4">
+		<footer className="flex gap-4 opacity-70">
 			<AppearanceSwitch />
 			<a
 				href="/rss.xml"
@@ -17,6 +18,7 @@ const Footer = () => {
 			{SITE_CONFIG.links.map((link, index) => (
 				<IconLink {...link} key={index} />
 			))}
+			<Clock />
 		</footer>
 	)
 }

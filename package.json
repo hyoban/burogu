@@ -10,6 +10,7 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
+		"@radix-ui/react-tooltip": "^1.0.5",
 		"@vercel/analytics": "^1.0.1",
 		"clsx": "^1.2.1",
 		"dayjs": "^1.11.7",
