@@ -1,3 +1,5 @@
+import "@/lib/dayjs"
+
 import Prose from "@/app/components/ui/Prose"
 import { PostContentType, getSinglePostContent } from "@/lib/notion"
 import SITE_CONFIG from "@/site.config"
@@ -17,6 +19,7 @@ import {
 	RichTextItemResponse,
 	TextRichTextItemResponse,
 } from "@notionhq/client/build/src/api-endpoints"
+import dayjs from "dayjs"
 import * as fs from "fs/promises"
 import { NextTweet } from "next-tweet"
 import Image from "next/image"
@@ -611,6 +614,7 @@ export default async function PostContent({
 					}
 					return null
 				})}
+			<p className="text-sm opacity-50">Revalidated at {dayjs().format()}</p>
 		</Prose>
 	)
 }
