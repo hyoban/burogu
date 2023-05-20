@@ -614,7 +614,9 @@ export default async function PostContent({
 					}
 					return null
 				})}
-			<p className="text-sm opacity-50">Revalidated at {dayjs().format()}</p>
+			<p className="text-sm opacity-50">
+				Revalidated at {dayjs().tz().format()}
+			</p>
 		</Prose>
 	)
 }
