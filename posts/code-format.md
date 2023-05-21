@@ -29,7 +29,7 @@ Space 则没有这个问题。
 [Prettier][] 是 Node.js 生态中使用最多的代码格式化工具。
 它可以统一你的代码风格，比如缩进、引号、分号等。
 
-以下是我所使用的全部有关 prettier 的内容。
+以下是我所使用的全部有关 Prettier 的内容。
 
 ### 设置过程
 
@@ -69,7 +69,7 @@ ni -D prettier
 ### EditorConfig
 
 [EditorConfig][] 是一份通用的编辑器配置规范，很多编辑器和工具都支持它的配置项。
-取决于你自己，可以设置好一份 `.editorconfig` 文件，它的配置项会被 prettier 识别。
+取决于你自己，可以设置好一份 `.editorconfig` 文件，它的配置项会被 Prettier 识别。
 安装 [EditorConfig VSCode 插件][] 后，也能按配置调整 vscode 的工作区设置。
 
 ```
@@ -92,7 +92,7 @@ trim_trailing_whitespace = true
 
 ### 为什么不使用 eslint 来检查代码风格？
 
-1. 要达到 prettier 的格式化效果，需要配置维护大量的 eslint 规则，且存在不易实现的效果。
+1. 要达到 Prettier 的格式化效果，需要配置维护大量的 eslint 规则，且存在不易实现的效果。
    1. 对于 vue 项目，你可以尝试使用 `@antfu/eslint-config`
 1. 代码风格无关代码正确性，eslint 会飘很多红。lint 这个词对于代码风格来说太严格了。
    1. 虽然可以在保存时自动修复，但我受不了。
@@ -102,7 +102,7 @@ trim_trailing_whitespace = true
 ### 为何不配置 Prettier 的配置项和插件？
 
 1. 就默认的配置而言，去除分号后，代码已经足够美观
-1. 就我折腾 prettier 插件的体验来说，只要超过使用一个插件，就很大概率会出现插件冲突的问题
+1. 就我折腾 Prettier 插件的体验来说，只要超过使用一个插件，就很大概率会出现插件冲突的问题
    1. 我尝试折腾过 `@ianvs/prettier-plugin-sort-imports` 插件来格式化 import 语句，但它无法处理全部的场景。
    1. 我也用过 `prettier-plugin-tailwindcss` 来排序 tailwind 的 classname。 但是它和前者无法共同使用，还会和 `@egoist/tailwindcss-icons` 不相容。
 
@@ -124,7 +124,7 @@ trim_trailing_whitespace = true
 
 遇到的问题有的有办法规避或者解决，但是需要花时间去排查，我对此感到疲惫。
 所以，我不愿意再去追求完美的效果，可以手动处理这些场景。
-对于 prettier 本体来说，开箱即用的体验挺好的。
+对于 Prettier 本体来说，开箱即用的体验挺好的。
 
 ## 相关链接
 

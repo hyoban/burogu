@@ -19,8 +19,8 @@ const SITE_CONFIG = {
 		},
 	],
 	codeTheme: {
-		light: "vitesse-light",
-		dark: "vitesse-dark",
+		light: "nord",
+		dark: "nord",
 	},
 	siteUrl: "https://hyoban.cc",
 	authorName: "Hyoban",

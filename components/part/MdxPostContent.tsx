@@ -15,7 +15,7 @@ const components: MDXRemoteProps["components"] = {
 					{...props}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="mr-px"
+					className="mr-px border-b border-neutral-300 pb-px no-underline transition-colors hover:border-neutral-600 dark:border-neutral-600 dark:hover:border-neutral-300"
 				>
 					{props.children}
 				</a>
@@ -37,6 +37,14 @@ const components: MDXRemoteProps["components"] = {
 					},
 				}}
 			/>
+		)
+	},
+	code: (props) => {
+		return (
+			<code
+				{...props}
+				className="not-prose rounded border border-neutral-200 bg-neutral-100 px-[4px] py-[2px] font-normal opacity-80 before:content-none after:content-none dark:border-neutral-700 dark:bg-neutral-800"
+			></code>
 		)
 	},
 }
