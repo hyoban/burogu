@@ -17,12 +17,12 @@ export const getPost = async (permalink: string): Promise<ValidPost | null> => {
 	if (SITE_CONFIG.source === "local") {
 		return await getPostFromLocal(permalink)
 	}
-	const frontmatter = await getPostMetadataNotion(permalink)
-	if (!frontmatter) return null
+	const metadata = await getPostMetadataNotion(permalink)
+	if (!metadata) return null
 	const content = await getPostContentNotion(permalink)
 	if (!content) return null
 	return {
-		metadata: frontmatter,
+		metadata,
 		content,
 	}
 }
@@ -32,7 +32,7 @@ export const getPostMetadata = async (
 ): Promise<Metadata | null> => {
 	if (SITE_CONFIG.source === "local") {
 		const post = await getPostFromLocal(permalink)
-		return post?.metadata || null
+		return post.metadata
 	}
 	return await getPostMetadataNotion(permalink)
 }

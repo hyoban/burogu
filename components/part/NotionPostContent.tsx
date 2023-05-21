@@ -564,7 +564,7 @@ function isJsxElementANumberedList(element: JSX.Element) {
 	return element.props.block.cur.type === "numbered_list_item"
 }
 
-export default async function PostContent({
+export default async function NotionPostContent({
 	id,
 	title,
 }: {

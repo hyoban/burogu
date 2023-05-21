@@ -1,5 +1,5 @@
 import { getOGImage, sharedMetadata, size } from "@/app/shared-metadata"
-import Post from "@/components/part/Post"
+import NotionPostContent from "@/components/part/NotionPostContent"
 import GoBack from "@/components/ui/GoBack"
 import { MdxContent } from "@/components/ui/MdxContent"
 import SITE_CONFIG from "@/config/site.config"
@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 		return (
 			<>
 				{/* @ts-expect-error Server Component */}
-				<Post id={params.id} title={page.metadata.title} />
+				<NotionPostContent id={params.id} title={page.metadata.title} />
 				<GoBack className="mt-4" />
 			</>
 		)
