@@ -1,6 +1,6 @@
 "use client"
 
-import { useDark } from "@/app/hooks/useDark"
+import { useDark } from "@/hooks/useDark"
 
 const AppearanceSwitch = () => {
 	const [, toggleDark] = useDark()

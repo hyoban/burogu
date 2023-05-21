@@ -1,6 +1,6 @@
 "use client"
 
-import useNow from "@/app/hooks/useNow"
+import useNow from "@/hooks/useNow"
 import * as Tooltip from "@radix-ui/react-tooltip"
 
 const Clock = () => {
