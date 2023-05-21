@@ -4,7 +4,7 @@ import { serialize } from "next-mdx-remote/serialize"
 
 export async function getPostFromLocal(permalink: string): Promise<LocalPost> {
 	const raw = await fs.readFile(
-		`posts/${permalink.replace(/\.mdx$/, "")}.mdx`,
+		`posts/${permalink.replace(/\.md$/, "")}.md`,
 		"utf-8"
 	)
 
