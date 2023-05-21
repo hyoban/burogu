@@ -1,7 +1,7 @@
 import "@/lib/dayjs"
 
 import SITE_CONFIG from "@/config/site.config"
-import { getPostList } from "@/lib/notion"
+import { getMetadataList } from "@/lib/post"
 import dayjs from "dayjs"
 import { Feed } from "feed"
 
@@ -26,13 +26,13 @@ export async function GET() {
 		},
 	})
 
-	const posts = await getPostList()
+	const posts = await getMetadataList()
 
 	posts?.forEach((post) => {
 		feed.addItem({
 			title: post.title,
-			link: SITE_CONFIG.siteUrl + "/post/" + post.id,
-			date: dayjs(post.publishedTime).tz(SITE_CONFIG.timeZone).toDate(),
+			link: SITE_CONFIG.siteUrl + "/post/" + post.permalink,
+			date: dayjs(post.updated).tz(SITE_CONFIG.timeZone).toDate(),
 		})
 	})
 

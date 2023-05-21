@@ -2,7 +2,8 @@ import "@/lib/dayjs"
 
 import Prose from "@/components/ui/Prose"
 import SITE_CONFIG from "@/config/site.config"
-import { PostContentType, getSinglePostContent } from "@/lib/notion"
+import { getPostContentNotion } from "@/lib/notion"
+import { NotionContentType } from "@/types/post"
 import {
 	BookmarkBlockObjectResponse,
 	BulletedListItemBlockObjectResponse,
@@ -476,7 +477,7 @@ const RenderBlock = ({
 	block,
 	removeAnchor = false,
 }: {
-	block: PostContentType[number]
+	block: NotionContentType[number]
 } & TitleConfig) => {
 	switch (block.cur.type) {
 		case "paragraph":
@@ -570,7 +571,7 @@ export default async function PostContent({
 	id: string
 	title: string
 }) {
-	const blocks = await getSinglePostContent(id)
+	const blocks = await getPostContentNotion(id)
 
 	if (!blocks) return null
 

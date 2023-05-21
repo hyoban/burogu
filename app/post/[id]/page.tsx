@@ -1,32 +1,42 @@
 import { getOGImage, sharedMetadata, size } from "@/app/shared-metadata"
 import Post from "@/components/part/Post"
 import GoBack from "@/components/ui/GoBack"
+import { MdxContent } from "@/components/ui/MdxContent"
 import SITE_CONFIG from "@/config/site.config"
-import { getPostList, getSinglePostInfo } from "@/lib/notion"
+import { getMetadataList, getPost, getPostMetadata } from "@/lib/post"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 export const revalidate = 60
 
 export default async function Page({ params }: { params: { id: string } }) {
-	const page = await getSinglePostInfo(params.id)
+	const page = await getPost(params.id)
 	if (!page) notFound()
+
+	if (Array.isArray(page.content)) {
+		return (
+			<>
+				{/* @ts-expect-error Server Component */}
+				<Post id={params.id} title={page.metadata.title} />
+				<GoBack className="mt-4" />
+			</>
+		)
+	}
 
 	return (
 		<>
-			{/* @ts-expect-error Async Server Component */}
-			<Post id={params.id} title={page.title} />
+			<MdxContent source={page.content} />
 			<GoBack className="mt-4" />
 		</>
 	)
 }
 
 export async function generateStaticParams() {
-	const posts = await getPostList()
+	const posts = await getMetadataList()
 	if (!posts) return []
 
 	return posts.map((post) => ({
-		id: post.id,
+		id: post.permalink,
 	}))
 }
 
@@ -35,7 +45,7 @@ export async function generateMetadata({
 }: {
 	params: { id: string }
 }): Promise<Metadata> {
-	const page = await getSinglePostInfo(params.id)
+	const page = await getPostMetadata(params.id)
 	const image = getOGImage(
 		SITE_CONFIG.siteUrl.replace("https://", ""),
 		page?.title || ""

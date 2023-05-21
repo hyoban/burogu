@@ -17,6 +17,7 @@
 		"feed": "^4.2.2",
 		"jotai": "^2.1.0",
 		"next": "13.4.3",
+		"next-mdx-remote": "^4.4.1",
 		"next-tweet": "^0.8.1",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",

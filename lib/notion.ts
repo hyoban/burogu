@@ -1,27 +1,12 @@
-import dayjs from "dayjs"
-import timezone from "dayjs/plugin/timezone"
-import utc from "dayjs/plugin/utc"
+import "@/lib/dayjs"
 
-import SITE_CONFIG from "@/config/site.config"
+import { Metadata } from "@/types/post"
 import {
 	BlockObjectResponse,
 	ListBlockChildrenResponse,
 	PageObjectResponse,
 	QueryDatabaseResponse,
 } from "@notionhq/client/build/src/api-endpoints"
-
-export interface NotionPost {
-	id: string
-	title: string
-	publishedTime: string
-	updatedTime: string
-}
-
-const { timeZone } = SITE_CONFIG
-
-dayjs.extend(utc)
-dayjs.extend(timezone)
-dayjs.tz.setDefault(timeZone)
 
 const notionToken = process.env.NOTION_TOKEN as string
 const databaseId = process.env.NOTION_DATABASE_ID as string
@@ -33,19 +18,25 @@ const headers = {
 	Authorization: `Bearer ${notionToken}`,
 }
 
-async function getPostInfo(page: PageObjectResponse): Promise<NotionPost> {
+async function generateNotionPostMetadata(
+	page: PageObjectResponse
+): Promise<Metadata> {
 	return {
-		id: page.id,
-		publishedTime: page.created_time,
-		updatedTime: page.last_edited_time,
+		permalink: page.id,
+		date: page.created_time,
+		updated: page.last_edited_time,
 		title:
 			page.properties.Name.type === "title"
 				? page.properties.Name.title[0].plain_text
 				: "",
+		description: "",
+		cover: "",
+		publish: true,
+		tags: [],
 	}
 }
 
-export async function getPostList(): Promise<NotionPost[] | undefined> {
+export async function getMetadataListNotion(): Promise<Metadata[] | undefined> {
 	try {
 		const response = (await fetch(
 			`https://api.notion.com/v1/databases/${databaseId}/query`,
@@ -58,21 +49,21 @@ export async function getPostList(): Promise<NotionPost[] | undefined> {
 		if (!response.results) return
 
 		return Promise.all(
-			(response.results as PageObjectResponse[]).map(getPostInfo)
+			(response.results as PageObjectResponse[]).map(generateNotionPostMetadata)
 		)
 	} catch (e) {
 		console.error("getPostList", e)
 	}
 }
 
-export async function getSinglePostInfo(pageId: string) {
+export async function getPostMetadataNotion(pageId: string) {
 	try {
 		const page = (await fetch(`https://api.notion.com/v1/pages/${pageId}`, {
 			method: "GET",
 			headers,
 		}).then((i) => i.json())) as PageObjectResponse
 
-		return await getPostInfo(page)
+		return await generateNotionPostMetadata(page)
 	} catch (e) {
 		console.warn(`[getSinglePostInfo]: post ${pageId} not found`)
 		return null
@@ -84,7 +75,7 @@ export type Block = {
 	children?: Block[]
 }
 
-export async function getSinglePostContent(
+export async function getPostContentNotion(
 	blockId: string
 ): Promise<Block[] | null> {
 	try {
@@ -107,7 +98,7 @@ export async function getSinglePostContent(
 					if (i.has_children) {
 						return {
 							cur: i,
-							children: await getSinglePostContent(i.id),
+							children: await getPostContentNotion(i.id),
 						}
 					}
 					return {
@@ -127,7 +118,3 @@ export async function getSinglePostContent(
 		return null
 	}
 }
-
-export type PostContentType = NonNullable<
-	Awaited<ReturnType<typeof getSinglePostContent>>
->

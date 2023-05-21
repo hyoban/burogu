@@ -1,12 +1,12 @@
 import SITE_CONFIG from "@/config/site.config"
-import { getPostList } from "@/lib/notion"
+import { getMetadataList } from "@/lib/post"
 
 export default async function sitemap() {
-	const allBlogs = await getPostList()
+	const allBlogs = await getMetadataList()
 	const blogs =
 		allBlogs?.map((post) => ({
-			url: `${SITE_CONFIG.siteUrl}/post/${post.id}`,
-			lastModified: post.updatedTime.split("T")[0],
+			url: `${SITE_CONFIG.siteUrl}/post/${post.permalink}`,
+			lastModified: post.updated.split("T")[0],
 		})) ?? []
 
 	return [
