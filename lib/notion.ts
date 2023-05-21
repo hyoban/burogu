@@ -90,6 +90,7 @@ export async function getSinglePostContent(
 	try {
 		const blocks: Block[] = []
 		let cursor
+		// eslint-disable-next-line no-constant-condition
 		while (true) {
 			const response = (await fetch(
 				`https://api.notion.com/v1/blocks/${blockId}/children` +

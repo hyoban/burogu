@@ -1,7 +1,7 @@
 import SITE_CONFIG from "@/config/site.config"
 import Link from "next/link"
 
-export default function Header({}) {
+export default function Header() {
 	return (
 		<header className="flex w-full items-center justify-between">
 			<Link href="/">
