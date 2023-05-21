@@ -1,16 +1,14 @@
 "use client"
 
 import Prose from "@/components/ui/Prose"
-import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote"
+import { LocalPost } from "@/types/post"
+import { MDXRemote } from "next-mdx-remote"
 
-type MdxContentProps = {
-	source: MDXRemoteSerializeResult
-}
-
-export function MdxContent({ source }: MdxContentProps) {
+export function MdxContent({ content, metadata }: LocalPost) {
 	return (
 		<Prose>
-			<MDXRemote {...source} />
+			<h1>{metadata.title}</h1>
+			<MDXRemote {...content} />
 		</Prose>
 	)
 }
