@@ -10,17 +10,17 @@ const components: MDXRemoteProps["components"] = {
 			return <Link href={props.href}>{props.children}</Link>
 		}
 		return (
-			<>
+			<span className="not-prose">
 				<a
 					{...props}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="mr-px border-b border-neutral-300 pb-px no-underline transition-colors hover:border-neutral-600 dark:border-neutral-600 dark:hover:border-neutral-300"
+					className="mr-px border-b border-neutral-300 hover:border-neutral-600 dark:border-neutral-600 dark:hover:border-neutral-300"
 				>
 					{props.children}
 				</a>
 				<sup>↗</sup>
-			</>
+			</span>
 		)
 	},
 	pre: (props) => {
@@ -41,10 +41,12 @@ const components: MDXRemoteProps["components"] = {
 	},
 	code: (props) => {
 		return (
-			<code
-				{...props}
-				className="not-prose rounded border border-neutral-200 bg-neutral-100 px-[4px] py-[2px] font-normal opacity-80 before:content-none after:content-none dark:border-neutral-700 dark:bg-neutral-800"
-			></code>
+			<span className="not-prose">
+				<code
+					{...props}
+					className="rounded border border-neutral-200 bg-neutral-100 px-[2px] py-[1px] font-mono text-sm opacity-80 dark:border-neutral-700 dark:bg-neutral-800"
+				></code>
+			</span>
 		)
 	},
 }
