@@ -325,9 +325,18 @@ const touchShikiPath = (): void => {
 	touched.current = true
 }
 
-const CodeBlock = async ({
+export const CodeBlock = async ({
 	block,
-}: { block: CodeBlockObjectResponse } & BasicProps) => {
+}: {
+	block:
+		| CodeBlockObjectResponse
+		| {
+				code: {
+					rich_text: string
+					language: string
+				}
+		  }
+} & BasicProps) => {
 	const lightCodeTheme = SITE_CONFIG.codeTheme.light
 	const darkCodeTheme = SITE_CONFIG.codeTheme.dark
 
@@ -341,11 +350,16 @@ const CodeBlock = async ({
 		},
 	})
 
-	const code = (block.code.rich_text as TextRichTextItemResponse[])
-		.map((i) => i.plain_text)
-		.join("")
+	let code = ""
+	if (typeof block.code.rich_text === "string") {
+		code = block.code.rich_text
+	} else {
+		code = (block.code.rich_text as TextRichTextItemResponse[])
+			.map((i) => i.plain_text)
+			.join("")
+	}
 
-	let language: string = block.code.language
+	let language = block.code.language
 	if (language === "plain text") {
 		language = ""
 	}

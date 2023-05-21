@@ -11,12 +11,12 @@ export async function getPostFromLocal(permalink: string): Promise<LocalPost> {
 	const serialized = await serialize(raw, {
 		parseFrontmatter: true,
 	})
-
 	const frontmatter = serialized.frontmatter as Metadata
 
 	return {
 		metadata: frontmatter,
-		content: serialized,
+		// remove frontmatter from content
+		content: raw.replace(/---(.|\n)*?---/, "").trim(),
 	}
 }
 

@@ -1,5 +1,4 @@
 import { getPostContentNotion } from "@/lib/notion"
-import { MDXRemoteSerializeResult } from "next-mdx-remote"
 
 export type Metadata = {
 	title: string
@@ -17,7 +16,7 @@ export type Post<ContentType> = {
 	content: ContentType
 }
 
-export type LocalPost = Post<MDXRemoteSerializeResult>
+export type LocalPost = Post<string>
 
 export type NotionContentType = NonNullable<
 	Awaited<ReturnType<typeof getPostContentNotion>>
