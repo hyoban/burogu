@@ -1,9 +1,9 @@
-import "@/app/css/globals.css"
+import "@/styles/globals.css"
 
-import Footer from "@/app/components/part/Footer"
-import Header from "@/app/components/part/Header"
 import { ThemeProvider } from "@/app/provider"
 import { sharedMetadata } from "@/app/shared-metadata"
+import Footer from "@/components/part/Footer"
+import Header from "@/components/part/Header"
 import { cn } from "@/lib/utils"
 import SITE_CONFIG from "@/site.config"
 import { Analytics } from "@vercel/analytics/react"

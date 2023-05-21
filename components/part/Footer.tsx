@@ -1,6 +1,6 @@
-import AppearanceSwitch from "@/app/components/ui/AppearanceSwitch"
-import Clock from "@/app/components/ui/Clock"
-import IconLink from "@/app/components/ui/IconLink"
+import AppearanceSwitch from "@/components/ui/AppearanceSwitch"
+import Clock from "@/components/ui/Clock"
+import IconLink from "@/components/ui/IconLink"
 import SITE_CONFIG from "@/site.config"
 
 const Footer = () => {

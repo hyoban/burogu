@@ -1,6 +1,6 @@
-import Post from "@/app/components/part/Post"
-import GoBack from "@/app/components/ui/GoBack"
 import { getOGImage, sharedMetadata, size } from "@/app/shared-metadata"
+import Post from "@/components/part/Post"
+import GoBack from "@/components/ui/GoBack"
 import { getPostList, getSinglePostInfo } from "@/lib/notion"
 import SITE_CONFIG from "@/site.config"
 import { Metadata } from "next"

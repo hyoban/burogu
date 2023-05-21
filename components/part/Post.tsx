@@ -1,6 +1,6 @@
 import "@/lib/dayjs"
 
-import Prose from "@/app/components/ui/Prose"
+import Prose from "@/components/ui/Prose"
 import { PostContentType, getSinglePostContent } from "@/lib/notion"
 import SITE_CONFIG from "@/site.config"
 import {
