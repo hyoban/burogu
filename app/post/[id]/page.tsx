@@ -1,7 +1,7 @@
 import { getOGImage, sharedMetadata, size } from "@/app/shared-metadata"
+import MdxPostContent from "@/components/part/MdxPostContent"
 import NotionPostContent from "@/components/part/NotionPostContent"
 import GoBack from "@/components/ui/GoBack"
-import { MdxContent } from "@/components/ui/MdxContent"
 import SITE_CONFIG from "@/config/site.config"
 import { getMetadataList, getPost, getPostMetadata } from "@/lib/post"
 import { Metadata as NextMetadata } from "next"
@@ -25,7 +25,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
 	return (
 		<>
-			<MdxContent content={post.content} metadata={post.metadata} />
+			<MdxPostContent content={post.content} metadata={post.metadata} />
 			<GoBack className="mt-4" />
 		</>
 	)
