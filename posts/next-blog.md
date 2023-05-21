@@ -9,12 +9,14 @@ updated: 2023/5/13 15:17:25
 tags:
 ---
 
-## 使用本地 mdx 和 static export
+## 使用本地 markdown 文件和 static export
 
-在 Next.js 13.3 中，增加了 [static export][] 的功能，我们可以不借助服务端来部署打包好的静态文件。
-默认情况下，本博客使用本地 mdx 文件来构建页面，博客文章都在 `posts` 目录下。
+在 Next.js 13.3 中，增加了 [static export][] 的功能，我们可以直接部署打包好的静态文件。
 
-## Notion 和 Next.js
+默认情况下，本博客使用本地 markdown 文件来构建页面，博客文章都在 `posts` 目录下。
+要创建一个新的文章，需要在文件中使用 frontmatter 来设置文章元信息。
+
+## 使用 Notion Database
 
 ### 与其它方案对比
 
@@ -26,14 +28,14 @@ tags:
 和 Hexo 或者 Hugo 等静态站点生成器相比
 
 1. 不用在项目 git 仓库中编写文章
-2. 不用每次内容变化时重新构建新的站点（同时也可以静态导出）
+2. 不用每次内容变化时重新构建新的站点
 
 ### Next.js 加上 Notion 的优势
 
 1. 具备动态获取文章内容能力的同时，性能足够好
-2. Notion 的开放 api 体验极其友好，文章内容格式的丰富程度比 markdown 高
+2. Notion 的开放 API 体验极其友好，文章内容格式的丰富程度比 markdown 高
 
-## 如何使用这个项目
+## 如何使用 Notion
 
 ### 准备好 Notion 数据库
 
@@ -52,6 +54,7 @@ tags:
 
 ```js
 const nextConfig = {
+	// 删除配置里对应的部分，取消其他部分的注释
 	output: "export",
 	images: {
 		unoptimized: true,

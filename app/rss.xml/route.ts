@@ -5,8 +5,6 @@ import { getMetadataList } from "@/lib/post"
 import dayjs from "dayjs"
 import { Feed } from "feed"
 
-// https://beta.nextjs.org/docs/routing/route-handlers
-// https://beta.nextjs.org/docs/routing/route-handlers#robotstxt-rssxml-and-sitemapxml
 export async function GET() {
 	const feed = new Feed({
 		title: SITE_CONFIG.siteName,
@@ -16,9 +14,6 @@ export async function GET() {
 		image: SITE_CONFIG.siteUrl + SITE_CONFIG.avatarPath,
 		favicon: SITE_CONFIG.siteUrl + SITE_CONFIG.faviconPath,
 		copyright: "All rights reserved, " + SITE_CONFIG.siteName,
-		feedLinks: {
-			atom: SITE_CONFIG.siteUrl + "/feed",
-		},
 		author: {
 			name: SITE_CONFIG.authorName,
 			email: SITE_CONFIG.authorEmail,
@@ -32,6 +27,7 @@ export async function GET() {
 		feed.addItem({
 			title: post.title,
 			link: SITE_CONFIG.siteUrl + "/post/" + post.permalink,
+			description: post.description,
 			date: dayjs(post.updated).tz(SITE_CONFIG.timeZone).toDate(),
 		})
 	})
