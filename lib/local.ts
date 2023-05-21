@@ -29,5 +29,7 @@ export async function getMetadataListLocal(): Promise<Metadata[]> {
 		})
 	)
 
-	return postsData
+	return postsData.sort((a, b) => {
+		return new Date(b.date).getTime() - new Date(a.date).getTime()
+	})
 }

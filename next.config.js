@@ -3,12 +3,16 @@ const nextConfig = {
 	experimental: {
 		serverComponentsExternalPackages: ["shiki", "vscode-oniguruma"],
 	},
+	// images: {
+	// 	remotePatterns: [
+	// 		{
+	// 			hostname: "*",
+	// 		},
+	// 	],
+	// },
+	output: "export",
 	images: {
-		remotePatterns: [
-			{
-				hostname: "*",
-			},
-		],
+		unoptimized: true,
 	},
 }
 
