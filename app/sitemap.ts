@@ -1,5 +1,5 @@
+import SITE_CONFIG from "@/config/site.config"
 import { getPostList } from "@/lib/notion"
-import SITE_CONFIG from "@/site.config"
 
 export default async function sitemap() {
 	const allBlogs = await getPostList()

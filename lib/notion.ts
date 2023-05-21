@@ -2,7 +2,7 @@ import dayjs from "dayjs"
 import timezone from "dayjs/plugin/timezone"
 import utc from "dayjs/plugin/utc"
 
-import SITE_CONFIG from "@/site.config"
+import SITE_CONFIG from "@/config/site.config"
 import {
 	BlockObjectResponse,
 	ListBlockChildrenResponse,

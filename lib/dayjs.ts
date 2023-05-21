@@ -1,6 +1,6 @@
 // @/lib/dayjs.ts
 
-import SITE_CONFIG from "@/site.config"
+import SITE_CONFIG from "@/config/site.config"
 import dayjs from "dayjs"
 import advancedFormat from "dayjs/plugin/advancedFormat"
 import relativeTime from "dayjs/plugin/relativeTime"

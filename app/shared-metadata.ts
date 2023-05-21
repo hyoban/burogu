@@ -1,4 +1,4 @@
-import SITE_CONFIG from "@/site.config"
+import SITE_CONFIG from "@/config/site.config"
 import { Metadata } from "next"
 
 export const microLinkAPI = "https://i.microlink.io/"

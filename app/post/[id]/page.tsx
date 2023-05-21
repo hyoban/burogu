@@ -1,8 +1,8 @@
 import { getOGImage, sharedMetadata, size } from "@/app/shared-metadata"
 import Post from "@/components/part/Post"
 import GoBack from "@/components/ui/GoBack"
+import SITE_CONFIG from "@/config/site.config"
 import { getPostList, getSinglePostInfo } from "@/lib/notion"
-import SITE_CONFIG from "@/site.config"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 

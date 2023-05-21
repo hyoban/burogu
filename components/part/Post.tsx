@@ -1,8 +1,8 @@
 import "@/lib/dayjs"
 
 import Prose from "@/components/ui/Prose"
+import SITE_CONFIG from "@/config/site.config"
 import { PostContentType, getSinglePostContent } from "@/lib/notion"
-import SITE_CONFIG from "@/site.config"
 import {
 	BookmarkBlockObjectResponse,
 	BulletedListItemBlockObjectResponse,

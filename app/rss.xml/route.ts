@@ -1,7 +1,7 @@
 import "@/lib/dayjs"
 
+import SITE_CONFIG from "@/config/site.config"
 import { getPostList } from "@/lib/notion"
-import SITE_CONFIG from "@/site.config"
 import dayjs from "dayjs"
 import { Feed } from "feed"
 
