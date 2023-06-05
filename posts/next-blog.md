@@ -54,11 +54,11 @@ tags:
 
 ```js
 const nextConfig = {
-	// 删除配置里对应的部分，取消其他部分的注释
-	output: "export",
-	images: {
-		unoptimized: true,
-	},
+  // 删除配置里对应的部分，取消其他部分的注释
+  output: "export",
+  images: {
+    unoptimized: true,
+  },
 }
 module.exports = nextConfig
 ```

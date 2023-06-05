@@ -26,8 +26,8 @@ tags:
    import { atomWithStorage } from "jotai/utils"
 
    const appearanceAtom = atomWithStorage<"auto" | "light" | "dark">(
-   	"use-dark",
-   	"auto"
+     "use-dark",
+     "auto"
    )
    ```
 
@@ -41,33 +41,33 @@ tags:
    import { useMedia } from "react-use"
 
    export function useDark() {
-   	const [setting, setSetting] = useAtom(appearanceAtom)
-   	const isDark = useMedia("(prefers-color-scheme: dark)")
+     const [setting, setSetting] = useAtom(appearanceAtom)
+     const isDark = useMedia("(prefers-color-scheme: dark)")
 
-   	useEffect(() => {
-   		const isDarkMode = setting === "dark" || (isDark && setting !== "light")
-   		if (isDarkMode) {
-   			document.documentElement.classList.toggle("dark", true)
-   		} else {
-   			document.documentElement.classList.toggle("dark", false)
-   		}
-   		if ((setting === "dark" && isDark) || (setting === "light" && !isDark)) {
-   			setSetting("auto")
-   		}
-   	}, [setting, isDark, setSetting])
+     useEffect(() => {
+       const isDarkMode = setting === "dark" || (isDark && setting !== "light")
+       if (isDarkMode) {
+         document.documentElement.classList.toggle("dark", true)
+       } else {
+         document.documentElement.classList.toggle("dark", false)
+       }
+       if ((setting === "dark" && isDark) || (setting === "light" && !isDark)) {
+         setSetting("auto")
+       }
+     }, [setting, isDark, setSetting])
 
-   	const toggleDark = () => {
-   		if (setting === "auto") {
-   			setSetting(isDark ? "light" : "dark")
-   		} else {
-   			setSetting("auto")
-   		}
-   	}
+     const toggleDark = () => {
+       if (setting === "auto") {
+         setSetting(isDark ? "light" : "dark")
+       } else {
+         setSetting("auto")
+       }
+     }
 
-   	return [
-   		setting === "dark" || (isDark && setting !== "light"),
-   		toggleDark,
-   	] as const
+     return [
+       setting === "dark" || (isDark && setting !== "light"),
+       toggleDark,
+     ] as const
    }
    ```
 
@@ -103,17 +103,17 @@ next-themes 的 provider 或是自己的脚本，都需要为客户端组件。
 "use client"
 
 function Provider({ children }: { children: React.ReactNode }) {
-	return (
-		<>
-			<script
-				id="change-theme"
-				dangerouslySetInnerHTML={{
-					__html: `!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-dark")||"auto";('"dark"'===t||e&&'"light"'!==t)&&document.documentElement.classList.toggle("dark",!0)}()`,
-				}}
-			></script>
-			{children}
-		</>
-	)
+  return (
+    <>
+      <script
+        id="change-theme"
+        dangerouslySetInnerHTML={{
+          __html: `!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-dark")||"auto";('"dark"'===t||e&&'"light"'!==t)&&document.documentElement.classList.toggle("dark",!0)}()`,
+        }}
+      ></script>
+      {children}
+    </>
+  )
 }
 
 export default Provider
@@ -137,15 +137,15 @@ export default Provider
 import { useDark } from "@/app/hooks/useDark"
 
 const AppearanceSwitch = () => {
-	const [, toggleDark] = useDark()
+  const [, toggleDark] = useDark()
 
-	return (
-		<button onClick={toggleDark} className="text-2xl flex">
-			<div className="i-carbon-sun rotate-0 scale-100 transition-transform duration-500 dark:-rotate-90 dark:scale-0" />
-			<div className="i-carbon-moon absolute rotate-90 scale-0 transition-transform duration-500 dark:rotate-0 dark:scale-100" />
-			<span className="sr-only">Toggle theme</span>
-		</button>
-	)
+  return (
+    <button onClick={toggleDark} className="text-2xl flex">
+      <div className="i-carbon-sun rotate-0 scale-100 transition-transform duration-500 dark:-rotate-90 dark:scale-0" />
+      <div className="i-carbon-moon absolute rotate-90 scale-0 transition-transform duration-500 dark:rotate-0 dark:scale-100" />
+      <span className="sr-only">Toggle theme</span>
+    </button>
+  )
 }
 
 export default AppearanceSwitch

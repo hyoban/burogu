@@ -43,12 +43,12 @@ ni -D prettier
 
 ```json
 {
-	"scripts": {
-		"format": "prettier --write ."
-	},
-	"prettier": {
-		"semi": false
-	}
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "prettier": {
+    "semi": false
+  }
 }
 ```
 
@@ -59,8 +59,8 @@ ni -D prettier
 
 ```json
 {
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
-	"editor.formatOnSave": true
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }
 ```
 
@@ -72,18 +72,18 @@ ni -D prettier
 取决于你自己，可以设置好一份 `.editorconfig` 文件，它的配置项会被 Prettier 识别。
 安装 [EditorConfig VSCode 插件][] 后，也能按配置调整 vscode 的工作区设置。
 
-```
-root = true
-
+```ini
 [*]
 charset = utf-8
 end_of_line = lf
 max_line_length = 80
 indent_style = tab
-# indent_style = space
-# indent_size = 2
 insert_final_newline = true
 trim_trailing_whitespace = true
+
+[*.{md,yml}]
+indent_style = space
+indent_size = 2
 ```
 
 > 需要注意 windows 和其它系统的换行符不同，为 crlf。
@@ -112,9 +112,9 @@ trim_trailing_whitespace = true
 
 ```json
 {
-	"editor.codeActionsOnSave": {
-		"source.organizeImports": true
-	}
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
 }
 ```
 
