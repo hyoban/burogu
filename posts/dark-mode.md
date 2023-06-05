@@ -1,6 +1,6 @@
 ---
 title: 如何优雅的支持深色模式
-permalink: dark-mode
+slug: dark-mode
 description: ""
 cover: ""
 publish: true

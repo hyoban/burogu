@@ -13,13 +13,13 @@ export const getMetadataList = async () => {
 		: await getMetadataListNotion()
 }
 
-export const getPost = async (permalink: string): Promise<ValidPost | null> => {
+export const getPost = async (slug: string): Promise<ValidPost | null> => {
 	if (SITE_CONFIG.source === "local") {
-		return await getPostFromLocal(permalink)
+		return await getPostFromLocal(slug)
 	}
-	const metadata = await getPostMetadataNotion(permalink)
+	const metadata = await getPostMetadataNotion(slug)
 	if (!metadata) return null
-	const content = await getPostContentNotion(permalink)
+	const content = await getPostContentNotion(slug)
 	if (!content) return null
 	return {
 		metadata,
@@ -28,11 +28,11 @@ export const getPost = async (permalink: string): Promise<ValidPost | null> => {
 }
 
 export const getPostMetadata = async (
-	permalink: string
+	slug: string
 ): Promise<Metadata | null> => {
 	if (SITE_CONFIG.source === "local") {
-		const post = await getPostFromLocal(permalink)
+		const post = await getPostFromLocal(slug)
 		return post.metadata
 	}
-	return await getPostMetadataNotion(permalink)
+	return await getPostMetadataNotion(slug)
 }

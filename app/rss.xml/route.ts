@@ -26,7 +26,7 @@ export async function GET() {
 	posts?.forEach((post) => {
 		feed.addItem({
 			title: post.title,
-			link: SITE_CONFIG.siteUrl + "/post/" + post.permalink,
+			link: SITE_CONFIG.siteUrl + "/post/" + post.slug,
 			description: post.description,
 			date: dayjs(post.updated).tz(SITE_CONFIG.timeZone).toDate(),
 		})

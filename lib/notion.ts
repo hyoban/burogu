@@ -22,7 +22,7 @@ async function generateNotionPostMetadata(
 	page: PageObjectResponse
 ): Promise<Metadata> {
 	return {
-		permalink: page.id,
+		slug: page.id,
 		date: page.created_time,
 		updated: page.last_edited_time,
 		title:

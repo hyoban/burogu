@@ -1,6 +1,6 @@
 ---
 title: 同步你的 memos 到 Notion
-permalink: memos-to-notion
+slug: memos-to-notion
 description: ""
 cover: ""
 publish: true

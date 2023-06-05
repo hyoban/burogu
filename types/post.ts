@@ -2,7 +2,7 @@ import { getPostContentNotion } from "@/lib/notion"
 
 export type Metadata = {
 	title: string
-	permalink: string
+	slug: string
 	description: string
 	cover: string
 	publish: boolean

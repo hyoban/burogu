@@ -2,9 +2,9 @@ import { LocalPost, Metadata } from "@/types/post"
 import { promises as fs } from "fs"
 import { serialize } from "next-mdx-remote/serialize"
 
-export async function getPostFromLocal(permalink: string): Promise<LocalPost> {
+export async function getPostFromLocal(slug: string): Promise<LocalPost> {
 	const raw = await fs.readFile(
-		`posts/${permalink.replace(/\.md$/, "")}.md`,
+		`posts/${slug.replace(/\.md$/, "")}.md`,
 		"utf-8"
 	)
 

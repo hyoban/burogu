@@ -15,7 +15,7 @@ export default async function Page() {
 		<ul className="space-y-2 sm:space-y-0">
 			{posts.map((post) => (
 				<li
-					key={post.permalink}
+					key={post.slug}
 					className="flex flex-col gap-2 sm:flex-row sm:items-center"
 				>
 					<time
@@ -28,7 +28,7 @@ export default async function Page() {
 						)}
 					</time>
 					<Link
-						href={`/post/${post.permalink}`}
+						href={`/post/${post.slug}`}
 						className="w-fit -translate-x-2 rounded-md px-2 py-1 hover:bg-neutral-100 dark:hover:bg-neutral-800 sm:translate-x-0 sm:px-4 sm:py-2"
 					>
 						{post.title}

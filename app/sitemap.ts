@@ -5,7 +5,7 @@ export default async function sitemap() {
 	const allBlogs = await getMetadataList()
 	const blogs =
 		allBlogs?.map((post) => ({
-			url: `${SITE_CONFIG.siteUrl}/post/${post.permalink}`,
+			url: `${SITE_CONFIG.siteUrl}/post/${post.slug}`,
 			lastModified: post.updated.split("T")[0],
 		})) ?? []
 
