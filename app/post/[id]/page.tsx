@@ -16,7 +16,6 @@ export default async function Page({ params }: { params: { id: string } }) {
 	if (Array.isArray(post.content)) {
 		return (
 			<>
-				{/* @ts-expect-error Server Component */}
 				<NotionPostContent id={params.id} title={post.metadata.title} />
 				<GoBack className="mt-4" />
 			</>

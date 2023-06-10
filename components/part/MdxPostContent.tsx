@@ -25,7 +25,6 @@ const components: MDXRemoteProps["components"] = {
 	},
 	pre: (props) => {
 		return (
-			/* @ts-expect-error Server Component */
 			<CodeBlock
 				block={{
 					code: {
@@ -55,7 +54,6 @@ export default function MdxPostContent({ content, metadata }: LocalPost) {
 	return (
 		<Prose>
 			<h1>{metadata.title}</h1>
-			{/* @ts-expect-error Server Component */}
 			<MDXRemote source={content} components={components} />
 		</Prose>
 	)
