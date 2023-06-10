@@ -27,7 +27,7 @@ const SITE_CONFIG = {
 	authorLink: "https://hyoban.cc",
 	authorEmail: "hi@hyoban.cc",
 	timeZone: "Asia/Shanghai",
-	source: "local",
+	source: "local" as "notion" | "local",
 } as const
 
 export default SITE_CONFIG
