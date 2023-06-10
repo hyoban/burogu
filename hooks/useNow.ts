@@ -1,8 +1,8 @@
+import { useInterval } from "@/hooks"
 import "@/lib/dayjs"
 
 import dayjs from "dayjs"
 import { useState } from "react"
-import { useInterval } from "react-use"
 
 const useNow = () => {
 	const [now, setNow] = useState(dayjs().tz())

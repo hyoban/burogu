@@ -10,14 +10,28 @@ export async function getPostFromLocal(fileName: string): Promise<LocalPost> {
 		parseFrontmatter: true,
 	})
 	const frontmatter = serialized.frontmatter as Metadata
+
 	// remove frontmatter from content
 	const content = raw.replace(/---(.|\n)*?---/, "").trim()
+
 	const title = content.match(/^#\s(.*)/)?.[1] ?? ""
+	// content between next line of title and ___ is description
+	const startIndex = content.indexOf(title) + title.length
+	const stopIndex = content.indexOf("---")
+	if (stopIndex !== -1) {
+		const description = content.substring(startIndex, stopIndex).trim()
+		frontmatter.description = description
+	}
+	// remove title and description from content
+	const contentWithoutTitleAndDescription = content
+		.substring(stopIndex + 3)
+		.trim()
 	frontmatter.slug = slug
 	frontmatter.title = title
+
 	return {
 		metadata: frontmatter,
-		content: content.replace(/^#\s(.*)/, "").trim(),
+		content: contentWithoutTitleAndDescription,
 	}
 }
 

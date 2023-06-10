@@ -1,5 +1,4 @@
 ---
-description: 支持多种数据源，包括本地 md 文件，和 Notion 数据库中的页面
 cover: ""
 publish: true
 date: 2023/5/13 15:17:25
@@ -8,6 +7,10 @@ tags:
 ---
 
 # 使用 Next.js 来构建博客
+
+支持多种数据源，包括本地 md 文件，和 Notion 数据库中的页面
+
+---
 
 ## 使用本地 markdown 文件和 static export
 
