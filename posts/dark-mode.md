@@ -1,6 +1,4 @@
 ---
-title: 如何优雅的支持深色模式
-slug: dark-mode
 description: ""
 cover: ""
 publish: true
@@ -10,6 +8,8 @@ tags:
   - dark-mode
   - jotai
 ---
+
+# 如何优雅的支持深色模式
 
 ## 适配深色模式的网站示例
 
