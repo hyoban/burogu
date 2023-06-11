@@ -19,8 +19,8 @@ const SITE_CONFIG = {
 		},
 	],
 	codeTheme: {
-		light: "nord",
-		dark: "nord",
+		light: "github-light",
+		dark: "github-dark",
 	},
 	siteUrl: "https://hyoban.cc",
 	authorName: "Hyoban",

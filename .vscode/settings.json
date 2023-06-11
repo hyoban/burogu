@@ -15,5 +15,6 @@
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true,
-	"references.preferredLocation": "peek"
+	"references.preferredLocation": "peek",
+	"cSpell.words": ["Hyoban"]
 }
