@@ -26,7 +26,7 @@ async function generateNotionPostMetadata(
 		date: page.created_time,
 		updated: page.last_edited_time,
 		title:
-			page.properties.Name.type === "title"
+			page.properties.Name.type === "title" && page.properties.Name.title.length > 0
 				? page.properties.Name.title[0].plain_text
 				: "",
 		description: "",
