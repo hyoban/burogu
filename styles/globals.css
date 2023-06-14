@@ -5,3 +5,7 @@
 html.dark {
 	color-scheme: dark;
 }
+
+pre::-webkit-scrollbar {
+	display: none;
+}
