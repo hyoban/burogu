@@ -1840,6 +1840,13 @@
       }
     },
     {
+      "name": "Latex variable parameter",
+      "scope": ["variable.parameter.function.latex"],
+      "settings": {
+        "foreground": "#e06c75"
+      }
+    },
+    {
       "name": "variable.other.object",
       "scope": ["variable.other.object"],
       "settings": {
@@ -1900,6 +1907,36 @@
       }
     },
     {
+      "scope": ["log.info"],
+      "settings": {
+        "foreground": "#98c379"
+      }
+    },
+    {
+      "scope": ["log.warning"],
+      "settings": {
+        "foreground": "#e5c07b"
+      }
+    },
+    {
+      "scope": ["log.error"],
+      "settings": {
+        "foreground": "#e06c75"
+      }
+    },
+    {
+      "scope": "keyword.operator.expression.is",
+      "settings": {
+        "foreground": "#c678dd"
+      }
+    },
+    {
+      "scope": "entity.name.label",
+      "settings": {
+        "foreground": "#e06c75"
+      }
+    },
+    {
       "name": "js/ts italic",
       "scope": "entity.other.attribute-name.js,entity.other.attribute-name.ts,entity.other.attribute-name.jsx,entity.other.attribute-name.tsx,variable.parameter,variable.language.super",
       "settings": {
@@ -1909,13 +1946,6 @@
     {
       "name": "comment",
       "scope": "comment.line.double-slash,comment.block.documentation",
-      "settings": {
-        "fontStyle": "italic"
-      }
-    },
-    {
-      "name": "Python Keyword Control",
-      "scope": "keyword.control.import.python,keyword.control.flow.python,keyword.operator.logical.python",
       "settings": {
         "fontStyle": "italic"
       }
