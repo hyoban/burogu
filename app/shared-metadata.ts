@@ -1,5 +1,5 @@
 import SITE_CONFIG from "@/config/site.config"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 
 export const microLinkAPI = "https://i.microlink.io/"
 export const cardUrl = "https://cards.microlink.io/?preset=contentz"
@@ -11,7 +11,7 @@ export const size = {
 
 export const getOGImage = (title: string, description: string) => {
 	return `${microLinkAPI}${encodeURIComponent(
-		cardUrl + `&title=${title}&description=${description}`
+		`${cardUrl  }&title=${title}&description=${description}`
 	)}`
 }
 

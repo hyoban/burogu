@@ -3,8 +3,8 @@ import "@/lib/dayjs"
 import Prose from "@/components/ui/Prose"
 import SITE_CONFIG from "@/config/site.config"
 import { getPostContentNotion } from "@/lib/notion"
-import { NotionContentType } from "@/types/post"
-import {
+import type { NotionContentType } from "@/types/post"
+import type {
 	BookmarkBlockObjectResponse,
 	BulletedListItemBlockObjectResponse,
 	CalloutBlockObjectResponse,
@@ -25,7 +25,8 @@ import * as fs from "fs/promises"
 import { NextTweet } from "next-tweet"
 import Image from "next/image"
 import { join as pathJoin } from "path"
-import { IThemedToken, getHighlighter, renderToHtml } from "shiki"
+import type { IThemedToken} from "shiki";
+import { getHighlighter, renderToHtml } from "shiki"
 
 const RichText = ({
 	richText,
@@ -435,9 +436,7 @@ const ImageBlock = ({
 	return (
 		<Image
 			src={
-				block.image.type === "external"
-					? block.image.external.url
-					: block.image.file.url
+				block.image.type === "external" && block.image.external.url
 			}
 			alt={
 				block.image.caption.length !== 0
@@ -462,11 +461,7 @@ const BookmarkBlock = ({
 				rel="noreferrer"
 				className="block "
 			>
-				{block.bookmark.caption.length !== 0 ? (
-					<RichTextGroup richTexts={block.bookmark.caption} />
-				) : (
-					block.bookmark.url
-				)}
+				{block.bookmark.caption.length !== 0 && <RichTextGroup richTexts={block.bookmark.caption} />}
 			</a>
 		</p>
 	)
@@ -507,10 +502,9 @@ const RenderBlock = ({
 		case "bulleted_list_item":
 			return (
 				<BulletedListBlock block={block.cur}>
-					{block.children?.some(
+					{!!block.children?.some(
 						(child) => child.cur.type === "bulleted_list_item"
-					) ? (
-						<ul>
+					) && <ul>
 							{block.children?.map((child) => (
 								<RenderBlock
 									block={child}
@@ -518,25 +512,15 @@ const RenderBlock = ({
 									removeAnchor={removeAnchor}
 								/>
 							))}
-						</ul>
-					) : (
-						block.children?.map((child) => (
-							<RenderBlock
-								block={child}
-								key={child.cur.id}
-								removeAnchor={removeAnchor}
-							/>
-						))
-					)}
+						</ul>}
 				</BulletedListBlock>
 			)
 		case "numbered_list_item":
 			return (
 				<NumberedListBlock block={block.cur}>
-					{block.children?.some(
+					{!!block.children?.some(
 						(child) => child.cur.type === "numbered_list_item"
-					) ? (
-						<ol>
+					) && <ol>
 							{block.children?.map((child) => (
 								<RenderBlock
 									block={child}
@@ -544,16 +528,7 @@ const RenderBlock = ({
 									removeAnchor={removeAnchor}
 								/>
 							))}
-						</ol>
-					) : (
-						block.children?.map((child) => (
-							<RenderBlock
-								block={child}
-								key={child.cur.id}
-								removeAnchor={removeAnchor}
-							/>
-						))
-					)}
+						</ol>}
 				</NumberedListBlock>
 			)
 		case "code":

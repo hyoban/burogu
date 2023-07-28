@@ -5,7 +5,7 @@ import {
 	getPostContentNotion,
 	getPostMetadataNotion,
 } from "@/lib/notion"
-import { Metadata, ValidPost } from "@/types/post"
+import type { Metadata, ValidPost } from "@/types/post"
 
 export const getMetadataList = async () => {
 	return SITE_CONFIG.source as string === "local"

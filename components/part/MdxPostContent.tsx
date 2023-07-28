@@ -1,7 +1,8 @@
 import { CodeBlock } from "@/components/part/NotionPostContent"
 import Prose from "@/components/ui/Prose"
-import { LocalPost } from "@/types/post"
-import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc"
+import type { LocalPost } from "@/types/post"
+import type { MDXRemoteProps } from "next-mdx-remote/rsc";
+import { MDXRemote } from "next-mdx-remote/rsc"
 import Link from "next/link"
 
 const components: MDXRemoteProps["components"] = {

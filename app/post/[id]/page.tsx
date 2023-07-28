@@ -4,7 +4,7 @@ import NotionPostContent from "@/components/part/NotionPostContent"
 import GoBack from "@/components/ui/GoBack"
 import SITE_CONFIG from "@/config/site.config"
 import { getMetadataList, getPost, getPostMetadata } from "@/lib/post"
-import { Metadata as NextMetadata } from "next"
+import type { Metadata as NextMetadata } from "next"
 import { notFound } from "next/navigation"
 
 export const revalidate = 60

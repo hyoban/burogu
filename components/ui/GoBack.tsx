@@ -26,7 +26,7 @@ export default function GoBack({ className }: BasicProps) {
 				className="underline decoration-dashed decoration-1 underline-offset-4 hover:decoration-solid"
 				onClick={goBack}
 			>
-				{"cd .."}
+				cd ..
 			</button>
 		</div>
 	)

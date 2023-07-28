@@ -1,4 +1,4 @@
-import { LocalPost, Metadata } from "@/types/post"
+import type { LocalPost, Metadata } from "@/types/post"
 import { promises as fs } from "fs"
 import { serialize } from "next-mdx-remote/serialize"
 
