@@ -11,11 +11,11 @@ updated: 2023/7/28 13:55:54
 
 我叫周云亮，23 周岁，Hyoban 是我在网络上的 ID，你可以此页面的页脚中找到我的联系方式。
 
-## 我在哪读书
+## 教育经历
 
 自 2017 年起，本科和研究生都就读于[北方工业大学](https://www.ncut.edu.cn)，计算机科学与技术专业，2024 年毕业。
 
-## 我会什么 & 我做了什么
+## 职业技能
 
 - 熟练使用 React & Next.js，对 React 原理有基本认识（实现过 [big-react](https://github.com/hyoban/big-react)）
   - 熟练使用 React 相关技术栈，如状态管理 [jotai](https://jotai.org) 路由管理 [React Router](https://reactrouter.com) 和网络请求 [swr](https://swr.vercel.app)
@@ -28,7 +28,19 @@ updated: 2023/7/28 13:55:54
 - 热爱开源，在 GitHub 上有 50+ 的 followers 和 200+ 的 star（你可以在我的 [个人主页](https://github.com/hyoban) 中查看我的一些开源项目）。
 - 熟悉后端，能够利用 [Prisma](https://www.prisma.io/)，[tRPC](https://trpc.io/), Next.js 等相关技术进行全栈开发。
 
-## 我的工作经历
+## 个人项目
+
+- [burogu](https://github.com/hyoban/burogu) [预览](https://hyoban.cc)
+  - 基于 Next.js 13 的博客模板
+  - 支持多种数据源（本地 markdown 和 Notion 页面）
+- [kodoku](https://github.com/hyoban/kodoku) [预览](https://kodoku.hyoban.cc)
+  - 从 Notion 数据库中将你的 RSS 订阅信息转换成网页
+- [kirika](https://github.com/hyoban/kirika)
+  - 在将你的笔记在不同平台进行转换
+  - 使用 mono repo 进行代码管理，借助发布的 npm 包实现 [obsidian 插件](https://github.com/hyoban/obsidian-memos-plugin)
+  - 使用 electron 实现桌面软件
+
+## 工作经历
 
 2022 年 7 月 10 日至今在北京白杨融媒数字科技有限公司远程兼职，独立负责前端开发。
 
