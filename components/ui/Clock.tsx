@@ -29,7 +29,6 @@ const Clock = () => {
 							strokeWidth="5"
 							strokeLinecap="round"
 							transform={`rotate(${hour * 30 + minute * 0.5} 50 50)`}
-							/* @ts-expect-error ignore */
 							suppressHydrationWarning
 						/>
 
@@ -42,7 +41,6 @@ const Clock = () => {
 							strokeWidth="5"
 							strokeLinecap="round"
 							transform={`rotate(${minute * 6 + second * 0.1} 50 50)`}
-							/* @ts-expect-error ignore */
 							suppressHydrationWarning
 						/>
 
@@ -56,7 +54,6 @@ const Clock = () => {
 							strokeLinecap="round"
 							transform={`rotate(${second * 6} 50 50)`}
 							opacity={0.8}
-							/* @ts-expect-error ignore */
 							suppressHydrationWarning
 						/>
 					</svg>

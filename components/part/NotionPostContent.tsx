@@ -25,7 +25,7 @@ import * as fs from "fs/promises"
 import { NextTweet } from "next-tweet"
 import Image from "next/image"
 import { join as pathJoin } from "path"
-import type { IThemedToken} from "shiki";
+import type { IThemedToken } from "shiki"
 import { getHighlighter, renderToHtml } from "shiki"
 
 const RichText = ({
@@ -209,7 +209,7 @@ export const H1Block = ({
 	if (!block) return <h1>{children}</h1>
 
 	const anchor = encodeURIComponent(
-		block?.heading_1.rich_text.map((i) => i.plain_text).join("")
+		block?.heading_1.rich_text.map((i) => i.plain_text).join(""),
 	)
 	return (
 		<h1 className="group" id={anchor}>
@@ -231,7 +231,7 @@ export const H2Block = ({
 	if (!block) return <h2>{children}</h2>
 
 	const anchor = encodeURIComponent(
-		block.heading_2.rich_text.map((i) => i.plain_text).join("")
+		block.heading_2.rich_text.map((i) => i.plain_text).join(""),
 	)
 	return (
 		<h2 className="group" id={anchor}>
@@ -253,7 +253,7 @@ export const H3Block = ({
 	if (!block) return <h3>{children}</h3>
 
 	const anchor = encodeURIComponent(
-		block.heading_3.rich_text.map((i) => i.plain_text).join("")
+		block.heading_3.rich_text.map((i) => i.plain_text).join(""),
 	)
 	return (
 		<h3 className="group" id={anchor}>
@@ -368,12 +368,12 @@ export const CodeBlock = async ({
 	const lightTokens = highlighter.codeToThemedTokens(
 		code,
 		language,
-		lightCodeTheme
+		lightCodeTheme,
 	)
 	const darkTokens = highlighter.codeToThemedTokens(
 		code,
 		language,
-		darkCodeTheme
+		darkCodeTheme,
 	)
 
 	const customRenderToHtml = (tokens: IThemedToken[][], themeName: string) => {
@@ -433,21 +433,21 @@ export const CodeBlock = async ({
 const ImageBlock = ({
 	block,
 }: { block: ImageBlockObjectResponse } & BasicProps) => {
-	return (
-		<Image
-			src={
-				block.image.type === "external" && block.image.external.url
-			}
-			alt={
-				block.image.caption.length !== 0
-					? block.image.caption.map((i) => i.plain_text).join("")
-					: ""
-			}
-			sizes="100vw"
-			width={0}
-			height={0}
-		/>
-	)
+	if (block.image.type === "external") {
+		return (
+			<Image
+				src={block.image.external.url}
+				alt={
+					block.image.caption.length !== 0
+						? block.image.caption.map((i) => i.plain_text).join("")
+						: ""
+				}
+				sizes="100vw"
+				width={0}
+				height={0}
+			/>
+		)
+	}
 }
 
 const BookmarkBlock = ({
@@ -461,7 +461,9 @@ const BookmarkBlock = ({
 				rel="noreferrer"
 				className="block "
 			>
-				{block.bookmark.caption.length !== 0 && <RichTextGroup richTexts={block.bookmark.caption} />}
+				{block.bookmark.caption.length !== 0 && (
+					<RichTextGroup richTexts={block.bookmark.caption} />
+				)}
 			</a>
 		</p>
 	)
@@ -503,8 +505,9 @@ const RenderBlock = ({
 			return (
 				<BulletedListBlock block={block.cur}>
 					{!!block.children?.some(
-						(child) => child.cur.type === "bulleted_list_item"
-					) && <ul>
+						(child) => child.cur.type === "bulleted_list_item",
+					) && (
+						<ul>
 							{block.children?.map((child) => (
 								<RenderBlock
 									block={child}
@@ -512,15 +515,17 @@ const RenderBlock = ({
 									removeAnchor={removeAnchor}
 								/>
 							))}
-						</ul>}
+						</ul>
+					)}
 				</BulletedListBlock>
 			)
 		case "numbered_list_item":
 			return (
 				<NumberedListBlock block={block.cur}>
 					{!!block.children?.some(
-						(child) => child.cur.type === "numbered_list_item"
-					) && <ol>
+						(child) => child.cur.type === "numbered_list_item",
+					) && (
+						<ol>
 							{block.children?.map((child) => (
 								<RenderBlock
 									block={child}
@@ -528,7 +533,8 @@ const RenderBlock = ({
 									removeAnchor={removeAnchor}
 								/>
 							))}
-						</ol>}
+						</ol>
+					)}
 				</NumberedListBlock>
 			)
 		case "code":
