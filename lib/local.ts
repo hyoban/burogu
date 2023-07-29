@@ -41,7 +41,7 @@ export async function getMetadataListLocal(): Promise<Metadata[]> {
 	const postsData = await Promise.all(
 		posts.map(async (post) => {
 			return (await getPostFromLocal(post)).metadata
-		})
+		}),
 	)
 
 	return postsData.sort((a, b) => {

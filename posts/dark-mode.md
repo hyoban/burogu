@@ -80,7 +80,7 @@ export function useDark() {
 ```tsx
 if (window.electron) {
   window.electron.setTheme(
-    setting === "system" ? (isDark ? "light" : "dark") : "system"
+    setting === "system" ? (isDark ? "light" : "dark") : "system",
   )
 }
 ```

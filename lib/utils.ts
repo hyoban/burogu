@@ -1,4 +1,4 @@
-import type { ClassValue } from "clsx";
+import type { ClassValue } from "clsx"
 import clsx from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -16,5 +16,5 @@ export function joinFeedItemUrl(feedUrl: string, itemUrl?: string): string {
 	if (isExternalLink(itemUrl)) return itemUrl
 	if (feedUrl.endsWith("/")) feedUrl = feedUrl.slice(0, -1)
 	if (itemUrl.startsWith("/")) itemUrl = itemUrl.slice(1)
-	return `${feedUrl  }/${  itemUrl}`
+	return `${feedUrl}/${itemUrl}`
 }

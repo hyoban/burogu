@@ -11,13 +11,13 @@ export const size = {
 
 export const getOGImage = (title: string, description: string) => {
 	return `${microLinkAPI}${encodeURIComponent(
-		`${cardUrl  }&title=${title}&description=${description}`
+		`${cardUrl}&title=${title}&description=${description}`,
 	)}`
 }
 
 const image = getOGImage(
 	SITE_CONFIG.siteUrl.replace("https://", ""),
-	SITE_CONFIG.description
+	SITE_CONFIG.description,
 )
 
 export const sharedMetadata: Metadata = {

@@ -19,14 +19,15 @@ const headers = {
 }
 
 async function generateNotionPostMetadata(
-	page: PageObjectResponse
+	page: PageObjectResponse,
 ): Promise<Metadata> {
 	return {
 		slug: page.id,
 		date: page.created_time,
 		updated: page.last_edited_time,
 		title:
-			page.properties.Name.type === "title" && page.properties.Name.title.length > 0
+			page.properties.Name.type === "title" &&
+			page.properties.Name.title.length > 0
 				? page.properties.Name.title[0].plain_text
 				: "",
 		description: "",
@@ -43,13 +44,15 @@ export async function getMetadataListNotion(): Promise<Metadata[] | undefined> {
 			{
 				method: "POST",
 				headers,
-			}
+			},
 		).then((i) => i.json())) as QueryDatabaseResponse
 
 		if (!response.results) return
 
 		return Promise.all(
-			(response.results as PageObjectResponse[]).map(generateNotionPostMetadata)
+			(response.results as PageObjectResponse[]).map(
+				generateNotionPostMetadata,
+			),
 		)
 	} catch (e) {
 		console.error("getPostList", e)
@@ -76,7 +79,7 @@ export type Block = {
 }
 
 export async function getPostContentNotion(
-	blockId: string
+	blockId: string,
 ): Promise<Block[] | null> {
 	try {
 		const blocks: Block[] = []
@@ -84,12 +87,13 @@ export async function getPostContentNotion(
 		// eslint-disable-next-line no-constant-condition
 		while (true) {
 			const response = (await fetch(
-				`https://api.notion.com/v1/blocks/${blockId}/children${ 
-					cursor ? `?start_cursor=${cursor}` : ""}`,
+				`https://api.notion.com/v1/blocks/${blockId}/children${
+					cursor ? `?start_cursor=${cursor}` : ""
+				}`,
 				{
 					method: "GET",
 					headers,
-				}
+				},
 			).then((i) => i.json())) as ListBlockChildrenResponse
 			const results = response.results as BlockObjectResponse[]
 
@@ -104,7 +108,7 @@ export async function getPostContentNotion(
 					return {
 						cur: i,
 					}
-				})
+				}),
 			)
 			blocks.push(...(resultsWithChildren as Block[]))
 			if (!response.next_cursor) {

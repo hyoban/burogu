@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import "@/styles/globals.css"
 
 import { ThemeProvider } from "@/app/provider"

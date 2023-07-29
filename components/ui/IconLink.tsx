@@ -21,7 +21,7 @@ export default function IconLink({
 					: type === "Email"
 					? "i-carbon-email"
 					: "",
-				className
+				className,
 			)}
 		></div>
 	)
@@ -36,6 +36,7 @@ export default function IconLink({
 			target="_blank"
 			rel="noopener noreferrer"
 			className="flex text-2xl"
+			data-cursor="block"
 		>
 			{icon}
 		</a>

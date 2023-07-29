@@ -1,5 +1,7 @@
 "use client"
 
+import { IPadCursorProvider, useIPadCursor } from "ipad-cursor/react"
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	return (
 		<>
@@ -12,4 +14,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 			{children}
 		</>
 	)
+}
+
+export function CursorProvider({ children }: { children: React.ReactNode }) {
+	useIPadCursor()
+	return <IPadCursorProvider config={{}}>{children}</IPadCursorProvider>
 }

@@ -20,6 +20,9 @@ dependencies:
   feed:
     specifier: ^4.2.2
     version: 4.2.2
+  ipad-cursor:
+    specifier: ^0.4.4
+    version: 0.4.4
   jotai:
     specifier: ^2.2.2
     version: 2.2.2(react@18.2.0)
@@ -2374,6 +2377,10 @@ packages:
       has: 1.0.3
       side-channel: 1.0.4
     dev: true
+
+  /ipad-cursor@0.4.4:
+    resolution: {integrity: sha512-JfftapDmfJE+Bksji6TztFeB3rJ9s6zUB5Z1ZuNnU0QFNezXMdNAC0ivQXQr/AQd+mc9XQxS4Zfptx/PP7h9ig==}
+    dev: false
 
   /is-alphabetical@2.0.1:
     resolution: {integrity: sha512-FWyyY60MeTNyeSRpkM2Iry0G9hpr7/9kD40mD/cGQEuilcZYS4okz8SN2Q6rLCJ8gbCt6fN+rC+6tMGS99LaxQ==}

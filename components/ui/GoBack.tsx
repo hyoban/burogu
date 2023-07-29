@@ -18,7 +18,7 @@ export default function GoBack({ className }: BasicProps) {
 		<div
 			className={cn(
 				"flex items-center gap-2 font-mono text-neutral-500 dark:text-neutral-400",
-				className
+				className,
 			)}
 		>
 			<span>{">"}</span>

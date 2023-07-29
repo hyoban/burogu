@@ -12,6 +12,7 @@ const Footer = () => {
 				className="flex text-2xl"
 				target="_blank"
 				rel="noopener noreferrer"
+				data-cursor="block"
 			>
 				<div className="i-carbon-rss" />
 			</a>

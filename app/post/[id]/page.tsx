@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { getOGImage, sharedMetadata, size } from "@/app/shared-metadata"
 import MdxPostContent from "@/components/part/MdxPostContent"
 import NotionPostContent from "@/components/part/NotionPostContent"
@@ -47,7 +48,7 @@ export async function generateMetadata({
 	const metadata = await getPostMetadata(params.id)
 	const image = getOGImage(
 		SITE_CONFIG.siteUrl.replace("https://", ""),
-		metadata?.title || ""
+		metadata?.title || "",
 	)
 
 	return {
